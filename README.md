@@ -9,5 +9,5 @@ To run tests execute: mvn clean install
 |   83540    |      Pedro Lopes        |    pedro.daniel.l@tecnico.ulisboa.pt      | pedrodaniel10  |   2   |
 |   83539    |     Pedro Caldeira      |      caldeira.a.pedro@gmail.com           | PedroACaldeira |   3   |
 |   83521    |     Mariana Mendes      |        marianagprmendes@gmail.com         |   mgprmendes   |   4   |
-|            |                         |                                           |                |   5   |
+|   85080    |       João Pina         |     joaomfpina@tecnico.ulisboa.pt         | JoaoMiguelPina |   5   |
 |            |                         |                                           |                |   6   |
