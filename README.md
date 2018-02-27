@@ -16,7 +16,7 @@ To run tests execute: mvn clean install
 # Tax
 
 |   Number   |          Name           | Grupo |
-| ---------- | ----------------------- | ----- |
+| ---------- | ----------------------- | ----- |   
 |   83530    |      Miguel Regouga     |   1   |
 |   83540    |      Pedro Lopes        |   2   |
 |   83473    |     Hélio Domingos      |   6   |
