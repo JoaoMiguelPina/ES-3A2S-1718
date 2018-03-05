@@ -1,4 +1,4 @@
-package pt;
+package pt.ulisboa.tecnico.softeng.tax.domain;
 
 /**
  * Hello world!
