@@ -45,6 +45,8 @@ public class CarConstructorTest {
 		for(Car c : _vehicles) {
 			Assert.assertNotSame(car.getPlate(), c.getPlate());
 		}
+		
+		
 	}
 	
 	@After
