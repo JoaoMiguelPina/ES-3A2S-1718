@@ -4,7 +4,7 @@ package pt.ulisboa.tecnico.softeng.car;
  * Hello world!
  *
  */
-public class App 
+public class Car
 {
     public static void main( String[] args )
     {
