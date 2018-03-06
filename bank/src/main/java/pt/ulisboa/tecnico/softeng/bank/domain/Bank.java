@@ -105,7 +105,7 @@ public class Bank {
 	}
 
 	public static String processPayment(String IBAN, int amount) {
-		for (Bank bank : Bank.bank)s {
+		for (Bank bank : Bank.banks){
 			if (bank.getAccount(IBAN) != null) {
 				return bank.getAccount(IBAN).withdraw(amount);
 			}
