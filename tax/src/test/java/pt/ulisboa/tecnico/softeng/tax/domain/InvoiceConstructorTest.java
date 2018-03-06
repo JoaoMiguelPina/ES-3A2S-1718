@@ -45,7 +45,7 @@ public class InvoiceConstructorTest {
 	
 	@Test(expected = TaxException.class)
 	public void wrongDate() {
-		new Invoice(REFERENCE, VALUE, IVA, new LocalDate(1900, 3 , 6));
+		new Invoice(REFERENCE, VALUE, IVA, new LocalDate(1969, 12 , 31));
 	}
 	
 
