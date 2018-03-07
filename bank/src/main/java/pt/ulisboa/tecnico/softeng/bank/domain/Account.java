@@ -29,7 +29,6 @@ public class Account {
 		if (!bank.hasClient(client)) {
 			throw new BankException();
 		}
-
 	}
 
 	Bank getBank() {

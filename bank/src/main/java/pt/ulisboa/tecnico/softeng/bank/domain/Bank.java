@@ -82,7 +82,7 @@ public class Bank {
 				return account;
 			}
 		}
-		throw new BankException();
+		return null;
 	}
 
 	public Operation getOperation(String reference) {

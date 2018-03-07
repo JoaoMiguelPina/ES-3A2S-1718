@@ -26,32 +26,32 @@ public class BankGetAccountMethodTest {
 		Assert.assertEquals(account, result);
 	}
 
-	@Test(expected = BankException.class)
+	@Test
 	public void nullIBAN() {
-		this.bank.getAccount(null);
+		Assert.assertNull(this.bank.getAccount(null));
 	}
 
-	@Test(expected = BankException.class)
+	@Test
 	public void emptyIBAN() {
-		this.bank.getAccount("");
+		Assert.assertNull(this.bank.getAccount(""));
 	}
 
-	@Test(expected = BankException.class)
+	@Test
 	public void blankIBAN() {
-		this.bank.getAccount("    ");
+		Assert.assertNull(this.bank.getAccount("    "));
 	}
 
-	@Test(expected = BankException.class)
+	@Test
 	public void emptySetOfAccounts() {
-		this.bank.getAccount("XPTO");
+		Assert.assertNull(this.bank.getAccount("XPTO"));
 	}
 
-	@Test(expected = BankException.class)
+	@Test
 	public void severalAccountsDoNoMatch() {
 		new Account(this.bank, this.client);
 		new Account(this.bank, this.client);
 
-		this.bank.getAccount("XPTO");
+		Assert.assertNull(this.bank.getAccount("XPTO"));
 	}
 
 	@After
