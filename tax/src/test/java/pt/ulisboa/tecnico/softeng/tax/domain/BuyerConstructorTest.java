@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
+
 public class BuyerConstructorTest {
 	private final Buyer buyer;
 	
@@ -22,6 +24,38 @@ public class BuyerConstructorTest {
 		assertEquals(ADDRESS, buyer.getAddress());
 		assertEquals(1, IRS.taxPayers.size());
 		assertEquals(0, buyer.getNumberOfInvoice());
+	}
+	
+	/**BLANK AND NULL NAMES**/
+	@Test(expected = TaxException.class)
+	public void nullName() {
+		new Buyer(NIF, null, ADDRESS);
+	}
+
+	@Test(expected = TaxException.class)
+	public void emptyNameBlank() {
+		new Buyer(NIF, "    ", ADDRESS);
+	}
+	
+	@Test(expected = TaxException.class)
+	public void emptyName() {
+		new Buyer(NIF, "", ADDRESS);
+	}
+	
+	/**BLANK AND NULL ADDRESSES**/
+	@Test(expected = TaxException.class)
+	public void nullAddress() {
+		new Buyer(NIF, NAME, null);
+	}
+
+	@Test(expected = TaxException.class)
+	public void emptyAddressBlank() {
+		new Buyer(NIF, NAME, "    ");
+	}
+	
+	@Test(expected = TaxException.class)
+	public void emptyNIF() {
+		new Buyer(NIF, NAME, "");
 	}
 	
 	@After
