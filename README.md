@@ -13,7 +13,7 @@ To run tests execute: mvn clean install
 |   83473    |     Hélio Domingos      |       helio_domingos@hotmail.com          |  heliodomingos |   6   |
 
 
-# Tax
+# Tax, Activity, Bank & Hotel
 
 |   Number   |          Name           | Grupo |
 | ---------- | ----------------------- | ----- |   
@@ -22,7 +22,7 @@ To run tests execute: mvn clean install
 |   83473    |     Hélio Domingos      |   6   |
 
 
-# Car
+# Car & Broker
 
 |   Number   |          Name           | Grupo |
 | ---------- | ----------------------- | ----- |
