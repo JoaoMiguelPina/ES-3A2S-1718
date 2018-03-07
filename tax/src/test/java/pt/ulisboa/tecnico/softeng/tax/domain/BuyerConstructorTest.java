@@ -22,7 +22,7 @@ public class BuyerConstructorTest {
 		assertEquals(NIF, buyer.getNIF());		
 		assertEquals(NAME, buyer.getName());
 		assertEquals(ADDRESS, buyer.getAddress());
-		assertEquals(1, IRS.taxPayers.size());
+		assertEquals(1, IRS.size());
 		assertEquals(0, buyer.getNumberOfInvoice());
 	}
 	
@@ -97,7 +97,7 @@ public class BuyerConstructorTest {
 	
 	@After
 	public void tearDown() {
-		IRS.taxPayers.clear();
+		IRS.clear();
 	}
 
 }
