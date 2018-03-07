@@ -58,6 +58,43 @@ public class BuyerConstructorTest {
 		new Buyer(NIF, NAME, "");
 	}
 	
+	/**BLANK, NULL AND WRONG NIF's**/
+	@Test(expected = TaxException.class)
+	public void nullNIF() {
+		new Buyer(null, NAME, ADDRESS);
+	}
+
+	@Test(expected = TaxException.class)
+	public void emptyNIFBlank() {
+		new Buyer("    ", NAME, ADDRESS);
+	}
+	
+	@Test(expected = TaxException.class)
+	public void emptyNIF() {
+		new Buyer("", NAME, ADDRESS);
+	}
+	
+	@Test(expected = TaxException.class)
+	public void eightDigitsNIF() {
+		new Buyer("12345678", NAME, ADDRESS);
+	}
+	
+	@Test(expected = TaxException.class)
+	public void tenDigitsNIF() {
+		new Buyer("9876543210", NAME, ADDRESS);
+	}
+	
+	@Test(expected = TaxException.class)
+	public void noDigitsNIF() {
+		new Buyer("TESTESTES", NAME, ADDRESS);
+	}
+	
+	@Test(expected = TaxException.class)
+	public void uniqueNIF() {
+		new Buyer(NIF, NAME, ADDRESS);
+		new Buyer(NIF, NAME, ADDRESS);
+	}
+	
 	@After
 	public void tearDown() {
 		IRS.taxPayers.clear();
