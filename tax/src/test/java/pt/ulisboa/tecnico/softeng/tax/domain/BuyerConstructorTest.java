@@ -9,21 +9,19 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class BuyerConstructorTest {
-	private final Buyer buyer;
-	
 	private final String NIF = "225506740";
-	private final String NAME = "Ronnie O'Sullivan";
+	private final String NAME = "João Silva";
 	private final String ADDRESS = "Rua Agusta nº3";
 	
 	@Test
 	public void sucess() {
-		buyer = new Buyer(NIF, NAME, ADDRESS);
+		Buyer buyer = new Buyer(NIF, NAME, ADDRESS);
 		
 		assertEquals(NIF, buyer.getNif());		
 		assertEquals(NAME, buyer.getName());
 		assertEquals(ADDRESS, buyer.getAddress());
 		assertEquals(1, IRS.size());
-		assertEquals(0, buyer.getNumberOfInvoice());
+		assertEquals(0, buyer.getNumberOfInvoices());
 	}
 	
 	/**BLANK AND NULL NAMES**/

@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
+import java.util.Map;
+
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public abstract class TaxPayer {
@@ -7,6 +9,7 @@ public abstract class TaxPayer {
 	private String name;
 	private String address;
 	private IRS irs;
+	private Map<String, Invoice> invoices;
 	
 	public TaxPayer(String nif, String name, String address){
 		checkArguments(nif, name, address);
@@ -15,6 +18,7 @@ public abstract class TaxPayer {
 		this.name = name;
 		this.address = address;
 		this.irs = IRS.getInstance();
+		this.invoices = new HashMap<>();
 		
 		irs.addTaxPayer(this);
 	}
@@ -55,12 +59,12 @@ public abstract class TaxPayer {
 	public String getNif() {
 		return nif;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public String getAddress() {
 		return address;
 	}
-	
-	
 }
