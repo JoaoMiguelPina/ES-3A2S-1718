@@ -19,7 +19,7 @@ public class BuyerConstructorTest {
 	public void sucess() {
 		buyer = new Buyer(NIF, NAME, ADDRESS);
 		
-		assertEquals(NIF, buyer.getNIF());		
+		assertEquals(NIF, buyer.getNif());		
 		assertEquals(NAME, buyer.getName());
 		assertEquals(ADDRESS, buyer.getAddress());
 		assertEquals(1, IRS.size());
@@ -54,7 +54,7 @@ public class BuyerConstructorTest {
 	}
 	
 	@Test(expected = TaxException.class)
-	public void emptyNIF() {
+	public void emptyAddress() {
 		new Buyer(NIF, NAME, "");
 	}
 	
