@@ -1,7 +1,11 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
+import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
