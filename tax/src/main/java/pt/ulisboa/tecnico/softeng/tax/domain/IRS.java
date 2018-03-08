@@ -27,7 +27,7 @@ public class IRS {
 		taxPayers.put(taxPayer.getNif(), taxPayer);
 	}
 	
-	public TaxPayer getTaxPayer(String nif){
+	public static TaxPayer getTaxPayerByNIF(String nif){
 		return taxPayers.get(nif);
 	}
 	
