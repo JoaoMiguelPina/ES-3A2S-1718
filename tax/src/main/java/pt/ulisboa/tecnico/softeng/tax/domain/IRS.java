@@ -1,11 +1,14 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class IRS {
 	private static IRS instance;
-	private static Set<TaxPayer> taxPayers;
+	private static Map<String, TaxPayer> taxPayers;
 	
 	private IRS(){
-		taxPayers = new HashSet<>();
+		taxPayers = new HashMap<>();
 	}
 	
 	public static IRS getInstance(){
