@@ -67,4 +67,8 @@ public abstract class TaxPayer {
 	public String getAddress() {
 		return address;
 	}
+	
+	public int getNumberOfInvoices(){
+		return this.invoices.size();
+	}
 }
