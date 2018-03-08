@@ -8,9 +8,11 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 public class IRS {
 	private static IRS instance;
 	private static Map<String, TaxPayer> taxPayers;
+	private static Set<InvoiceData> invoices;
 	
 	private IRS(){
 		taxPayers = new HashMap<>();
+		invoices = new HashSet<>();
 	}
 	
 	public static IRS getInstance(){
