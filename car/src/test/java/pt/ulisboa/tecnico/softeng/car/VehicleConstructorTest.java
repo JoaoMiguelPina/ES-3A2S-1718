@@ -11,23 +11,25 @@ public class VehicleConstructorTest {
 
 	@Before
 	public void setUp() {
-		Car car = new Car("12-14-CJ", 34, "Car Deluxe");
-		Motorcycle motor = new Motorcycle("66-65-OC", 80, "Top Fleet");
+		
+		//Local Data is seen as year-month-day
+		RentingData = new rentingdata("1234", "12-13-GF", "123457EFR", "9090", 10-12-12, 14-2-12);
 	}
 
 	@Test
 	public void success() {
 
 		
-		//Vehicle Rent-A-Car must be != NULL
-		Assert.assertNotNull(car.getRentACar());
-		Assert.assertNotNull(motor.getRentACar());
+		//Reference must be unique
+		for(RentingData rd : _references) {
+			Assert.assertNotSame(rentingdata.getReference(), rd.getReference());
+		}
 		
 	}
 	
 	@After
 	public void tearDown() {
-		car.destroyCar();
+		rd.destroyRentingData();
 	}
 
 }
