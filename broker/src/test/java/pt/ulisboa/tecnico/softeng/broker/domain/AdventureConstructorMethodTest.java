@@ -19,12 +19,21 @@ public class AdventureConstructorMethodTest {
 	@Before
 	public void setUp() {
 		this.broker = new Broker("BR01", "eXtremeADVENTURE");
+		
+		
 	}
 
 	@Test
 	public void success() {
 		Adventure adventure = new Adventure(this.broker, this.begin, this.end, AGE, IBAN, AMOUNT);
-
+		
+		//setRoomCancellation test
+		adventure.setRoomCancellation("Alberto");
+		
+		//setActivityCancellation test
+		adventure.setActivityCancellation("Montanhismo");
+		
+		
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.end, adventure.getEnd());
@@ -36,6 +45,13 @@ public class AdventureConstructorMethodTest {
 		Assert.assertNull(adventure.getPaymentConfirmation());
 		Assert.assertNull(adventure.getActivityConfirmation());
 		Assert.assertNull(adventure.getRoomConfirmation());
+		
+		//getRoomCancellation test
+		Assert.assertEquals("Alberto", adventure.getRoomCancellation());
+		//getActivityCancellation test
+		Assert.assertEquals("Montanhismo", adventure.getActivityCancellation());
+		
+		
 	}
 
 	@Test(expected = BrokerException.class)
