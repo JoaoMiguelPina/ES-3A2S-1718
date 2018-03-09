@@ -33,6 +33,9 @@ public class AdventureConstructorMethodTest {
 		//setActivityCancellation test
 		adventure.setActivityCancellation("Montanhismo");
 		
+		//setPaymentCancellation test
+		adventure.setPaymentCancellation("Alberto");
+		
 		
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
@@ -50,6 +53,8 @@ public class AdventureConstructorMethodTest {
 		Assert.assertEquals("Alberto", adventure.getRoomCancellation());
 		//getActivityCancellation test
 		Assert.assertEquals("Montanhismo", adventure.getActivityCancellation());
+		//getPaymentCAncellation test
+		Assert.assertEquals("Alberto", adventure.getPaymentCancellation());
 		
 		
 	}
