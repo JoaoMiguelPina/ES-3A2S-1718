@@ -48,7 +48,7 @@ public class BulkRoomBooking {
 		if (this.cancelled) {
 			return;
 		}
-
+		
 		try {
 			this.references.addAll(HotelInterface.bulkBooking(this.number, this.arrival, this.departure));
 			this.numberOfHotelExceptions = 0;
