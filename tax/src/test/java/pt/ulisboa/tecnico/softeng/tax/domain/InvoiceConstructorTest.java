@@ -25,6 +25,8 @@ public class InvoiceConstructorTest {
 		Assert.assertEquals(IVA, invoice.getIva());
 		Assert.assertEquals(SELLER.getNif(), invoice.getSeller().getNif());
 		Assert.assertEquals(BUYER.getNif(), invoice.getBuyer().getNif());
+		Assert.assertEquals(1, BUYER.getNumberOfInvoices());
+		Assert.assertEquals(1, SELLER.getNumberOfInvoices());
 	}
 	
 	/* NULL */
