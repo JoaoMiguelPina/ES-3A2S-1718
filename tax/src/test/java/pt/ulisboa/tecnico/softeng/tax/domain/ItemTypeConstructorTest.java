@@ -15,7 +15,8 @@ public class ItemTypeConstructorTest {
 	public void sucess() {
 		ItemType iType = new ItemType(tax);
 		
-		assertEquals(23, iType.getTax());
+		assertEquals(tax, iType.getTax());
+		assertEquals(1, IRS.size());
 	}
 	
 	@Test(expected = TaxException.class)
@@ -29,8 +30,13 @@ public class ItemTypeConstructorTest {
 	}
 	
 	@Test(expected = TaxException.class)
+	public void doubleTax() {
+		new ItemType(23.6);
+	}
+	
+	@Test(expected = TaxException.class)
 	public void floatTax() {
-		new ItemType(23,2);
+		new ItemType(23/100);
 	}
 	
 	@After

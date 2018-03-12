@@ -1,18 +1,20 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
 public class ItemType {
-	private static int tax;
+	private int tax;
+	private IRS irs;
 	
 	public ItemType(int new_tax) {
-		setTax(new_tax);
+		this.tax = new_tax;
+		this.irs = IRS.getInstance();
 	}
 
-	public static int getTax() {
-		return tax;
+	public int getTax() {
+		return this.tax;
 	}
 
-	public static void setTax(int tax) {
-		ItemType.tax = tax;
+	public void setTax(int tax) {
+		this.tax = tax;
 	}
 	
 }
