@@ -10,7 +10,7 @@ public class Adventure {
 	private static Logger logger = LoggerFactory.getLogger(Adventure.class);
 
 	public static enum State {
-		PROCESS_PAYMENT, RESERVE_ACTIVITY, BOOK_ROOM, UNDO, CONFIRMED, CANCELLED
+		PROCESS_PAYMENT, RESERVE_ACTIVITY, BOOK_ROOM, UNDO, CONFIRMED, CANCELLED, DEFAULT
 	}
 
 	private static int counter = 0;
