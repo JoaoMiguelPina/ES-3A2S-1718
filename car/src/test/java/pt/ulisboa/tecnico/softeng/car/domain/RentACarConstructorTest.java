@@ -7,16 +7,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
-import pt.ulisboa.tecnico.softeng.tax.domain.Buyer;
-import pt.ulisboa.tecnico.softeng.tax.exception.CarException;
 
 public class RentACarConstructorTest {
 	private final String NAME = "João Siva";
 	
 	@Test
-	public void sucess() {
+	public void success() {
 		RentACar rentacar = new RentACar(NAME);
 		assertEquals(NAME, rentacar.getName());
+		assertEquals(1, RentACar.rentacars.size());
 	}
 	
 	/**BLANK AND NULL NAMES**/
