@@ -42,7 +42,7 @@ public class InvoiceConstructorTest {
 	}
 	
 	@Test(expected = TaxException.class)
-	public void nullDate() {
+	public void nullItemType() {
 		new Invoice(VALUE, DATE, null, SELLER, BUYER);
 	}
 	
@@ -64,7 +64,7 @@ public class InvoiceConstructorTest {
 	}
 	
 	@Test(expected = TaxException.class)
-	public void negativeValue() {
+	public void notBefore1970Date() {
 		newDATE = new LocalDate(1965, 3, 6); 
 		new Invoice(VALUE, newDATE, ITEM_TYPE, SELLER, BUYER);
 	}
