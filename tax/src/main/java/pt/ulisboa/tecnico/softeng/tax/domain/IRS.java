@@ -13,10 +13,12 @@ public class IRS {
 	private static IRS instance = getInstance();
 	private static Map<String, TaxPayer> taxPayers;
 	private static Set<InvoiceData> invoices;
+	private static Set<ItemType> itemTypes;
 	
 	private IRS(){
 		taxPayers = new HashMap<>();
 		invoices = new HashSet<>();
+		itemTypes = new HashSet<>();
 	}
 	
 	public static IRS getInstance(){
@@ -41,7 +43,17 @@ public class IRS {
 		return taxPayers.size();
 	}
 	
+	public static int getNumberInvoices(){
+		return invoices.size();
+	}
+	
+	public static int getNumberItemType(){
+		return itemTypes.size();
+	}
+	
 	public static void clear(){
 		taxPayers.clear();
+		invoices.clear();
+		itemTypes.clear();
 	}
 }
