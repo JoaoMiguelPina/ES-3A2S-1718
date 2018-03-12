@@ -10,7 +10,7 @@ import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class IRS {
-	private static IRS instance;
+	private static IRS instance = getInstance();
 	private static Map<String, TaxPayer> taxPayers;
 	private static Set<InvoiceData> invoices;
 	
