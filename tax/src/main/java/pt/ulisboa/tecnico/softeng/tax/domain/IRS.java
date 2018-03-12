@@ -37,7 +37,7 @@ public class IRS {
 		return taxPayers.get(nif);
 	}
 	
-	public static int size(){
+	public static int getNumberTaxPayers(){
 		return taxPayers.size();
 	}
 	

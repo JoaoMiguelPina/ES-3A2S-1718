@@ -16,7 +16,7 @@ public class ItemTypeConstructorTest {
 		ItemType iType = new ItemType(tax);
 		
 		assertEquals(tax, iType.getTax());
-		assertEquals(1, IRS.size());
+		assertEquals(1, IRS.getNumberItemType());
 	}
 	
 	@Test(expected = TaxException.class)

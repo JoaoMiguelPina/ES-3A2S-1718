@@ -19,7 +19,7 @@ public class BuyerConstructorTest {
 		assertEquals(NIF, buyer.getNif());		
 		assertEquals(NAME, buyer.getName());
 		assertEquals(ADDRESS, buyer.getAddress());
-		assertEquals(1, IRS.size());
+		assertEquals(1, IRS.getNumberTaxPayers());
 		assertEquals(0, buyer.getNumberOfInvoices());
 	}
 	
