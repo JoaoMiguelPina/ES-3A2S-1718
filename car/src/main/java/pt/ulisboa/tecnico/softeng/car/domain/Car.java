@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.softeng.car;
+package pt.ulisboa.tecnico.softeng.car.domain;
 
 import pt.ulisboa.tecnico.softeng.bank.domain.Car;
 import pt.ulisboa.tecnico.softeng.bank.exception.CarException;
