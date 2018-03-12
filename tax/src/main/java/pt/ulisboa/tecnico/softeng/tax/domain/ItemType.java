@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
+
 public class ItemType {
 	private int tax;
 	private IRS irs;
