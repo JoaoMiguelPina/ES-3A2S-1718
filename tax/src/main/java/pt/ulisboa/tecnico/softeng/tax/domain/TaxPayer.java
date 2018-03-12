@@ -72,4 +72,12 @@ public abstract class TaxPayer {
 	public int getNumberOfInvoices(){
 		return this.invoices.size();
 	}
+	
+	public Invoice getInvoiceByReference(String reference){
+		return invoices.get(reference);
+	}
+	
+	public void addInvoice(Invoice invoice){
+		invoices.put(invoice.getReference(), invoice);
+	}
 }
