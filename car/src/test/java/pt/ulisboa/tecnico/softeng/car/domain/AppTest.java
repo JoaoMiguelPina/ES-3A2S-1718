@@ -1,4 +1,4 @@
-package pt.ulisboa.tecnico.softeng.car;
+package pt.ulisboa.tecnico.softeng.car.domain;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

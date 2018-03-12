@@ -18,4 +18,20 @@ public class RentACarConstructorTest {
 		RentACar rentacar = new RentACar(NAME);
 		assertEquals(NAME, rentacar.getName());
 	}
+	
+	/**BLANK AND NULL NAMES**/
+	@Test(expected = CarException.class)
+	public void nullName() {
+		new RentACar(null);
+	}
+
+	@Test(expected = CarException.class)
+	public void emptyNameBlank() {
+		new RentACar("    ");
+	}
+	
+	@Test(expected = CarException.class)
+	public void emptyName() {
+		new RentACar("");
+	}
 }
