@@ -1,15 +1,14 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
-import pt.ulisboa.tecnico.softeng.bank.domain.Car;
-import pt.ulisboa.tecnico.softeng.bank.exception.CarException;
-import pt.ulisboa.tecnico.softeng.car.RentACar;
+import pt.ulisboa.tecnico.softeng.car.exception.CarException;
+
 
 public class Car{
 	private String plate;
 	private int kilometers;
 	private RentACar rentACar;
 	
-	public Bank(String plate, int , RentACar rentACar) {
+	public Car(String plate, int kilometers, RentACar rentACar) {
 		checkArguments(plate, kilometers, rentACar);
 
 		this.plate = plate;
@@ -19,7 +18,7 @@ public class Car{
 	}
 	
 	private void checkArguments(String plate, int kilometers, RentACar rentACar) {
-		if(kilometers < 0 || plate == 0 || plate == "" || rentACar.getName() == null || rentACar.getName() == "" || rentACar == null) {
+		if(kilometers < 0 || plate == null || plate == "" || rentACar.getName() == null || rentACar.getName() == "" || rentACar == null) {
 			//as especificações do rentACar também podem ser feitas quando criamos o rentACar uma vez que é uma classe
 			throw new CarException();
 		}
@@ -30,7 +29,7 @@ public class Car{
 	public String getPlate() {
 		return this.plate;
 	}
-	public Integer getKilometers() {
+	public int getKilometers() {
 		return this.kilometers;
 	}
 	
