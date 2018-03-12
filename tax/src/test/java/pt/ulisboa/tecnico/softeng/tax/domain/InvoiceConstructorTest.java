@@ -29,6 +29,16 @@ public class InvoiceConstructorTest {
 	}
 	
 	@Test(expected = TaxException.class)
+	public void emptyReference() {
+		new Invoice("", VALUE, IVA, date);
+	}
+	
+	@Test(expected = TaxException.class)
+	public void blankReference() {
+		new Invoice(" ", VALUE, IVA, date);
+	}
+	
+	@Test(expected = TaxException.class)
 	public void nullValue() {
 		new Invoice(REFERENCE, null, IVA, date);
 	}
