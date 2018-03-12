@@ -58,6 +58,7 @@ public class AdventureConstructorMethodTest {
 		Assert.assertEquals("Alberto", adventure.getPaymentCancellation());
 		
 		
+		
 	}
 
 	@Test(expected = BrokerException.class)
