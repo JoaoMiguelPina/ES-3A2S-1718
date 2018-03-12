@@ -15,8 +15,7 @@ import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
 
-public class HotelInterfaceCancelBookingMethodTest {
-	private final int number = 1;	
+public class HotelInterfaceCancelBookingMethodTest {	
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private final LocalDate departure = new LocalDate(2016, 12, 21);
 	private Hotel hotel;
