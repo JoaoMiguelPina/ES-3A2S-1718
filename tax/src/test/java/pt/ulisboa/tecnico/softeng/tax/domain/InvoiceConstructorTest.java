@@ -27,4 +27,14 @@ public class InvoiceConstructorTest {
 		Assert.assertEquals(BUYER.getNif(), invoice.getBuyer().getNif());
 	}
 	
+	@Test(expected = TaxException.class)
+	public void nullValue() {
+		new Invoice(null, DATE, ITEM_TYPE, SELLER, BUYER);
+	}
+	
+	@Test(expected = TaxException.class)
+	public void negativeValue() {
+		new Invoice(-20.6, DATE, ITEM_TYPE, SELLER, BUYER);
+	}
+	
 }
