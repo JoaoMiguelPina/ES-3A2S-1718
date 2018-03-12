@@ -5,6 +5,9 @@ public class ItemType {
 	private IRS irs;
 	
 	public ItemType(int new_tax) {
+		if (new_tax < 0) {
+			throw new TaxException(); 
+		}
 		this.tax = new_tax;
 		this.irs = IRS.getInstance();
 	}

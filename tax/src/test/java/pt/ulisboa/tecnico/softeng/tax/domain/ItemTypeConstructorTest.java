@@ -39,6 +39,11 @@ public class ItemTypeConstructorTest {
 		new ItemType(23/100);
 	}
 	
+	@Test(expected = TaxException.class)
+	public void negativeTax() {
+		new ItemType(-14);
+	}
+	
 	@After
 	public void tearDown() {
 		IRS.clear();
