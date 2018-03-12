@@ -47,7 +47,7 @@ public class InvoiceConstructorTest {
 	}
 	
 	@Test(expected = TaxException.class)
-	public void nullSeller() {
+	public void nullBuyer() {
 		new Invoice(VALUE, DATE, ITEM_TYPE, null, BUYER);
 	}
 	
