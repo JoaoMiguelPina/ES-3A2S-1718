@@ -44,6 +44,7 @@ public class AdventureConstructorMethodTest {
 		Assert.assertEquals(IBAN, adventure.getIBAN());
 		Assert.assertEquals(300, adventure.getAmount());
 		Assert.assertTrue(this.broker.hasAdventure(adventure));
+		Assert.assertNotNull(adventure.getID());
 
 		Assert.assertNull(adventure.getPaymentConfirmation());
 		Assert.assertNull(adventure.getActivityConfirmation());
