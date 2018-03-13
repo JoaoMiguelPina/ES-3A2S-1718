@@ -9,7 +9,7 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.car.Car;
 import pt.ulisboa.tecnico.softeng.car.RentACar;
 
-public class CarChecksMethodTest {
+public class MotorcycleChecksMethodTest {
 	private Car car;
 	private RentACar rentACar;
 

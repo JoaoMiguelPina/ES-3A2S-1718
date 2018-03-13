@@ -21,7 +21,7 @@ public class LicenseChecksMethodTest {
 	
 	@Test
 	public void checks(){
-		//License needs to be created with numbers followed by letter
+		//License needs to be created with letters followed by numbers AAAAA111111
 		String iterated = rd.getLicense();
 		int tamanhoTotal = iterated.length();
 		int tamanhoLetras = 0;
