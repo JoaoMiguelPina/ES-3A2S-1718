@@ -30,6 +30,11 @@ public class ItemTypeConstructorTest {
 		new ItemType(-14);
 	}
 	
+	@Test(expected = TaxException.class)
+	public void overTax() {
+		new ItemType(120);
+	}
+	
 	@After
 	public void tearDown() {
 		IRS.clear();
