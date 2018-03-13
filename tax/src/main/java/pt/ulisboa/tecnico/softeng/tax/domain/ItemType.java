@@ -7,7 +7,7 @@ public class ItemType {
 	private IRS irs;
 	
 	public ItemType(int new_tax) {
-		if (new_tax < 0) {
+		if (new_tax < 0 || new_tax > 100) {
 			throw new TaxException(); 
 		}
 		this.tax = new_tax;
