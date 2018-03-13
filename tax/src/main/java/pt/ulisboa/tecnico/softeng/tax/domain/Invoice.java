@@ -29,6 +29,7 @@ public class Invoice {
 		
 		seller.addInvoice(this);
 		buyer.addInvoice(this);
+		itemType.addInvoice(this);
 	}
 	
 	private void checkArguments(float value, LocalDate date, ItemType itemType, Seller seller, Buyer buyer)	{
