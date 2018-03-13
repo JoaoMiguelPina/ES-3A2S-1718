@@ -33,7 +33,7 @@ public class LicenseChecksMethodTest {
 		Assert.assertTrue(tamanhoLetras>=1);
 		//checking for the numbers
 		for(int i= tamanhoLetras; i < tamanhoTotal; i++) {
-			Assert.assertFalse(iterated[i] >= 65 && iterated[i] < 122);		
+			Assert.assertFalse(iterated.charAt(i) >= 65 && iterated.charAt(i) < 122);		
 		}
 	}
 	
