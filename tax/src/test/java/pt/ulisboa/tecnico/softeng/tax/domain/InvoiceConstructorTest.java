@@ -18,7 +18,6 @@ public class InvoiceConstructorTest {
 	private static final Buyer BUYER = new Buyer("225031690", "António", "Rua Nova");
 	
 	
-	@SuppressWarnings("deprecation")
 	@Test
 	public void success() {
 		Invoice invoice = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
@@ -30,6 +29,7 @@ public class InvoiceConstructorTest {
 		Assert.assertEquals(BUYER.getNif(), invoice.getBuyer().getNif());
 		Assert.assertEquals(1, BUYER.getNumberOfInvoices());
 		Assert.assertEquals(1, SELLER.getNumberOfInvoices());
+		Assert.assertEquals(1, ITEM_TYPE.getNumberOfInvoices());
 	}
 	
 	
