@@ -43,7 +43,7 @@ public class CarChecksMethodTest {
 		Assert.assertEquals("-", car.getPlate().charAt(5));
 		
 		//Plates cant be duplicate
-		for(Car c : _vehicles) {
+		for(Car c : Vehicle.totalVehicles) {
 			Assert.assertNotSame(car.getPlate(), c.getPlate());
 		}
 		
