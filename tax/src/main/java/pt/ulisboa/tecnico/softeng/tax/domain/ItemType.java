@@ -23,10 +23,6 @@ public class ItemType {
 	public int getTax() {
 		return this.tax;
 	}
-
-	public void setTax(int tax) {
-		this.tax = tax;
-	}
 	
 	public int getNumberOfInvoices(){
 		return this.invoices.size();
