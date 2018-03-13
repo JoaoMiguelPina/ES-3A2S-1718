@@ -20,26 +20,6 @@ public class ItemTypeConstructorTest {
 	}
 	
 	@Test(expected = TaxException.class)
-	public void nullTax() {
-		new ItemType(null);
-	}
-
-	@Test(expected = TaxException.class)
-	public void stringTax() {
-		new ItemType("string");
-	}
-	
-	@Test(expected = TaxException.class)
-	public void doubleTax() {
-		new ItemType(23.6);
-	}
-	
-	@Test(expected = TaxException.class)
-	public void floatTax() {
-		new ItemType(23/100);
-	}
-	
-	@Test(expected = TaxException.class)
 	public void negativeTax() {
 		new ItemType(-14);
 	}
