@@ -26,6 +26,9 @@ public class Invoice {
 		this.seller = seller;
 		this.buyer = buyer;
 		this.iva = this.itemType.getTax() * value/100;
+		
+		seller.addInvoice(this);
+		buyer.addInvoice(this);
 	}
 	
 	private void checkArguments(float value, LocalDate date, ItemType itemType, Seller seller, Buyer buyer)	{
@@ -67,10 +70,6 @@ public class Invoice {
 		if(buyer == null){
 			throw new TaxException();
 		}
-	}
-
-	public static void setCounter(int counter) {
-		Invoice.counter = counter;
 	}
 
 	public float getValue() {

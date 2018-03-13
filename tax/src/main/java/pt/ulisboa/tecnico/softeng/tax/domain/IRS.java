@@ -35,6 +35,10 @@ public class IRS {
 		taxPayers.put(taxPayer.getNif(), taxPayer);
 	}
 	
+	public void addItemType(ItemType iType){
+		itemTypes.add(iType);
+	}
+	
 	public static TaxPayer getTaxPayerByNIF(String nif){
 		return taxPayers.get(nif);
 	}

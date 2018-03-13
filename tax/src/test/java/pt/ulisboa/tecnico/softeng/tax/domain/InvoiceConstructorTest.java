@@ -92,7 +92,6 @@ public class InvoiceConstructorTest {
 	/* NEGATIVE VALUES */
 	
 	
-	
 	@Test(expected = TaxException.class)
 	public void notBefore1904() {
 		LocalDate newDATE = new LocalDate(1904, 3, 6); 
