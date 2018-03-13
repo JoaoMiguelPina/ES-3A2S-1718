@@ -72,10 +72,6 @@ public class Invoice {
 		}
 	}
 
-	public static void setCounter(int counter) {
-		Invoice.counter = counter;
-	}
-
 	public float getValue() {
 		return this.value;
 	}
