@@ -39,6 +39,7 @@ public class RentingDataConstructorTest {
 	public void tearDown() {
 		car.destroyCar();
 		motor.destroyMotorcycle();
+		rd.destroyRentingData();
 	}
 
 }
