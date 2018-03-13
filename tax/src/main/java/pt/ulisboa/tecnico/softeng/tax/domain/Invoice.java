@@ -43,6 +43,9 @@ public class Invoice {
 	}
 	
 	private void checkDate(LocalDate date){
+		if(date == null){
+			throw new TaxException();
+		}
 		if(date.getYear() < 1970){
 			throw new TaxException();
 		}
