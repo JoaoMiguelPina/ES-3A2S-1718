@@ -2,6 +2,9 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +13,8 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class ItemTypeConstructorTest {
 	private final int tax = 23;
+	private IRS irs;
+	private Set<Invoice> invoices = new HashSet<>();
 	
 	@Test
 	public void sucess() {
@@ -17,6 +22,7 @@ public class ItemTypeConstructorTest {
 		
 		assertEquals(tax, iType.getTax());
 		assertEquals(1, IRS.getNumberItemType());
+		assertEquals(0, iType.getNumberOfInvoices());
 	}
 	
 	@Test(expected = TaxException.class)
