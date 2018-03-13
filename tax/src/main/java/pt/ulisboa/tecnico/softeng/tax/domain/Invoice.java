@@ -26,6 +26,9 @@ public class Invoice {
 		this.seller = seller;
 		this.buyer = buyer;
 		this.iva = this.itemType.getTax() * value/100;
+		
+		seller.addInvoice(this);
+		buyer.addInvoice(this);
 	}
 	
 	private void checkArguments(float value, LocalDate date, ItemType itemType, Seller seller, Buyer buyer)	{
