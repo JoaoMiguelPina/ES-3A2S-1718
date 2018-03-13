@@ -2,6 +2,8 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import org.joda.time.LocalDate;
 
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
+
 
 public class Invoice {
 	
@@ -12,20 +14,59 @@ public class Invoice {
 	private final LocalDate date;
 	private final Seller seller;
 	private final Buyer buyer;
-	private ItemType ITEM_TYPE; 
+	private final ItemType itemType; 
 	
-	public Invoice(float val, LocalDate data, ItemType iType, Seller s, Buyer b){
+	public Invoice(float value, LocalDate date, ItemType itemType, Seller seller, Buyer buyer){
+		checkArguments(value, date, itemType, seller, buyer);
+		
 		this.reference = Integer.toString(++Invoice.counter);
-		this.value = val;
-		this.date =data;
-		this.ITEM_TYPE = iType;
-		this.seller = s;
-		this.buyer = b;
-		this.iva = this.ITEM_TYPE.getTax();
+		this.value = value;
+		this.date = date;
+		this.itemType = itemType;
+		this.seller = seller;
+		this.buyer = buyer;
+		this.iva = this.itemType.getTax() * value/100;
 	}
-
-	public int getCounter() {
-		return this.counter;
+	
+	private void checkArguments(float value, LocalDate date, ItemType itemType, Seller seller, Buyer buyer)	{
+		checkValue(value);
+		checkDate(date);
+		checkItemType(itemType);
+		checkSeller(seller);
+		checkBuyer(buyer);
+	}
+	
+	private void checkValue(float value){
+		if(value < 0){
+			throw new TaxException();
+		}
+	}
+	
+	private void checkDate(LocalDate date){
+		if(date == null){
+			throw new TaxException();
+		}
+		if(date.getYear() < 1970){
+			throw new TaxException();
+		}
+	}
+	
+	private void checkItemType(ItemType itemType){
+		if(itemType == null){
+			throw new TaxException();
+		}
+	}
+	
+	private void checkSeller(Seller seller){
+		if(seller == null){
+			throw new TaxException();
+		}
+	}
+	
+	private void checkBuyer(Buyer buyer){
+		if(buyer == null){
+			throw new TaxException();
+		}
 	}
 
 	public static void setCounter(int counter) {
