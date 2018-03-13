@@ -7,7 +7,7 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentACar{
 	public static Set<RentACar> rentacars = new HashSet<>();
-	public Set<Vehicle> vehicles = new HashSet<>();
+	//public Set<Vehicle> vehicles = new HashSet<>();
 	private final String name;
 	private static int counter = 0;
 	private final String code;
