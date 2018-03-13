@@ -17,6 +17,7 @@ public class ItemType {
 		this.tax = new_tax;
 		this.irs = IRS.getInstance();
 		this.invoices = new HashSet<>();
+		irs.addItemType(this);
 	}
 
 	public int getTax() {
