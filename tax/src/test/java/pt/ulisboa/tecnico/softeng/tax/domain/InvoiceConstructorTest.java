@@ -111,4 +111,12 @@ public class InvoiceConstructorTest {
 		assertEquals(newDate, testIn.getDate());
 	}
 	
+	
+	@Test
+	public void uniqueReference(){
+		Invoice invoice1 = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
+		Invoice invoice2 = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
+		Assert.assertNotEquals(invoice1.getReference(), invoice2.getReference());
+	}
+	
 }
