@@ -29,6 +29,13 @@ public class InvoiceConstructorTest {
 		Assert.assertEquals(1, SELLER.getNumberOfInvoices());
 	}
 	
+	
+	@Test
+	public void checkMatchingItemType() {
+		Invoice newInvoice = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
+		/* TO DO - check #134 */
+	}
+	
 	/* NULL */
 	
 	@Test(expected = TaxException.class)
@@ -65,7 +72,7 @@ public class InvoiceConstructorTest {
 	
 	@Test(expected = TaxException.class)
 	public void notBefore1970Date() {
-		newDATE = new LocalDate(1965, 3, 6); 
+		LocalDate newDATE = new LocalDate(1965, 3, 6); 
 		new Invoice(VALUE, newDATE, ITEM_TYPE, SELLER, BUYER);
 	}
 	
