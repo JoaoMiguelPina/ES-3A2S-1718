@@ -29,6 +29,13 @@ public class InvoiceConstructorTest {
 		Assert.assertEquals(1, SELLER.getNumberOfInvoices());
 	}
 	
+	
+	@Test
+	public void checkMatchingItemType() {
+		Invoice newInvoice = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
+		/* TO DO - check #134 */
+	}
+	
 	/* NULL */
 	
 	@Test(expected = TaxException.class)
