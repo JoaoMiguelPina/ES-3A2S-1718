@@ -3,7 +3,7 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import java.util.HashMap;
 import java.util.Map;
 
-import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
+import pt.ulisboa.tecnico.softeng.tax.exception.*;
 
 public abstract class TaxPayer {
 	private String nif;
