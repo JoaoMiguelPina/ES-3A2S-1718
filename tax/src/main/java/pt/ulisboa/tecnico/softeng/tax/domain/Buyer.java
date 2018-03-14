@@ -7,7 +7,7 @@ public class Buyer extends TaxPayer {
 	}
 	
 	public float taxReturn (int year) {
-		return (float) 0;
+		return this.getTaxReturnByYear(year);
 	}
 
 }

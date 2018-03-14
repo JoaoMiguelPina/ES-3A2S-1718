@@ -93,6 +93,19 @@ public abstract class TaxPayer {
 		return totalIVA;
 	}
 	
+	public float getTaxReturnByYear(int year) {
+		float totalTaxReturn = 0;
+		for (Invoice i: this.invoices.values()) {
+			LocalDate date = i.getDate();
+			int comparingYear = date.getYear();
+			if (comparingYear == year) {
+				totalTaxReturn += i.getIva()*0.05;
+			}
+			else throw new TaxException();
+		}
+		return totalTaxReturn;
+	}
+	
 	public void addInvoice(Invoice invoice){
 		invoices.put(invoice.getReference(), invoice);
 	}
