@@ -3,11 +3,14 @@ package pt.ulisboa.tecnico.softeng.car.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.joda.time.LocalDate;
+
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentACar{
-	public static Set<RentACar> rentacars = new HashSet<>();
-	//public Set<Vehicle> vehicles = new HashSet<>();
+	public static Set<RentACar> rentACars = new HashSet<>();
+	public Set<Car> cars = new HashSet<>();
+	public Set<Motorcycle> motorcycles = new HashSet<>();
 	private final String name;
 	private static int counter = 0;
 	private final String code;
@@ -16,7 +19,7 @@ public class RentACar{
 		this.code = Integer.toString(++RentACar.counter);
 		checkName(name);
 		this.name = name;
-		RentACar.rentacars.add(this);
+		RentACar.rentACars.add(this);
 	}
 
 	public String getName() {
@@ -28,4 +31,9 @@ public class RentACar{
 			throw new CarException();
 		}		
 	}
+	
+	void addCar(Car car) {
+		this.cars.add(car);
+	}
+	
 }
