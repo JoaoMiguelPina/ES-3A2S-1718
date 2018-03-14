@@ -52,4 +52,17 @@ public class RentACar{
 		return cars;
 	}
 	
+	
+	Set<Motorcycle> getAllAvailableMotorcycles(LocalDate begin, LocalDate end) {
+		Set<Motorcycle> motorcycles = new HashSet<>();
+		for (RentACar rentacar : rentACars) {
+			for (Motorcycle motorcycle : rentacar.motorcycles) {
+				if (motorcycle.isFree(begin, end)) {
+					motorcycles.add(motorcycle);
+				}
+			}
+		}
+		return motorcycles;
+	}
+	
 }
