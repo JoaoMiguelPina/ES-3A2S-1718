@@ -1,8 +1,11 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
+import org.joda.time.LocalDate;
+
+import pt.ulisboa.tecnico.softeng.tax.exception.*;
 
 public abstract class TaxPayer {
 	private String nif;
@@ -12,12 +15,13 @@ public abstract class TaxPayer {
 	private Map<String, Invoice> invoices;
 	
 	public TaxPayer(String nif, String name, String address){
+		this.irs = IRS.getInstance();
 		checkArguments(nif, name, address);
 		
 		this.nif = nif;
 		this.name = name;
 		this.address = address;
-		this.irs = IRS.getInstance();
+		
 		this.invoices = new HashMap<>();
 		
 		irs.addTaxPayer(this);
@@ -39,7 +43,7 @@ public abstract class TaxPayer {
 		if(!nif.matches("[0-9]+")){
 			throw new TaxException();
 		}
-		if(irs.getTaxPayer(nif) != null){
+		if(this.irs.getTaxPayerByNIF(nif) != null){
 			throw new TaxException();
 		}
 	}
@@ -70,5 +74,39 @@ public abstract class TaxPayer {
 	
 	public int getNumberOfInvoices(){
 		return this.invoices.size();
+	}
+	
+	public Invoice getInvoiceByReference(String reference){
+		return invoices.get(reference);
+	}
+	
+	public float getIvaByYear(int year) {
+		float totalIVA = 0;
+		for (Invoice i: this.invoices.values()) {
+			LocalDate date = i.getDate();
+			int comparingYear = date.getYear();
+			if (comparingYear == year) {
+				totalIVA += i.getIva();
+			}
+			else throw new TaxException();
+		}
+		return totalIVA;
+	}
+	
+	public float getTaxReturnByYear(int year) {
+		float totalTaxReturn = 0;
+		for (Invoice i: this.invoices.values()) {
+			LocalDate date = i.getDate();
+			int comparingYear = date.getYear();
+			if (comparingYear == year) {
+				totalTaxReturn += i.getIva()*0.05;
+			}
+			else throw new TaxException();
+		}
+		return totalTaxReturn;
+	}
+	
+	public void addInvoice(Invoice invoice){
+		invoices.put(invoice.getReference(), invoice);
 	}
 }

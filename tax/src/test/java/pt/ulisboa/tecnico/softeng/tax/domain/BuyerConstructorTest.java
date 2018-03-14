@@ -1,12 +1,11 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
 import static org.junit.Assert.*;
+import pt.ulisboa.tecnico.softeng.tax.exception.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class BuyerConstructorTest {
 	private final String NIF = "225506740";
@@ -20,7 +19,7 @@ public class BuyerConstructorTest {
 		assertEquals(NIF, buyer.getNif());		
 		assertEquals(NAME, buyer.getName());
 		assertEquals(ADDRESS, buyer.getAddress());
-		assertEquals(1, IRS.size());
+		assertEquals(1, IRS.getNumberTaxPayers());
 		assertEquals(0, buyer.getNumberOfInvoices());
 	}
 	

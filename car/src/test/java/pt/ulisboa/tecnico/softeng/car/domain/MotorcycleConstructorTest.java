@@ -6,26 +6,60 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class MotorcycleConstructorTest {
-	private Motorcycle moto;
+	private Motorcycle motor;
 	private RentACar rentACar;
 
 	@Before
 	public void setUp() {
-		this.rentACar = new RentACar("Deluxe Car");
-		this.moto = new Motorcycle("12-14-CJ", 34, this.rentACar);
+		this.rentACar = new RentACar();
+		this.motor = new Motorcycle("12-14-CJ", 34, this.rentAcar);
 	}
-
+	
 	@Test
-	public void success() {
-		Assert.assertEquals("12-14-CJ", this.moto.getPlate());
-		Assert.assertEquals(34, this.moto.getKilometers());
-		Assert.assertNotNull(this.moto.getRentACar());
+	public void checks(){
+		
+		//Motorcycle cant have negative kms
+		Assert.assertTrue(motor.getKilometers() >= 0);
+		
+		//RentACar cant have a null nor empty name
+		Assert.assertFalse(motor.getRentACar().getName() == "");
+		Assert.assertNotNull(motor.getRentACar().getName());
+		
+		//Plates cant be null and need to have the format: "XX-XX-XX"
+		Assert.assertNotNull(motor.getPlate());
+		
+		Assert.assertNotNull(motor.getPlate().charAt(0));
+		Assert.assertNotNull(motor.getPlate().charAt(1));
+		Assert.assertNotNull(motor.getPlate().charAt(3));
+		Assert.assertNotNull(motor.getPlate().charAt(4));
+		Assert.assertNotNull(motor.getPlate().charAt(6));
+		Assert.assertNotNull(motor.getPlate().charAt(7));
+	
+		Assert.assertEquals("-", motor.getPlate().charAt(2));
+		Assert.assertEquals("-", motor.getPlate().charAt(5));
+		
+		//Plates cant be duplicate
+		for(Motorcycle m : _vehicles) {
+			Assert.assertNotSame(motor.getPlate(), m.getPlate());
+		}
+		
+		//Plates need to be NUMBERS-NUMBERS-LETTERS
+		//checking first NUMBERS
+		Assert.assertTrue(motor.getPlate().charAt(0) >= 48 && motor.getPlate().charAt(0) <= 57);
+		Assert.assertTrue(motor.getPlate().charAt(1) >= 48 && motor.getPlate().charAt(1) <= 57);
+		//checking second NUMBERS
+		Assert.assertTrue(motor.getPlate().charAt(3) >= 48 && motor.getPlate().charAt(3) <= 57);
+		Assert.assertTrue(motor.getPlate().charAt(4) >= 48 && motor.getPlate().charAt(4) <= 57);
+		//checking LETTERS
+		Assert.assertTrue(motor.getPlate().charAt(6) >= 65 && motor.getPlate().charAt(6) <= 90);
+		Assert.assertTrue(motor.getPlate().charAt(7) >= 65 && motor.getPlate().charAt(7) <= 90);
 		
 	}
 	
 	@After
 	public void tearDown() {
-		RentACar.rentacars.clear();
+		rentACar.destroyRentACar();
+		motor.destroyMotorcycle();
 	}
 
 }

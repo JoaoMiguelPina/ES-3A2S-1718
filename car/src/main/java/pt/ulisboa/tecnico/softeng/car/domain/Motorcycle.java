@@ -14,6 +14,7 @@ public class Motorcycle{
 		this.plate = plate;
 		this.kilometers = kilometers;
 		this.rentACar = rentACar;
+		rentACar.addMotorcycle(this);
 
 	}
 	
@@ -22,7 +23,21 @@ public class Motorcycle{
 			//as especificações do rentACar também podem ser feitas quando criamos o rentACar uma vez que é uma classe
 			throw new MotorcycleException();
 		}
-		// fazer ainda a especificação da matricula na classe car
+		
+		//Aplicar restricao da matricula da mota
+		//Assumindo que a matricula tem o formato NUMEROS-NUMEROS-LETRAS
+		//Assumindo que a matricula tem letras em CAPS
+		if(
+				plate.charAt(0) < 48 || plate.charAt(0) > 57 || 
+				plate.charAt(1) < 48 || plate.charAt(1) > 57 || 
+				plate.charAt(3) < 48 || plate.charAt(3) > 57 || 
+				plate.charAt(4) < 48 || plate.charAt(4) > 57 ||
+				plate.charAt(6) < 65 || plate.charAt(6) > 90 ||
+				plate.charAt(7) < 65 || plate.charAt(7) > 90) {
+			throw new MotorcycleException();
+		}
+			
+			
 		
 	}
 	

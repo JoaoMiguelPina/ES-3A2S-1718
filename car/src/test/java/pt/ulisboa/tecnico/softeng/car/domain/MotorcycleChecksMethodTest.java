@@ -9,7 +9,7 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.car.Car;
 import pt.ulisboa.tecnico.softeng.car.RentACar;
 
-public class CarChecksMethodTest {
+public class MotorcycleChecksMethodTest {
 	private Car car;
 	private RentACar rentACar;
 
@@ -43,7 +43,7 @@ public class CarChecksMethodTest {
 		Assert.assertEquals("-", car.getPlate().charAt(5));
 		
 		//Plates cant be duplicate
-		for(Car c : Vehicle.totalVehicles) {
+		for(Car c : _vehicles) {
 			Assert.assertNotSame(car.getPlate(), c.getPlate());
 		}
 		
@@ -58,12 +58,6 @@ public class CarChecksMethodTest {
 		Assert.assertTrue(car.getPlate().charAt(6) >= 65 && car.getPlate().charAt(6) <= 90);
 		Assert.assertTrue(car.getPlate().charAt(7) >= 65 && car.getPlate().charAt(7) <= 90);
 		
-	}
-	
-	@After
-	public void tearDown() {
-		rentACar.destroyRentACar();
-		car.destroyCar();
 	}
 
 }

@@ -26,7 +26,7 @@ public class CarConstructorTest {
 	
 	@After
 	public void tearDown() {
-		RentACar.rentacars.clear();
+		RentACar.rentACars.clear();
 	}
 
 }
