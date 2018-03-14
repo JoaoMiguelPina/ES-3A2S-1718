@@ -26,6 +26,10 @@ public class RentingConstructorTest {
 		Assert.assertArrayEquals(java.time.LocalDate.now(), rd.getBegin());
 		Assert.assertArrayEquals(java.time.LocalDate.now(), rd.getEnd());
 		Assert.assertEquals(33, r.getKm());
+		
+		//I assumed that checkout(kms) means that the kms turn into the value that the function receives
+		r.checkout(20);
+		Assert.assertEquals(20, r.getKm());
 	}
 	
 	@After
