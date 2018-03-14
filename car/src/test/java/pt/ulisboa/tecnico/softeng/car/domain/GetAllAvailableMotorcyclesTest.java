@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class GetAllAvailableMotorcyclesTest{
 	private final String NAME = "João Siva";
-	Set<Car> motorcycles = new HashSet<>();
+	Set<Motorcycle> motorcycles = new HashSet<>();
 	LocalDate BEGIN = LocalDate.now();
 	LocalDate END = LocalDate.now();
 	
