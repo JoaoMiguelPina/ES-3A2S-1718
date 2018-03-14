@@ -15,7 +15,7 @@ public class RentACarConstructorTest {
 	public void success() {
 		RentACar rentacar = new RentACar(NAME);
 		assertEquals(NAME, rentacar.getName());
-		assertEquals(1, RentACar.rentacars.size());
+		assertEquals(1, RentACar.rentACars.size());
 	}
 	
 	/**BLANK AND NULL NAMES**/
