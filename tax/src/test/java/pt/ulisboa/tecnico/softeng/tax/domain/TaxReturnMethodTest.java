@@ -9,13 +9,13 @@ import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
-public class ToPayTest {
-	private static final float VALUE1 = (float) 100.0;
-	private static final LocalDate DATE1 = new LocalDate(2018, 3, 6); 
+public class TaxReturnMethodTest {
+	private static final float VALUE1 = (float) 101.0;
+	private static final LocalDate DATE1 = new LocalDate(2018, 7, 4); 
 	private static final int IVA1 = 23;
 	private static final ItemType ITEM_TYPE1 = new ItemType(IVA1);
-	private static final Seller SELLER1 = new Seller("500192612", "Alberto, Lda", "Rua José Pacheco");
-	private static final Buyer BUYER1 = new Buyer("225031690", "António", "Rua Nova");
+	private static final Seller SELLER1 = new Seller("500142612", "Alberto, Lda", "Rua José Pacheco");
+	private static final Buyer BUYER1 = new Buyer("225231690", "António", "Rua Nova");
 	
 	
 	
@@ -30,25 +30,29 @@ public class ToPayTest {
 	
 	
 	@Test
-	public void successs() {
+	public void success() {
 		
-		float test = SELLER1.toPay(2018);
-		float expect = invoice1.getIva() + invoice2.getIva();
+		float test = BUYER1.taxReturn(2018);
+		float expect = (float) (invoice1.getIva()*0.05);
 		Assert.assertEquals(expect, test, 0);
 	}
 	
 	@Test(expected = TaxException.class)
-	public void noYear() {
-		float test = SELLER1.toPay(2017);
+	public void noYearTax() {
+		float test = BUYER1.taxReturn(2017);
 		float expect = invoice1.getIva() + invoice2.getIva();
 		Assert.assertEquals(expect, test, 0);
 	}
 	
 	
 	@Test(expected = TaxException.class)
-	public void yearBefore1970() {
-		SELLER1.toPay(1969);
+	public void yearBefore1970Tax() {
+		BUYER1.taxReturn(1969);
 	}
 	
+	@After
+	public void tearDown() {
+		IRS.clear();
+	}
 
 }
