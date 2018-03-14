@@ -3,6 +3,8 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.joda.time.LocalDate;
+
 import pt.ulisboa.tecnico.softeng.tax.exception.*;
 
 public abstract class TaxPayer {
@@ -75,6 +77,19 @@ public abstract class TaxPayer {
 	
 	public Invoice getInvoiceByReference(String reference){
 		return invoices.get(reference);
+	}
+	
+	public float getIvaByYear(int year) {
+		float totalIVA = 0;
+		for (Invoice i: this.invoices.values()) {
+			LocalDate date = i.getDate();
+			int comparingYear = date.getYear();
+			if (comparingYear == year) {
+				totalIVA += i.getIva();
+			}
+			else throw new TaxException();
+		}
+		return totalIVA;
 	}
 	
 	public void addInvoice(Invoice invoice){
