@@ -15,12 +15,13 @@ public abstract class TaxPayer {
 	private Map<String, Invoice> invoices;
 	
 	public TaxPayer(String nif, String name, String address){
+		this.irs = IRS.getInstance();
 		checkArguments(nif, name, address);
 		
 		this.nif = nif;
 		this.name = name;
 		this.address = address;
-		this.irs = IRS.getInstance();
+		
 		this.invoices = new HashMap<>();
 		
 		irs.addTaxPayer(this);
@@ -42,7 +43,7 @@ public abstract class TaxPayer {
 		if(!nif.matches("[0-9]+")){
 			throw new TaxException();
 		}
-		if(IRS.getTaxPayerByNIF(nif) != null){
+		if(this.irs.getTaxPayerByNIF(nif) != null){
 			throw new TaxException();
 		}
 	}
