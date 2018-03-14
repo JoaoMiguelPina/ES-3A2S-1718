@@ -28,13 +28,13 @@ public class ItemType {
 		return this.invoices.size();
 	}
 	
-	public Invoice getInvoiceByReference(String reference){
+	public Invoice getInvoiceByReference(String reference) {
 		for(Invoice i: this.invoices) {
 			if (i.getReference() == reference) {
 				return i;
 			}
 		}
-		return null;
+		throw new TaxException();
 	}
 	
 	public void addInvoice(Invoice invoice){

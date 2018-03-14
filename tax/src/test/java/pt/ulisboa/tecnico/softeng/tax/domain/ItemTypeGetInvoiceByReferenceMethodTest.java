@@ -9,10 +9,12 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 
-public class ItemTypeGetInvoiceByReference {
+public class ItemTypeGetInvoiceByReferenceMethodTest {
 	
 	private ItemType iType;
 	private Invoice invoice;
+	private IRS irs = IRS.getInstance();
+	
 	@Before
 	public void setUp() {
 		this.iType = new ItemType(8);
@@ -22,9 +24,10 @@ public class ItemTypeGetInvoiceByReference {
 		LocalDate date = new LocalDate(2018, 3, 10); 
 		Seller seller = new Seller("111222333","Henrique","Rua da Conceicao");
 		Buyer buyer = new Buyer("123456789","Maria","Rua do Carmo"); 
-		invoice = new Invoice((float)8.4, date, itemType, seller, buyer);
+		this.invoice = new Invoice((float)8.4, date, itemType, seller, buyer);
 		
-		this.iType.addInvoice(invoice);
+		this.iType.addInvoice(this.invoice);
+		irs.addItemType(itemType);
 	}
 
 	@Test
@@ -34,10 +37,13 @@ public class ItemTypeGetInvoiceByReference {
 	
 	}
 	
-	@Test (expected = TaxException.class)
+	@Test(expected = TaxException.class)
 	public void nullInvoice() {
-		ItemType itemType = new ItemType(2);
-		itemType.getInvoiceByReference("1");
+		this.iType.getInvoiceByReference("lol");
 	}
 
+	@After
+	public void tearDown() {
+		IRS.clear();
+	}
 }
