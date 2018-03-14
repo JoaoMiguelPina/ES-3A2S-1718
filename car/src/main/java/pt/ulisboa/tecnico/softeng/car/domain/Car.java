@@ -13,6 +13,7 @@ public class Car{
 		this.plate = plate;
 		this.kilometers = kilometers;
 		this.rentACar = rentACar;
+		rentACar.addCar(this);
 
 	}
 	
