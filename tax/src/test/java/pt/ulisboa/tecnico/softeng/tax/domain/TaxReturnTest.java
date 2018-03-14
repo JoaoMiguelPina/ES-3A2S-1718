@@ -29,7 +29,6 @@ public class TaxReturnTest {
 	Invoice invoice2 = new Invoice(VALUE2, DATE2, ITEM_TYPE2, SELLER1, BUYER2);
 	
 	
-	@SuppressWarnings("deprecation")
 	@Test
 	public void success() {
 		
@@ -39,7 +38,7 @@ public class TaxReturnTest {
 	}
 	
 	@Test(expected = TaxException.class)
-	public void noYear() {
+	public void noYearTax() {
 		float test = BUYER1.taxReturn(2017);
 		float expect = invoice1.getIva() + invoice2.getIva();
 		Assert.assertEquals(expect, test, 0);
@@ -47,7 +46,7 @@ public class TaxReturnTest {
 	
 	
 	@Test(expected = TaxException.class)
-	public void yearBefore1970() {
+	public void yearBefore1970Tax() {
 		BUYER1.taxReturn(1969);
 	}
 	

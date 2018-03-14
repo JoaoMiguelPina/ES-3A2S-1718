@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
-public class ToPayMethodTest {
+public class ToPayTest {
 	private static final float VALUE1 = (float) 100.0;
 	private static final LocalDate DATE1 = new LocalDate(2018, 3, 6); 
 	private static final int IVA1 = 23;
@@ -29,9 +29,8 @@ public class ToPayMethodTest {
 	Invoice invoice2 = new Invoice(VALUE2, DATE2, ITEM_TYPE2, SELLER1, BUYER2);
 	
 	
-	@SuppressWarnings("deprecation")
 	@Test
-	public void success() {
+	public void successs() {
 		
 		float test = SELLER1.toPay(2018);
 		float expect = invoice1.getIva() + invoice2.getIva();
