@@ -1,7 +1,9 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.joda.time.LocalDate;
 
@@ -10,6 +12,7 @@ import pt.ulisboa.tecnico.softeng.car.exception.*;
 public abstract class Vehicle {
 	private String plate;
 	private int kilometers;
+	public Set<Renting> rentings = new HashSet<>();
 	
 	public Vehicle(String plate, int kilometers){
 		checkArguments(plate, kilometers);
@@ -54,5 +57,15 @@ public abstract class Vehicle {
 	
 	public int getKilometers() {
 		return this.kilometers;
+	}
+	
+	public Renting getRenting(String reference) {
+		for (Renting renting : this.rentings) {
+			if (renting.getReference().equals(reference)
+					|| (renting.isCancelled() && renting.getCancellation().equals(reference))) {
+				return renting;
+			}
+		}
+		return null;
 	}
 }

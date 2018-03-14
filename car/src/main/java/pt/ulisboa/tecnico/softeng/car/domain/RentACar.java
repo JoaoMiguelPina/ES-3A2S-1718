@@ -9,6 +9,7 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentACar{
 	public static Set<RentACar> rentACars = new HashSet<>();
+	public Set<Vehicle> vehicles = new HashSet<>();
 	public Set<Car> cars = new HashSet<>();
 	public Set<Motorcycle> motorcycles = new HashSet<>();
 	private final String name;
@@ -34,10 +35,12 @@ public class RentACar{
 	
 	void addCar(Car car) {
 		this.cars.add(car);
+		this.vehicles.add(car);
 	}
 	
 	void addMotorcycle(Motorcycle motorcycle) {
 		this.motorcycles.add(motorcycle);
+		this.vehicles.add(motorcycle);
 	}
 	
 	Set<Car> getAllAvailableCars(LocalDate begin, LocalDate end) {
@@ -66,8 +69,8 @@ public class RentACar{
 	}
 	
 	private Renting getRenting(String reference) {
-		for (Car car : this.cars) {
-			Renting renting = car.getRenting(reference);
+		for (Vehicle vehicle : this.vehicles) {
+			Renting renting = vehicle.getRenting(reference);
 			if (renting != null) {
 				return renting;
 			}
