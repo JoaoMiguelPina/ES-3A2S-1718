@@ -14,6 +14,7 @@ public class Motorcycle{
 		this.plate = plate;
 		this.kilometers = kilometers;
 		this.rentACar = rentACar;
+		rentACar.addMotorcycle(this);
 
 	}
 	
