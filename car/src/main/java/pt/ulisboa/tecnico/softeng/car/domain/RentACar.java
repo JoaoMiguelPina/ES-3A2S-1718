@@ -36,6 +36,10 @@ public class RentACar{
 		this.cars.add(car);
 	}
 	
+	void addMotorcycle(Motorcycle motorcycle) {
+		this.motorcycles.add(motorcycle);
+	}
+	
 	Set<Car> getAllAvailableCars(LocalDate begin, LocalDate end) {
 		Set<Car> cars = new HashSet<>();
 		for (RentACar rentacar : rentACars) {
