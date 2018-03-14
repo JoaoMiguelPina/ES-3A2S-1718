@@ -3,23 +3,23 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import static org.junit.Assert.*;
 
 import org.joda.time.LocalDate;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
-public class TaxReturnMethodTest {
-	
-	private static final float VALUE1 = (float) 100.0;
-	private static final LocalDate DATE1 = new LocalDate(2018, 3, 6); 
+public class TaxReturnTest {
+	private static final float VALUE1 = (float) 101.0;
+	private static final LocalDate DATE1 = new LocalDate(2018, 7, 4); 
 	private static final int IVA1 = 23;
 	private static final ItemType ITEM_TYPE1 = new ItemType(IVA1);
-	private static final Seller SELLER1 = new Seller("500192612", "Alberto, Lda", "Rua José Pacheco");
-	private static final Buyer BUYER1 = new Buyer("225031690", "António", "Rua Nova");
+	private static final Seller SELLER1 = new Seller("500142612", "Alberto, Lda", "Rua José Pacheco");
+	private static final Buyer BUYER1 = new Buyer("225231690", "António", "Rua Nova");
 	
 	
 	
-	private static final float VALUE2 = (float) 90.0;
+	private static final float VALUE2 = (float) 100.0;
 	private static final LocalDate DATE2 = new LocalDate(2018, 10, 9); 
 	private static final int IVA2 = 23;
 	private static final ItemType ITEM_TYPE2 = new ItemType(IVA2);
@@ -33,17 +33,16 @@ public class TaxReturnMethodTest {
 	@Test
 	public void success() {
 		
-		float test1 = BUYER1.taxReturn(2018);
-		float test2 = BUYER2.taxReturn(2018);
-		float expect1 = (float) (invoice1.getIva()*0.05);
-		float expect2 = (float) (invoice2.getIva()*0.05);
-		Assert.assertEquals(expect1, test1, 0);
-		Assert.assertEquals(expect2, test2, 0);
+		float test = BUYER1.taxReturn(2018);
+		float expect = (float) (invoice1.getIva()*0.05);
+		Assert.assertEquals(expect, test, 0);
 	}
 	
 	@Test(expected = TaxException.class)
 	public void noYear() {
-		BUYER1.taxReturn(2017);
+		float test = BUYER1.taxReturn(2017);
+		float expect = invoice1.getIva() + invoice2.getIva();
+		Assert.assertEquals(expect, test, 0);
 	}
 	
 	
@@ -51,5 +50,6 @@ public class TaxReturnMethodTest {
 	public void yearBefore1970() {
 		BUYER1.taxReturn(1969);
 	}
+	
 
 }
