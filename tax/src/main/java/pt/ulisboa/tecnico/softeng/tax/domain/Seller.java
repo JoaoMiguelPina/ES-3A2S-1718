@@ -8,6 +8,6 @@ public class Seller extends TaxPayer {
 	}
 	
 	public float toPay(int year) {
-		return this.getIvaByYear(year);
+		return this.getIvaValueByYear(year);
 	}
 }
