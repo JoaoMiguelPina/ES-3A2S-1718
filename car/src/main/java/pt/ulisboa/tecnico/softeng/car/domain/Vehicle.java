@@ -10,6 +10,7 @@ import org.joda.time.LocalDate;
 import pt.ulisboa.tecnico.softeng.car.exception.*;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Booking;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
+import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public abstract class Vehicle {
 	private String plate;
@@ -79,5 +80,16 @@ public abstract class Vehicle {
 		}
 
 		return true;
+	}
+	
+	public Renting rent(String drivingLicence, LocalDate arrival, LocalDate departure) {
+		if (!isFree(arrival, departure)) {
+			throw new CarException();
+		}
+
+		Renting renting = new Renting(drivingLicence, arrival, departure);
+		this.rentings.add(renting);
+
+		return renting;
 	}
 }
