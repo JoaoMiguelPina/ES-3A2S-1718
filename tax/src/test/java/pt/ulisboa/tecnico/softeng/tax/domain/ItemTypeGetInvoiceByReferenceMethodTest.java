@@ -26,8 +26,6 @@ public class ItemTypeGetInvoiceByReferenceMethodTest {
 		Buyer buyer = new Buyer("123456789","Maria","Rua do Carmo"); 
 		this.invoice = new Invoice((float)8.4, date, itemType, seller, buyer);
 		
-		this.iType.addInvoice(this.invoice);
-		irs.addItemType(itemType);
 	}
 
 	@Test
