@@ -30,27 +30,27 @@ public class VehicleRentMethodTest {
 
 	@Test
 	public void success() {
-		Renting renting = this.Car.rent(this.drivingLicence, this.arrival, this.departure);
+		Renting renting = this.car.rent(this.drivingLicence, this.arrival, this.departure);
 
-		Assert.assertEquals(1, this.Car.getNumberOfRentings());
+		Assert.assertEquals(1, this.car.getNumberOfRentings());
 		Assert.assertTrue(renting.getReference().length() > 0);
-		Assert.assertEquals(this.arrival, renting.getArrival());
-		Assert.assertEquals(this.departure, renting.getDeparture());
+		Assert.assertEquals(this.arrival, renting.getBegin());
+		Assert.assertEquals(this.departure, renting.getEnd());
 	}
 
 	@Test(expected = CarException.class)
 	public void noDouble() {
-		this.Car.rent(this.drivingLicence, this.arrival, this.departure);
+		this.car.rent(this.drivingLicence, this.arrival, this.departure);
 	}
 
 	@Test(expected = CarException.class)
 	public void nullType() {
-		this.Car.rent(null, this.arrival, this.departure);
+		this.car.rent(null, this.arrival, this.departure);
 	}
 
 	@Test(expected = CarException.class)
 	public void nullArrival() {
-		this.Car.rent(this.drivingLicence, null, this.departure);
+		this.car.rent(this.drivingLicence, null, this.departure);
 	}
 
 	@Test(expected = CarException.class)
@@ -60,13 +60,13 @@ public class VehicleRentMethodTest {
 
 	@Test
 	public void allConflict() {
-		this.Car.rent(this.drivingLicence, this.arrival, this.departure);
+		this.car.rent(this.drivingLicence, this.arrival, this.departure);
 
 		try {
-			this.Car.rent(this.drivingLicence, this.arrival, this.departure);
+			this.car.rent(this.drivingLicence, this.arrival, this.departure);
 			fail();
 		} catch (CarException Ce) {
-			Assert.assertEquals(1, this.Car.getNumberOfBookings());
+			Assert.assertEquals(1, this.car.getNumberOfRentings());
 		}
 	}
 	
