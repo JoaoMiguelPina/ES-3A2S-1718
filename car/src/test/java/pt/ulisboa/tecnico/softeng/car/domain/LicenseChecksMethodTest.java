@@ -6,23 +6,20 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.car.Car;
-import pt.ulisboa.tecnico.softeng.car.RentACar;
 
 public class LicenseChecksMethodTest {
-	private Car car;
-	private RentACar rentACar;
+	private RentingData rd;
 
 	@Before
 	public void setUp() {
 		
-		RentingData rd = new RentingData("1234", "12-13-GF", "123457EFR", "9090", 10-12-12, 14-2-12);
+		rd = new RentingData("1234", "12-13-GF", "123457EFR", "9090", LocalDate.now(), LocalDate.now());
 	}
 	
 	@Test
 	public void checks(){
 		//License needs to be created with letters followed by numbers AAAAA111111
-		String iterated = rd.getLicense();
+		String iterated = rd.getDrivingLicense();
 		int tamanhoTotal = iterated.length();
 		int tamanhoLetras = 0;
 		//checking that the letters come first
