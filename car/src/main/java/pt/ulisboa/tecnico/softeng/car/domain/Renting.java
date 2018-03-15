@@ -8,33 +8,35 @@ public class Renting{
 	private static int counter = 0;
 
 	private final String reference;
-	private String drivingLicence;
+	private String drivingLicense;
+
 	private String cancellation;
 	private LocalDate cancellationDate;
-	private final LocalDate arrival;
-	private final LocalDate departure;
+	private final LocalDate begin;
+	private final LocalDate end;
 	private int kilometers;
 
-	Renting(String drivingLicence, LocalDate arrival, LocalDate departure) {
-		checkArguments(drivingLicence, arrival, departure);
 
-		this.drivingLicence = drivingLicence;
+	Renting(String drivingLicense, LocalDate begin, LocalDate end) {
+		checkArguments(drivingLicense, begin, end);
+
+		this.drivingLicense = drivingLicense;
 		this.reference = Integer.toString(++Renting.counter);
-		this.arrival = arrival;
-		this.departure = departure;
+		this.begin = begin;
+		this.end = end;
 		this.kilometers = 0;
 	}
 
-	private void checkArguments(String drivingLicence, LocalDate arrival, LocalDate departure) {
-		if (drivingLicence == null || drivingLicence == ""  || arrival == null || departure == null) {
+	private void checkArguments(String drivingLicence, LocalDate begin, LocalDate end) {
+		if (drivingLicence == null || drivingLicence == ""  || begin == null || end == null) {
 			throw new CarException();
 		}
 
-		if (departure.isBefore(arrival)) {
+		if (end.isBefore(begin)) {
 			throw new CarException();
 		}
 		
-		if (invalidDrivingLicence(this.drivingLicence)) {
+		if (invalidDrivingLicence(this.drivingLicense)) {
 			throw new CarException();
 		}
 	}
@@ -66,16 +68,24 @@ public class Renting{
 		return this.cancellation;
 	}
 
-	public LocalDate getArrival() {
-		return this.arrival;
+	public LocalDate getBegin() {
+		return this.begin;
 	}
 
-	public LocalDate getDeparture() {
-		return this.departure;
+	public LocalDate getEnd() {
+		return this.end;
 	}
 
 	public LocalDate getCancellationDate() {
 		return this.cancellationDate;
+	}
+	
+	public String getDrivingLicense() {
+		return drivingLicense;
+	}
+	
+	public int getKilometers() {
+		return kilometers;
 	}
 
 
@@ -89,29 +99,29 @@ public class Renting{
 		return this.cancellation != null;
 	}
 
-	boolean conflict(LocalDate arrival, LocalDate departure) {
+	boolean conflict(LocalDate begin, LocalDate end) {
 		if (isCancelled()) {
 			return false;
 		}
 
-		if (arrival.equals(departure)) {
+		if (begin.equals(end)) {
 			return true;
 		}
 
-		if (departure.isBefore(arrival)) {
+		if (end.isBefore(begin)) {
 			throw new CarException();
 		}
 
-		if ((arrival.equals(this.arrival) || arrival.isAfter(this.arrival)) && arrival.isBefore(this.departure)) {
+		if ((begin.equals(this.begin) || begin.isAfter(this.begin)) && begin.isBefore(this.end)) {
 			return true;
 		}
 
-		if ((departure.equals(this.departure) || departure.isBefore(this.departure))
-				&& departure.isAfter(this.arrival)) {
+		if ((end.equals(this.end) || end.isBefore(this.end))
+				&& end.isAfter(this.begin)) {
 			return true;
 		}
 
-		if ((arrival.isBefore(this.arrival) && departure.isAfter(this.departure))) {
+		if ((begin.isBefore(this.begin) && end.isAfter(this.end))) {
 			return true;
 		}
 

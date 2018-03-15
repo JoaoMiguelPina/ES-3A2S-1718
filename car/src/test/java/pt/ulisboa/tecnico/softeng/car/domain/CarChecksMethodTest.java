@@ -6,8 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.car.Car;
-import pt.ulisboa.tecnico.softeng.car.RentACar;
 
 public class CarChecksMethodTest {
 	private Car car;
@@ -15,8 +13,8 @@ public class CarChecksMethodTest {
 
 	@Before
 	public void setUp() {
-		this.rentACar = new RentACar();
-		this.car = new Car("12-14-CJ", 34, this.rentAcar);
+		this.rentACar = new RentACar("Top Fleet");
+		this.car = new Car("12-14-CJ", 34, this.rentACar);
 	}
 	
 	@Test
@@ -43,7 +41,7 @@ public class CarChecksMethodTest {
 		Assert.assertEquals("-", car.getPlate().charAt(5));
 		
 		//Plates cant be duplicate
-		for(Car c : Vehicle.totalVehicles) {
+		for(Car c : rentACar.cars) {
 			Assert.assertNotSame(car.getPlate(), c.getPlate());
 		}
 		
@@ -62,8 +60,8 @@ public class CarChecksMethodTest {
 	
 	@After
 	public void tearDown() {
-		rentACar.destroyRentACar();
-		car.destroyCar();
+		//rentACar.destroyRentACar();
+		//car.destroyCar();
 	}
 
 }

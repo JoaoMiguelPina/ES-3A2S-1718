@@ -16,7 +16,7 @@ public class LicenseChecksMethodTest {
 	@Before
 	public void setUp() {
 		
-		RentingData rd = new rentingdata("1234", "12-13-GF", "123457EFR", "9090", 10-12-12, 14-2-12);
+		RentingData rd = new RentingData("1234", "12-13-GF", "123457EFR", "9090", 10-12-12, 14-2-12);
 	}
 	
 	@Test

@@ -100,4 +100,14 @@ public abstract class Vehicle {
 
 		return renting;
 	}
+	
+	public int getNumberOfRentings() {
+		int count = 0;
+		for (Renting renting : this.rentings) {
+			if (!renting.isCancelled()) {
+				count++;
+			}
+		}
+		return count;
+	}
 }

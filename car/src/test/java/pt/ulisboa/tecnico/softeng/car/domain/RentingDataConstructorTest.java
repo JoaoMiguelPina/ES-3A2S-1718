@@ -8,12 +8,18 @@ import org.junit.Test;
 
 
 public class RentingDataConstructorTest {
+	
+	private Car car;
+	private Motorcycle motor;
+	private RentingData rd;
 
 	@Before
 	public void setUp() {
-		Car car = new Car("12-14-CJ", 34, "Car Deluxe");
-		Motorcycle motor = new Motorcycle("66-65-OC", 80, "Top Fleet");
-		RentingData rd = new RentingData("1234", "66-67-TC", "AAA111", "Top Fleet", java.time.LocalDate.now(), java.time.LocalDate.now());
+		RentACar rentacar = new RentACar("Car Deluxe");
+		RentACar rentacar2 = new RentACar("Top Fleet");
+		car = new Car("12-14-CJ", 34, rentacar);
+		motor = new Motorcycle("66-65-OC", 80, rentacar2);
+		 rd = new RentingData("1234", "66-67-TC", "AAA111", "Top Fleet", LocalDate.now(), LocalDate.now());
 	
 	}
 

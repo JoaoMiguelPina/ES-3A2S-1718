@@ -7,33 +7,36 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.joda.time.LocalDate;
+
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentingConstructorTest {
 	private final String NAME = "João Siva";
+	Renting renting;
 	
-	@Test
-	public void success() {
-		Renting r = new Renting("1234", "AAA111", java.time.LocalDate.now(), java.time.LocalDate.now(), 33);
+	@Before
+	public void setUp() {
+		this.renting = new Renting("AAA111", LocalDate.now(), LocalDate.now());
 	}
 	
 	@Test
-	public void success {
+	public void success() {
 		
 		//Renting constructor Test
-		Assert.assertEquals("1234", r.getReference());
-		Assert.assertArrayEquals("AAA111", r.getLicense());
-		Assert.assertArrayEquals(java.time.LocalDate.now(), rd.getBegin());
-		Assert.assertArrayEquals(java.time.LocalDate.now(), rd.getEnd());
-		Assert.assertEquals(33, r.getKm());
+		Assert.assertEquals("1234", renting.getReference());
+		Assert.assertEquals("AAA111", renting.getDrivingLicense());
+		Assert.assertEquals(LocalDate.now(), renting.getBegin());
+		Assert.assertEquals(LocalDate.now(), renting.getEnd());
+		Assert.assertEquals(33, renting.getKilometers());
 		
 		//I assumed that checkout(kms) means that the kms turn into the value that the function receives
-		r.checkout(20);
-		Assert.assertEquals(20, r.getKm());
+		renting.checkout(20);
+		Assert.assertEquals(20, this.renting.getKilometers());
 	}
 	
 	@After
 	public void tearDown() {
-		r.destroyRenting();
+		//renting.destroyRenting();
 	}
 }

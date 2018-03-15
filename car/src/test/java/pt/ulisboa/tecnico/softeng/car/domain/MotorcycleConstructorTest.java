@@ -11,8 +11,8 @@ public class MotorcycleConstructorTest {
 
 	@Before
 	public void setUp() {
-		this.rentACar = new RentACar();
-		this.motor = new Motorcycle("12-14-CJ", 34, this.rentAcar);
+		this.rentACar = new RentACar("Top Fleet");
+		this.motor = new Motorcycle("12-14-CJ", 34, this.rentACar);
 	}
 	
 	@Test
@@ -39,7 +39,7 @@ public class MotorcycleConstructorTest {
 		Assert.assertEquals("-", motor.getPlate().charAt(5));
 		
 		//Plates cant be duplicate
-		for(Motorcycle m : _vehicles) {
+		for(Motorcycle m : rentACar.motorcycles) {
 			Assert.assertNotSame(motor.getPlate(), m.getPlate());
 		}
 		
@@ -58,8 +58,8 @@ public class MotorcycleConstructorTest {
 	
 	@After
 	public void tearDown() {
-		rentACar.destroyRentACar();
-		motor.destroyMotorcycle();
+		//rentACar.destroyRentACar();
+		//motor.destroyMotorcycle();
 	}
 
 }
