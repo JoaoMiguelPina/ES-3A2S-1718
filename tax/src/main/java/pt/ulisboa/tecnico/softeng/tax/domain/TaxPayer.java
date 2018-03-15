@@ -92,7 +92,7 @@ public abstract class TaxPayer {
 		return invoices.get(reference);
 	}
 	
-	public float getIvaValueByYear(int year) {
+	protected float getIvaValueByYear(int year) {
 		float totalIVA = 0;
 		for (Invoice i: this.invoices.values()) {
 			LocalDate date = i.getDate();
