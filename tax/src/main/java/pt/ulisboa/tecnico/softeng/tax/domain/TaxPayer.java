@@ -72,6 +72,18 @@ public abstract class TaxPayer {
 		return address;
 	}
 	
+	public void setNif(String nif) {
+		this.nif = nif;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
 	public int getNumberOfInvoices(){
 		return this.invoices.size();
 	}

@@ -7,21 +7,26 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class ItemType {
 	private int tax;
+	private String name;
 	private IRS irs;
 	private Set<Invoice> invoices;
 	
-	public ItemType(int new_tax) {
-		if (new_tax < 0 || new_tax > 100) {
-			throw new TaxException(); 
-		}
-		this.tax = new_tax;
+	/*Tax is in percentage! Between 0*/
+	public ItemType(int tax, String name) {
+		checkArguments(tax, name);
+		
+		this.tax = tax;
 		this.irs = IRS.getInstance();
 		this.invoices = new HashSet<>();
 		irs.addItemType(this);
 	}
-
+	
 	public int getTax() {
 		return this.tax;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 	
 	public int getNumberOfInvoices(){
