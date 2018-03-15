@@ -34,6 +34,28 @@ public class Renting{
 			throw new CarException();
 		}
 		
+		if (invalidDrivingLicence(this.drivingLicence)) {
+			throw new CarException();
+		}
+	}
+	
+	public boolean invalidDrivingLicence(String drivingLicence){
+		if(drivingLicence == null || drivingLicence == "") {
+			return true;
+		}
+		
+		String[] servicoEmissor = drivingLicence.split("\\d+");
+		String[] ordinal = drivingLicence.split("[a-zA-Z]+");
+		if (servicoEmissor.length != 1 || ordinal.length != 1) {
+			return true;
+		}
+		
+		String checkDriving = servicoEmissor[0] + ordinal[0];
+		if(checkDriving != drivingLicence) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	public String getReference() {
