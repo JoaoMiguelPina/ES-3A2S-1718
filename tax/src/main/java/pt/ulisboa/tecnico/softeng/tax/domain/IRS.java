@@ -13,12 +13,12 @@ public class IRS {
 	private static IRS instance = getInstance();
 	private static Map<String, TaxPayer> taxPayers;
 	private static Set<InvoiceData> invoices;
-	private static Set<ItemType> itemTypes;
+	private static Map<String, ItemType> itemTypes;
 	
 	private IRS(){
 		taxPayers = new HashMap<>();
 		invoices = new HashSet<>();
-		itemTypes = new HashSet<>();
+		itemTypes = new HashMap<>();
 	}
 	
 	public static IRS getInstance(){
@@ -36,7 +36,7 @@ public class IRS {
 	}
 	
 	public void addItemType(ItemType iType){
-		itemTypes.add(iType);
+		itemTypes.put(iType.getName(), iType);
 	}
 	
 	public static TaxPayer getTaxPayerByNIF(String nif){
