@@ -55,8 +55,17 @@ public class IRS {
 		return itemTypes.size();
 	}
 	
-	public void submitInvoice(InvoiceData invoiceData) {
-		this.invoices.add(invoiceData);
+	public static void submitInvoice(InvoiceData invoiceData) {
+		String NIFSeller = invoiceData.getSellerNIF();
+		String NIFBuyer = invoiceData.getBuyerNIF();
+		
+		if (getTaxPayerByNIF(NIFSeller) == null || getTaxPayerByNIF(NIFBuyer) == null) {
+			throw new TaxException();
+		}
+		
+		/*DEVEMOS TESTAR SE O ITEM TYPE EXISTE NO itemTypes*/
+		
+		IRS.invoices.add(invoiceData);
 		
 	}
 	
