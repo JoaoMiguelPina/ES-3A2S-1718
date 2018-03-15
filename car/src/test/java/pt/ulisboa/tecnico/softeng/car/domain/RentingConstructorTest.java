@@ -36,7 +36,7 @@ public class RentingConstructorTest {
 		Assert.assertEquals(20, this.renting.getKilometers());
 		
 		//teste do getRenting(reference)
-		Assert.assertEquals(getRenting("12345"), renting.getRentingData("12345"));
+		assertEquals(RAC.getRenting("12345"), renting.getRentingData("12345"));
 	}
 	
 	@After

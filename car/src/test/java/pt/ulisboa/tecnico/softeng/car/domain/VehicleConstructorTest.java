@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.car.domain.RentingData;
+import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 
 public class VehicleConstructorTest {
 	private RentingData rd;
@@ -29,7 +29,7 @@ public class VehicleConstructorTest {
 	
 	@After
 	public void tearDown() {
-		rd.destroyRentingData();
+		//rd.destroyRentingData();
 	}
 
 }

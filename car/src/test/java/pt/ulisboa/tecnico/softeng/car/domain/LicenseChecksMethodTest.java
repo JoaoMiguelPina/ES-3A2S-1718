@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
+
 
 public class LicenseChecksMethodTest {
 	private RentingData rd;
@@ -36,7 +38,7 @@ public class LicenseChecksMethodTest {
 	
 	@After
 	public void tearDown() {
-		rd.destroyRentingData();
+		//rd.destroyRentingData();
 	}
 
 }

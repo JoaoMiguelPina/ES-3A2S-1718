@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
+
 
 public class RentingDataConstructorTest {
 	
@@ -45,7 +47,7 @@ public class RentingDataConstructorTest {
 	public void tearDown() {
 		car.destroyCar();
 		motor.destroyMotorcycle();
-		rd.destroyRentingData();
+		//rd.destroyRentingData();
 	}
 
 }
