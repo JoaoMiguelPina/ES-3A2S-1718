@@ -27,10 +27,11 @@ public class RentingConflictMethodTest {
 		Assert.assertFalse(this.renting.conflict(new LocalDate(2016, 12, 9), new LocalDate(2016, 12, 15)));
 	}
 
+	//alterei aqui de getDeparture e getArrival para getEnd getBegin
 	@Test
 	public void noConflictBecauseItIsCancelled() {
 		this.renting.cancel();
-		Assert.assertFalse(this.renting.conflict(this.renting.getArrival(), this.renting.getDeparture()));
+		Assert.assertFalse(this.renting.conflict(this.renting.getEnd(), this.renting.getBegin()));
 	}
 
 	@Test(expected = CarException.class)
