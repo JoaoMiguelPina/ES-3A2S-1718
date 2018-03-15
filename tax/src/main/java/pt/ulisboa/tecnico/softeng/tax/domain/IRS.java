@@ -55,6 +55,11 @@ public class IRS {
 		return itemTypes.size();
 	}
 	
+	public void submitInvoice(InvoiceData invoiceData) {
+		this.invoices.add(invoiceData);
+		
+	}
+	
 	public static void clear(){
 		taxPayers.clear();
 		invoices.clear();
