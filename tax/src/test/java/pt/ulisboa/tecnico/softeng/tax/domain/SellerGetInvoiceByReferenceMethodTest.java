@@ -12,13 +12,15 @@ public class SellerGetInvoiceByReferenceMethodTest {
 	private final String NIF = "885506900";
 	private final String NAME = "Maria Luisa";
 	private final String ADDRESS = "Rua Morais nº3";
+	private final String ITEM_TYPE = "Mercearia";
+	private final int TAX = 2;
 	private Seller seller;
 	private Invoice invoice;
 	
 	@Before
 	public void setUp() {
 		this.seller = new Seller(NIF, NAME, ADDRESS);
-		ItemType itemType = new ItemType(2);
+		ItemType itemType = new ItemType(ITEM_TYPE, TAX);
 		LocalDate date = new LocalDate(2018, 3, 10); 
 		Buyer buyer = new Buyer("123456789","Maria","Rua do Carmo"); 
 		this.invoice = new Invoice((float)8.4, date, itemType, this.seller, buyer);

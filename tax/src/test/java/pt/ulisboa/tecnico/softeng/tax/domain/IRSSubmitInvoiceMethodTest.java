@@ -17,7 +17,7 @@ public class IRSSubmitInvoiceMethodTest {
 	public void setUp() {
 		Seller seller = new Seller("888888888", "Maria", "Rua da Estrada");
 		Buyer buyer = new Buyer("111111111", "Manel", "Rua da Espera");
-		ItemType iType = new ItemType(2);
+		ItemType iType = new ItemType("Mercearia", 2);
 		this.invoice = new InvoiceData(seller.getNif(), buyer.getNif(), "iType", (float) 14.2, new LocalDate(2018,10,10));
 		
 		

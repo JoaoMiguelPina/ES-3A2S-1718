@@ -12,13 +12,33 @@ public class ItemType {
 	private Set<Invoice> invoices;
 	
 	/*Tax is in percentage! Between 0*/
-	public ItemType(int tax, String name) {
+	public ItemType(String name, int tax) {
 		checkArguments(tax, name);
 		
 		this.tax = tax;
 		this.irs = IRS.getInstance();
 		this.invoices = new HashSet<>();
 		irs.addItemType(this);
+	}
+	
+	private void checkArguments(int tax, String name){
+		checkTax(tax);
+		checkName(name);
+	}
+	
+	private void checkTax(int tax){
+		if (tax < 0 || tax > 100) {
+			throw new TaxException(); 
+		}
+	}
+	
+	private void checkName(String name){
+		if(name == null || name.equals("") || (name.trim()).equals("")){
+			throw new TaxException();
+		}	
+		if(IRS.getItemTypeByName(name) != null){
+			throw new TaxException();
+		}
 	}
 	
 	public int getTax() {

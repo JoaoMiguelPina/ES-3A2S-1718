@@ -17,9 +17,9 @@ public class ItemTypeGetInvoiceByReferenceMethodTest {
 	
 	@Before
 	public void setUp() {
-		this.iType = new ItemType(8);
+		this.iType = new ItemType("Mercearia", 8);
 		
-		ItemType itemType = new ItemType(2);
+		ItemType itemType = new ItemType("Cereais", 2);
 		
 		LocalDate date = new LocalDate(2018, 3, 10); 
 		Seller seller = new Seller("111222333","Henrique","Rua da Conceicao");

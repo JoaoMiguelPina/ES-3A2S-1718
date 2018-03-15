@@ -11,9 +11,10 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class ToPayMethodTest {
 	private static final float VALUE1 = (float) 100.0;
-	private static final LocalDate DATE1 = new LocalDate(2018, 3, 6); 
+	private static final LocalDate DATE1 = new LocalDate(2018, 3, 6);
+	private static final String ITEM_TYPE_NAME1 = "Cereais";
 	private static final int IVA1 = 23;
-	private static final ItemType ITEM_TYPE1 = new ItemType(IVA1);
+	private static final ItemType ITEM_TYPE1 = new ItemType(ITEM_TYPE_NAME1, IVA1);
 	private static final Seller SELLER1 = new Seller("500192612", "Alberto, Lda", "Rua José Pacheco");
 	private static final Buyer BUYER1 = new Buyer("225031690", "António", "Rua Nova");
 	
@@ -21,8 +22,9 @@ public class ToPayMethodTest {
 	
 	private static final float VALUE2 = (float) 100.0;
 	private static final LocalDate DATE2 = new LocalDate(2018, 10, 9); 
+	private static final String ITEM_TYPE_NAME2 = "Mercearia";
 	private static final int IVA2 = 23;
-	private static final ItemType ITEM_TYPE2 = new ItemType(IVA2);
+	private static final ItemType ITEM_TYPE2 = new ItemType(ITEM_TYPE_NAME2, IVA2);
 	private static final Buyer BUYER2 = new Buyer("225031390", "José", "Rua Nova Areeiro");
 	
 	Invoice invoice1 = new Invoice(VALUE1, DATE1, ITEM_TYPE1, SELLER1, BUYER1);

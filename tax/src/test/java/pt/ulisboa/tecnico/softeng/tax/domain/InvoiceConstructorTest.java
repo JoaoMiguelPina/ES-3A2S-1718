@@ -13,7 +13,8 @@ public class InvoiceConstructorTest {
 	private static final float VALUE = (float) 100.0;
 	private static final LocalDate DATE = new LocalDate(2018, 3, 6); 
 	private static final int IVA = 23;
-	private static final ItemType ITEM_TYPE = new ItemType(IVA);
+	private static final String TYPE_NAME = "Mercearia";
+	private static final ItemType ITEM_TYPE = new ItemType(TYPE_NAME, IVA);
 	private static final Seller SELLER = new Seller("500192612", "Alberto, Lda", "Rua José Pacheco");
 	private static final Buyer BUYER = new Buyer("225031690", "António", "Rua Nova");
 	
@@ -65,7 +66,7 @@ public class InvoiceConstructorTest {
 	@Test(expected = TaxException.class)
 	public void overIVA() {
 		int testIVA = 120;
-		ItemType testItemType = new ItemType(testIVA);
+		ItemType testItemType = new ItemType(TYPE_NAME, testIVA);
 		new Invoice(VALUE, DATE, testItemType, SELLER, BUYER);
 	}
 	

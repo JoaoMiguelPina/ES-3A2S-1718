@@ -17,37 +17,37 @@ public class ItemTypeConstructorTest {
 	
 	@Test
 	public void sucess() {
-		ItemType iType = new ItemType(TAX, TYPE_NAME);
+		ItemType iType = new ItemType(TYPE_NAME, TAX);
 		
-		assertEquals(TAX, iType.getTax());
 		assertEquals(TYPE_NAME, iType.getName());
+		assertEquals(TAX, iType.getTax());		
 		assertEquals(1, IRS.getNumberItemType());
 		assertEquals(0, iType.getNumberOfInvoices());
 	}
 	
 	@Test(expected = TaxException.class)
 	public void negativeTax() {
-		new ItemType(-14, TYPE_NAME);
+		new ItemType(TYPE_NAME, -14);
 	}
 	
 	@Test(expected = TaxException.class)
 	public void overTax() {
-		new ItemType(120, TYPE_NAME);
+		new ItemType(TYPE_NAME, 120);
 	}
 	
 	@Test(expected = TaxException.class)
 	public void nullName(){
-		new ItemType(TAX, null);
+		new ItemType(null, TAX);
 	}
 	
 	@Test(expected = TaxException.class)
 	public void emptyNameBlank(){
-		new ItemType(TAX, "    ");
+		new ItemType("    ", TAX);
 	}
 	
 	@Test(expected = TaxException.class)
 	public void emptyName(){
-		new ItemType(TAX, "");
+		new ItemType("", TAX);
 	}
 	
 	@After
