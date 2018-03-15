@@ -68,7 +68,7 @@ public class RentACar{
 		return motorcycles;
 	}
 	
-	private Renting getRenting(String reference) {
+	public Renting getRenting(String reference) {
 		for (Vehicle vehicle : this.vehicles) {
 			Renting renting = vehicle.getRenting(reference);
 			if (renting != null) {

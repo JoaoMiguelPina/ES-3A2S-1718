@@ -13,7 +13,7 @@ public class VehicleConstructorTest {
 	public void setUp() {
 		
 		//Local Data is seen as year-month-day
-		RentingData = new rentingdata("1234", "12-13-GF", "123457EFR", "9090", 10-12-12, 14-2-12);
+		RentingData rentingdata = new rentingdata("1234", "12-13-GF", "123457EFR", "9090", 10-12-12, 14-2-12);
 	}
 
 	@Test
