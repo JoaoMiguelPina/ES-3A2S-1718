@@ -8,6 +8,8 @@ import java.util.Set;
 import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.car.exception.*;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Booking;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 
 public abstract class Vehicle {
 	private String plate;
@@ -67,5 +69,15 @@ public abstract class Vehicle {
 			}
 		}
 		return null;
+	}
+
+	boolean isFree(LocalDate arrival, LocalDate departure) {
+		for (Renting renting : this.rentings) {
+			if (renting.conflict(arrival, departure)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
