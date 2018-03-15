@@ -99,9 +99,6 @@ public class Renting{
 		return this.cancellation != null;
 	}
 	
-	public void checkout(int kms) {
-		kilometers = kilometers + kms;
-	}
 
 	boolean conflict(LocalDate begin, LocalDate end) {
 		if (isCancelled()) {
