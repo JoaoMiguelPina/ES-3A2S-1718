@@ -9,36 +9,62 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class SellerGetInvoiceByReferenceMethodTest {
-	private final String NIF = "885506900";
-	private final String NAME = "Maria Luisa";
-	private final String ADDRESS = "Rua Morais nº3";
-	private final String ITEM_TYPE = "Mercearia";
-	private final int TAX = 2;
+	private ItemType itemType;
+	private LocalDate date;
 	private Seller seller;
+	private Buyer buyer;
 	private Invoice invoice;
+
 	
 	@Before
 	public void setUp() {
-		this.seller = new Seller(NIF, NAME, ADDRESS);
-		ItemType itemType = new ItemType(ITEM_TYPE, TAX);
-		LocalDate date = new LocalDate(2018, 3, 10); 
-		Buyer buyer = new Buyer("123456789","Maria","Rua do Carmo"); 
-		this.invoice = new Invoice((float)8.4, date, itemType, this.seller, buyer);
-		
-		this.seller.addInvoice(this.invoice);
-		
+		this.itemType = new ItemType("Mercearia", 8);
+				
+		this.date = new LocalDate(2018, 3, 10); 
+		this.seller = new Seller("111222333","Henrique","Rua da Conceicao");
+		this.buyer = new Buyer("123456789","Maria","Rua do Carmo"); 
+		this.invoice = new Invoice((float)8.4, this.date, this.itemType, this.seller, this.buyer);
 	}
 
 	@Test
-	public void success() {
-		Assert.assertEquals(this.invoice, this.seller.getInvoiceByReference(this.invoice.getReference()));
-	
+	public void nullInvoice() {
+		Assert.assertNull(this.seller.getInvoiceByReference(null));
 	}
 	
 	@Test
-	public void nullInvoice() {
-		 this.seller.getInvoiceByReference("uma:referencia:invalida");
+	public void noInvoice() {
+		String ref = this.invoice.getReference();
+		this.seller.clear();
+		Assert.assertNull(this.seller.getInvoiceByReference(ref));
 	}
+	
+	@Test
+	public void oneInvoiceSuccess() {
+		String ref = this.invoice.getReference();
+		
+		Assert.assertEquals(this.invoice, this.seller.getInvoiceByReference(ref));
+	}
+	
+	@Test
+	public void oneInvoiceFail() {
+		Assert.assertNull(this.seller.getInvoiceByReference("WrongReference"));
+	}
+	
+	@Test
+	public void twoInvoiceSuccess() {
+		String ref = this.invoice.getReference();
+		new Invoice((float)8.4, this.date, this.itemType, this.seller, this.buyer);
+		
+		Assert.assertEquals(this.invoice, this.seller.getInvoiceByReference(ref));
+	}
+
+	@Test
+	public void twoInvoiceFail() {
+		new Invoice((float)8.4, this.date, this.itemType, this.seller, this.buyer);
+		
+		Assert.assertNull(this.seller.getInvoiceByReference("WrongReference"));
+	}
+	
 
 	@After
 	public void tearDown() {

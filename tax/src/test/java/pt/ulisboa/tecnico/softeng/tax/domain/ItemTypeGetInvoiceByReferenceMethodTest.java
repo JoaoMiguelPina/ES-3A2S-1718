@@ -35,7 +35,7 @@ public class ItemTypeGetInvoiceByReferenceMethodTest {
 	@Test
 	public void noInvoice() {
 		String ref = this.invoice.getReference();
-		this.tearDown();
+		this.itemType.clear();
 		Assert.assertNull(this.itemType.getInvoiceByReference(ref));
 	}
 	
@@ -69,6 +69,5 @@ public class ItemTypeGetInvoiceByReferenceMethodTest {
 	@After
 	public void tearDown() {
 		IRS.clear();
-		this.itemType.clear();
 	}
 }
