@@ -43,7 +43,7 @@ public abstract class TaxPayer {
 		if(!nif.matches("[0-9]+")){
 			throw new TaxException();
 		}
-		if(this.irs.getTaxPayerByNIF(nif) != null){
+		if(IRS.getTaxPayerByNIF(nif) != null){
 			throw new TaxException();
 		}
 	}

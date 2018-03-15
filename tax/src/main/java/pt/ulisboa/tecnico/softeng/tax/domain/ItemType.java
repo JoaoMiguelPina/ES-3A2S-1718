@@ -62,4 +62,8 @@ public class ItemType {
 		this.invoices.put(invoice.getReference(), invoice);
 	}
 	
+	public void clear(){
+		invoices.clear();
+	}
+	
 }
