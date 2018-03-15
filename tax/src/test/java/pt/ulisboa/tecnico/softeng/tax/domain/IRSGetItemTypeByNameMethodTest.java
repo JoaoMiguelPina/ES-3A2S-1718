@@ -19,20 +19,20 @@ public class IRSGetItemTypeByNameMethodTest {
 	
 	@Test
 	public void nullParameter() {		
-		ItemType item = new ItemType(ITEM_TYPE_NAME1, IVA1);
+		new ItemType(ITEM_TYPE_NAME1, IVA1);
 		
-		assertNull(IRS.getItemByName(null));
+		assertNull(IRS.getItemTypeByName(null));
 	}
 	
 	@Test
 	public void noItemType() {		
-		assertNull(IRS.getItemByName(ITEM_TYPE_NAME1));
+		assertNull(IRS.getItemTypeByName(ITEM_TYPE_NAME1));
 	}
 	
 	@Test
 	public void oneItemTypeSucess() {
 		ItemType expected = new ItemType(ITEM_TYPE_NAME1, IVA1);
-		ItemType obtained = IRS.getItemByName(ITEM_TYPE_NAME1);
+		ItemType obtained = IRS.getItemTypeByName(ITEM_TYPE_NAME1);
 		
 		assertEquals(ITEM_TYPE_NAME1, obtained.getName());
 		assertEquals(IVA1, obtained.getTax());
@@ -41,8 +41,8 @@ public class IRSGetItemTypeByNameMethodTest {
 	
 	@Test
 	public void oneItemTypeFail() {
-		ItemType item = new ItemType(ITEM_TYPE_NAME1, IVA1);
-		ItemType obtained = IRS.getItemByName(ITEM_TYPE_NAME2);
+		new ItemType(ITEM_TYPE_NAME1, IVA1);
+		ItemType obtained = IRS.getItemTypeByName(ITEM_TYPE_NAME2);
 		
 		assertNull(obtained);
 	}
@@ -52,7 +52,7 @@ public class IRSGetItemTypeByNameMethodTest {
 		ItemType expected = new ItemType(ITEM_TYPE_NAME1, IVA1);
 		new ItemType(ITEM_TYPE_NAME2, IVA2);
 		
-		ItemType obtained = IRS.getItemByName(ITEM_TYPE_NAME1);
+		ItemType obtained = IRS.getItemTypeByName(ITEM_TYPE_NAME1);
 		
 		assertEquals(ITEM_TYPE_NAME1, obtained.getName());
 		assertEquals(IVA1, obtained.getTax());
@@ -61,10 +61,10 @@ public class IRSGetItemTypeByNameMethodTest {
 	
 	@Test
 	public void twoItemTypeFail() {
-		ItemType item1 = new ItemType(ITEM_TYPE_NAME1, IVA1);
-		ItemType item2 = new ItemType(ITEM_TYPE_NAME2, IVA2);
+		new ItemType(ITEM_TYPE_NAME1, IVA1);
+		new ItemType(ITEM_TYPE_NAME2, IVA2);
 		
-		ItemType obtained = IRS.getItemByName("Teste");
+		ItemType obtained = IRS.getItemTypeByName("Teste");
 		
 		assertNull(obtained);
 	}

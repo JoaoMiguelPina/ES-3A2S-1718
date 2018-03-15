@@ -43,6 +43,10 @@ public class IRS {
 		return taxPayers.get(nif);
 	}
 	
+	public static ItemType getItemTypeByName(String name){
+		return itemTypes.get(name);
+	}
+	
 	public static int getNumberTaxPayers(){
 		return taxPayers.size();
 	}

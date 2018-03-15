@@ -15,6 +15,7 @@ public class ItemType {
 	public ItemType(String name, int tax) {
 		checkArguments(tax, name);
 		
+		this.name = name;
 		this.tax = tax;
 		this.irs = IRS.getInstance();
 		this.invoices = new HashSet<>();

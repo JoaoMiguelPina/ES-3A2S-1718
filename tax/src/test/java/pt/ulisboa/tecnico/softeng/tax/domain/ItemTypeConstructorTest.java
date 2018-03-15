@@ -50,6 +50,12 @@ public class ItemTypeConstructorTest {
 		new ItemType("", TAX);
 	}
 	
+	@Test(expected = TaxException.class)
+	public void uniqueName(){
+		new ItemType(TYPE_NAME, TAX);
+		new ItemType(TYPE_NAME, TAX);
+	}
+	
 	@After
 	public void tearDown() {
 		IRS.clear();
