@@ -1,6 +1,6 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
-import pt.ulisboa.tecnico.softeng.car.exception.CarException;
+
 
 public class Car extends Vehicle{
 	private RentACar rentACar;
@@ -15,6 +15,10 @@ public class Car extends Vehicle{
 	
 	public RentACar getRentACar() {
 		return this.rentACar;
+	}
+	
+	public void destroyCar() {
+		
 	}
 	
 }

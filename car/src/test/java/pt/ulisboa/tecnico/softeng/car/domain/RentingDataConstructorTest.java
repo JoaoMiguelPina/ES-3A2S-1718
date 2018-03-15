@@ -11,7 +11,7 @@ public class RentingDataConstructorTest {
 	
 	private Car car;
 	private Motorcycle motor;
-	private RentingData rd;
+	private static RentingData rd;
 
 	@Before
 	public void setUp() {
@@ -33,11 +33,11 @@ public class RentingDataConstructorTest {
 		
 		//RentingData Constructor test
 		Assert.assertEquals("1234", rd.getReference());
-		Assert.assertArrayEquals("66-67-TC", rd.getPlate());
-		Assert.assertArrayEquals("AAA111", rd.getLicense());
-		Assert.assertArrayEquals("Top Fleet", rd.getRentACar());
-		Assert.assertArrayEquals(java.time.LocalDate.now(), rd.getBegin());
-		Assert.assertArrayEquals(java.time.LocalDate.now(), rd.getEnd());
+		Assert.assertEquals("66-67-TC", rd.getPlate());
+		Assert.assertEquals("AAA111", rd.getDrivingLicense());
+		Assert.assertEquals("Top Fleet", rd.getRentACarCode());
+		Assert.assertEquals(java.time.LocalDate.now(), rd.getBegin());
+		Assert.assertEquals(java.time.LocalDate.now(), rd.getEnd());
 		
 	}
 	

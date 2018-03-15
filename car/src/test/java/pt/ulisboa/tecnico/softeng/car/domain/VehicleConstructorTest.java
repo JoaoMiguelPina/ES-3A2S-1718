@@ -6,23 +6,23 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import pt.ulisboa.tecnico.softeng.car.domain.RentingData;
 
 public class VehicleConstructorTest {
-
+	private RentingData rd;
+	
 	@Before
 	public void setUp() {
 		
 		//Local Data is seen as year-month-day
-		RentingData rentingdata = new rentingdata("1234", "12-13-GF", "123457EFR", "9090", 10-12-12, 14-2-12);
+		rd = new RentingData("1234", "12-13-GF", "123457EFR", "9090", LocalDate.now(), LocalDate.now());
 	}
 
 	@Test
 	public void success() {
-
-		
 		//Reference must be unique
-		for(RentingData rd : _references) {
-			Assert.assertNotSame(rentingdata.getReference(), rd.getReference());
+		for(String iterator : rd._references) {
+			Assert.assertNotSame(iterator, rd.getReference());
 		}
 		
 	}

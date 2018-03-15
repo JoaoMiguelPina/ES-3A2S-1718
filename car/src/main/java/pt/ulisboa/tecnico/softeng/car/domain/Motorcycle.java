@@ -1,6 +1,6 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
-import pt.ulisboa.tecnico.softeng.car.exception.MotorcycleException;
+
 
 public class Motorcycle extends Vehicle{
 	private RentACar rentACar;
@@ -16,6 +16,10 @@ public class Motorcycle extends Vehicle{
 	
 	public RentACar getRentACar() {
 		return this.rentACar;
+	}
+	
+	public void destroyMotorcycle() {
+		
 	}
 	
 }
