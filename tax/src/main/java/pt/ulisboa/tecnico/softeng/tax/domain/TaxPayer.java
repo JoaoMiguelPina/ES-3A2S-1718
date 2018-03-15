@@ -96,4 +96,8 @@ public abstract class TaxPayer {
 	public void addInvoice(Invoice invoice){
 		invoices.put(invoice.getReference(), invoice);
 	}
+	
+	public void clear(){
+		invoices.clear();
+	}
 }
