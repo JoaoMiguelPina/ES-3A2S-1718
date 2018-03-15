@@ -120,4 +120,8 @@ public class InvoiceConstructorTest {
 		Assert.assertNotEquals(invoice1.getReference(), invoice2.getReference());
 	}
 	
+	@After
+	public void tearDown() {
+		IRS.clear();
+	}	
 }

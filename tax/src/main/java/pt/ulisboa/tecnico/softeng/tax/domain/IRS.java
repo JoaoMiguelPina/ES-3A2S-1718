@@ -36,7 +36,17 @@ public class IRS {
 	}
 	
 	public void addItemType(ItemType iType){
+		if(itemTypes.get(iType.getName()) != null){
+			throw new TaxException();
+		}
 		itemTypes.put(iType.getName(), iType);
+	}
+	
+	public static void submitInvoice(InvoiceData invoiceData) {
+		if(invoices.contains(invoiceData)){
+			throw new TaxException();
+		}
+		invoices.add(invoiceData);
 	}
 	
 	public static TaxPayer getTaxPayerByNIF(String nif){
@@ -59,19 +69,6 @@ public class IRS {
 		return itemTypes.size();
 	}
 	
-	public static void submitInvoice(InvoiceData invoiceData) {
-		String NIFSeller = invoiceData.getSellerNIF();
-		String NIFBuyer = invoiceData.getBuyerNIF();
-		
-		if (getTaxPayerByNIF(NIFSeller) == null || getTaxPayerByNIF(NIFBuyer) == null) {
-			throw new TaxException();
-		}
-		
-		/*DEVEMOS TESTAR SE O ITEM TYPE EXISTE NO itemTypes*/
-		
-		IRS.invoices.add(invoiceData);
-		
-	}
 	
 	public static void clear(){
 		taxPayers.clear();
