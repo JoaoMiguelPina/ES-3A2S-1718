@@ -14,6 +14,7 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 public class RentingConstructorTest {
 	private final String NAME = "João Siva";
 	Renting renting;
+	RentACar RAC = new RentACar("tuxedo cars");
 	
 	@Before
 	public void setUp() {
@@ -33,6 +34,9 @@ public class RentingConstructorTest {
 		//I assumed that checkout(kms) means that the kms turn into the value that the function receives
 		renting.checkout(20);
 		Assert.assertEquals(20, this.renting.getKilometers());
+		
+		//teste do getRenting(reference)
+		Assert.assertEquals(getRenting("12345"), renting.getRentingData("12345"));
 	}
 	
 	@After
