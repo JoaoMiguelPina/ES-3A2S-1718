@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import org.joda.time.LocalDate;
@@ -30,12 +31,7 @@ public class VehicleRentMethodTest {
 
 	@Test
 	public void success() {
-		Renting renting = this.car.rent(this.drivingLicence, this.arrival, this.departure);
-
-		Assert.assertEquals(1, this.car.getNumberOfRentings());
-		Assert.assertTrue(renting.getReference().length() > 0);
-		Assert.assertEquals(this.arrival, renting.getBegin());
-		Assert.assertEquals(this.departure, renting.getEnd());
+		assertNotNull(car.rent(drivingLicence, arrival, departure));
 	}
 
 	@Test(expected = CarException.class)
@@ -73,6 +69,8 @@ public class VehicleRentMethodTest {
 	@After
 	public void tearDown() {
 		RentACar.rentACars.clear();
+		Vehicle.vehicles.clear();
+		
 	}
 
 }

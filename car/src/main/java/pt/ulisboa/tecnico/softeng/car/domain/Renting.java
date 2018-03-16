@@ -117,8 +117,13 @@ public class Renting{
 	}
 	
 	public void checkout(int kilometers) {
-		this.kilometers = kilometers;
-		vehicle.setKilometers(vehicle.getKilometers() + kilometers);
+		if(kilometers >= 0) {
+			this.kilometers = kilometers;
+			vehicle.setKilometers(vehicle.getKilometers() + kilometers);
+		}
+		else {
+			throw new CarException();
+		}
 	}
 	
 }
