@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.joda.time.LocalDate;
+
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
@@ -12,12 +14,10 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 public class IRS {
 	private static IRS instance = getInstance();
 	private static Map<String, TaxPayer> taxPayers;
-	private static Set<InvoiceData> invoices;
 	private static Map<String, ItemType> itemTypes;
 	
 	private IRS(){
 		taxPayers = new HashMap<>();
-		invoices = new HashSet<>();
 		itemTypes = new HashMap<>();
 	}
 	
@@ -43,10 +43,17 @@ public class IRS {
 	}
 	
 	public static void submitInvoice(InvoiceData invoiceData) {
-		if(invoices.contains(invoiceData)){
+		TaxPayer seller = getTaxPayerByNIF(invoiceData.getSellerNIF());
+		TaxPayer buyer = getTaxPayerByNIF(invoiceData.getBuyerNIF());
+		LocalDate date = invoiceData.getDate();
+		ItemType itemtype = getItemTypeByName(invoiceData.getItemType());
+		
+		try {
+			new Invoice(invoiceData.getValue(), date, itemtype, (Seller) seller, (Buyer) buyer);
+		}
+		catch(ClassCastException e) {
 			throw new TaxException();
 		}
-		invoices.add(invoiceData);
 	}
 	
 	public static TaxPayer getTaxPayerByNIF(String nif){
@@ -61,9 +68,7 @@ public class IRS {
 		return taxPayers.size();
 	}
 	
-	public static int getNumberInvoices(){
-		return invoices.size();
-	}
+
 	
 	public static int getNumberItemType(){
 		return itemTypes.size();
@@ -72,7 +77,6 @@ public class IRS {
 	
 	public static void clear(){
 		taxPayers.clear();
-		invoices.clear();
 		itemTypes.clear();
 	}
 }

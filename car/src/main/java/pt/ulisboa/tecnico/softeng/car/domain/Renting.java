@@ -15,9 +15,10 @@ public class Renting{
 	private final LocalDate begin;
 	private final LocalDate end;
 	private int kilometers;
+	private Vehicle vehicle;
 
 
-	Renting(String drivingLicense, LocalDate begin, LocalDate end) {
+	Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle) {
 		checkArguments(drivingLicense, begin, end);
 
 		this.drivingLicense = drivingLicense;
@@ -113,4 +114,10 @@ public class Renting{
 
 		return false;
 	}
+	
+	public void checkout(int kilometers) {
+		this.kilometers = kilometers;
+		vehicle.setKilometers(vehicle.getKilometers() + kilometers);
+	}
+	
 }
