@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import pt.ulisboa.tecnico.softeng.car.exception.CarException;
+
 
 public class CarConstructorTest {
 	private Car car;
@@ -22,6 +24,10 @@ public class CarConstructorTest {
 		Assert.assertEquals(34, this.car.getKilometers());
 		Assert.assertNotNull(this.car.getRentACar());
 		
+	}
+	@Test(expected= CarException.class)
+	public void uniquePlates() {
+		new Car("12-14-CJ", 34, this.rentACar);
 	}
 	
 	@After
