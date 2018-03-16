@@ -122,4 +122,8 @@ public abstract class Vehicle {
 	public void setKilometers(int kilometers) {
 		this.kilometers = kilometers;
 	}
+	
+	public void destroyVehicles() {
+		vehicles.clear();
+	}
 }

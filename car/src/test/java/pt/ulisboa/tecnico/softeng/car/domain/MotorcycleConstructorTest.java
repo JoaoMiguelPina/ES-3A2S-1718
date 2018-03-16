@@ -37,8 +37,8 @@ public class MotorcycleConstructorTest {
 		Assert.assertNotNull(motor.getPlate().charAt(6));
 		Assert.assertNotNull(motor.getPlate().charAt(7));
 	
-		Assert.assertEquals("-", motor.getPlate().charAt(2));
-		Assert.assertEquals("-", motor.getPlate().charAt(5));
+		Assert.assertEquals('-', motor.getPlate().charAt(2));
+		Assert.assertEquals('-', motor.getPlate().charAt(5));
 		
 		
 		
@@ -63,7 +63,7 @@ public class MotorcycleConstructorTest {
 	@After
 	public void tearDown() {
 		//rentACar.destroyRentACar();
-		//motor.destroyMotorcycle();
+		motor.destroyVehicles();
 	}
 
 }
