@@ -31,11 +31,12 @@ public class VehicleRentMethodTest {
 
 	@Test
 	public void success() {
-		assertNotNull(car.rent(drivingLicence, arrival, departure));
+		assertNotNull(car.rent(this.drivingLicence, this.arrival, this.departure));
 	}
 
 	@Test(expected = CarException.class)
-	public void noDouble() {
+	public void Double() {
+		this.car.rent(this.drivingLicence, this.arrival, this.departure);
 		this.car.rent(this.drivingLicence, this.arrival, this.departure);
 	}
 
@@ -70,7 +71,6 @@ public class VehicleRentMethodTest {
 	public void tearDown() {
 		RentACar.rentACars.clear();
 		Vehicle.vehicles.clear();
-		
 	}
 
 }
