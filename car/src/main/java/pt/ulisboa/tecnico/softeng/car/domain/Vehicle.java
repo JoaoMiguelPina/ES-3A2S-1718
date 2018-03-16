@@ -36,14 +36,8 @@ public abstract class Vehicle {
 		//Aplicar restricao da matricula da mota e do carro
 		//Assumindo que a matricula tem o formato NUMEROS-NUMEROS-LETRAS
 		//Assumindo que a matricula tem letras em CAPS
-		if(
-			plate.charAt(0) < 48 || plate.charAt(0) > 57 || 
-			plate.charAt(1) < 48 || plate.charAt(1) > 57 || 
-			plate.charAt(3) < 48 || plate.charAt(3) > 57 || 
-			plate.charAt(4) < 48 || plate.charAt(4) > 57 ||
-			plate.charAt(6) < 65 || plate.charAt(6) > 90 ||
-			plate.charAt(7) < 65 || plate.charAt(7) > 90) {
-		throw new CarException();
+		if(!(plate.matches("[0-9][0-9]-[0-9][0-9]-[A-Z][A-Z]"))) {
+			throw new CarException();
 		}
 		
 		//Aplicar restricao de nao poder ser repetido
