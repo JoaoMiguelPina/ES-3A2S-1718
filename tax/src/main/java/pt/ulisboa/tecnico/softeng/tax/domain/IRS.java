@@ -49,15 +49,11 @@ public class IRS {
 		ItemType itemtype = getItemTypeByName(invoiceData.getItemType());
 		
 		try {
-			
 			new Invoice(invoiceData.getValue(), date, itemtype, (Seller) seller, (Buyer) buyer);
 		}
-		
 		catch(ClassCastException e) {
 			throw new TaxException();
 		}
-		
-		
 	}
 	
 	public static TaxPayer getTaxPayerByNIF(String nif){

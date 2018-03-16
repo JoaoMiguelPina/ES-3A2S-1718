@@ -95,7 +95,7 @@ public class IRSSubmitInvoiceMethodTest {
 	/*TYPEITEM ERRORS*/
 	@Test(expected = TaxException.class)
 	public void nullItemTypeName(){
-		IRS.submitInvoice(new InvoiceData(SELLER_NIF, BUYER_NIF, this.itemType.getName(), VALUE, date));
+		IRS.submitInvoice(new InvoiceData(SELLER_NIF, BUYER_NIF, null, VALUE, date));
 	}
 	
 	@Test(expected = TaxException.class)
