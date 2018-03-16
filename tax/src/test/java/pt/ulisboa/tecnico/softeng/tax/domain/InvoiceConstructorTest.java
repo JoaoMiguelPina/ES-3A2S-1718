@@ -34,7 +34,7 @@ public class InvoiceConstructorTest {
 	}
 	
 	
-	/*quando nao há fatura deve devolver 0, 1 e 2*/
+	
 	@Test
 	public void checkMatchingItemType() {
 		Invoice newInvoice = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
@@ -131,6 +131,37 @@ public class InvoiceConstructorTest {
 		Invoice invoice2 = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
 		Assert.assertNotEquals(invoice1.getReference(), invoice2.getReference());
 	}
+	
+	
+	/* RETURN CORRECT NUMBER OF INVOICES */
+	
+
+	@Test
+	public void zeroInvoices() {
+		ItemType iTYPE = new ItemType("teste", IVA);
+		int numberInvoices = iTYPE.getNumberOfInvoices();
+		assertEquals(0, numberInvoices);
+	}
+	
+	
+	@Test
+	public void oneInvoices() {
+		ItemType iTYPE = new ItemType("teste", IVA);
+		new Invoice(VALUE, DATE, iTYPE, SELLER, BUYER);
+		int numberInvoices = iTYPE.getNumberOfInvoices();
+		assertEquals(1, numberInvoices);
+	}
+	
+	
+	@Test
+	public void twoInvoices() {
+		ItemType iTYPE = new ItemType("teste", IVA);
+		new Invoice(VALUE, DATE, iTYPE, SELLER, BUYER);
+		new Invoice(VALUE, DATE, iTYPE, SELLER, BUYER);
+		int numberInvoices = iTYPE.getNumberOfInvoices();
+		assertEquals(2, numberInvoices);
+	}
+	
 	
 	@After
 	public void tearDown() {
