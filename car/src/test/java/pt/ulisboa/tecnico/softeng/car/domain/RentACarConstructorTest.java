@@ -54,10 +54,12 @@ public class RentACarConstructorTest {
 		rentacar.getMotorcycles();
 	}
 	
+	
 	@Test
-	public void getMotorcyclesTest() {
+	public void getMotorcyclesTest2() {
 		new Motorcycle("45-46-DF", 89, rentacar);
-		assertTrue(rentacar.getMotorcycles().size() == 1);
+		new Motorcycle("70-46-DF", 90, rentacar);
+		assertTrue(rentacar.getMotorcycles().size() == 2);
 		Vehicle.destroyVehicles();
 		RentACar.motorcycles.clear();
 	}
@@ -71,6 +73,15 @@ public class RentACarConstructorTest {
 	public void getCarsTest() {
 		new Car("45-46-DF", 89, rentacar);
 		assertTrue(rentacar.getCars().size() == 1);
+		RentACar.vehicles.clear();
+		RentACar.cars.clear();
+	}
+	
+	@Test
+	public void getCarsTest2() {
+		new Car("45-46-DF", 89, rentacar);
+		new Car("60-46-DF", 9, rentacar);
+		assertTrue(rentacar.getCars().size() == 2);
 		RentACar.vehicles.clear();
 		RentACar.cars.clear();
 	}
