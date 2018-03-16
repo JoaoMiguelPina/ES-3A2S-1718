@@ -38,19 +38,38 @@ public class BuyerTaxReturnMethodTest {
 		this.buyer1 = new Buyer("225031690", "António", "Rua Nova");
 
 		this.itemType2 = new ItemType(ITEM_TYPE_NAME2, IVA2);
-		this.buyer2 = new Buyer("225031390", "José", "Rua Nova Areeiro");
 		
 		this.invoice1 = new Invoice(VALUE1, DATE1, this.itemType1, this.seller1, this.buyer1);
-		this.invoice2 = new Invoice(VALUE2, DATE2, this.itemType2, this.seller1, this.buyer2);
+		this.invoice2 = new Invoice(VALUE2, DATE2, this.itemType2, this.seller1, this.buyer1);
 	}
 	
 	@Test
-	public void success() {
-		
+	public void noInvoices(){
+		this.buyer1.clear();
+		assertEquals(0, this.buyer1.taxReturn(2018), 0);
+	}
+	
+	@Test
+	public void oneInvoices(){
+		this.buyer1.clear();
+		assertEquals(0, this.buyer1.taxReturn(2018), 0);
+	}
+	
+	@Test
+	public void twoInvoicesInSameYear() {	
 		float test = this.buyer1.taxReturn(2018);
-		float expect = (float) (invoice1.getIva()*0.05);
+		float expect = (float) ((invoice1.getIva() + invoice2.getIva())*0.05);
 		Assert.assertEquals(expect, test, 0);
 	}
+	
+	@Test
+	public void twoInvoicesInSameYearAndOtherInvoiceInOther() {	
+		new Invoice(VALUE2, new LocalDate(2017,6,7), this.itemType2, this.seller1, this.buyer1);
+		float test = this.buyer1.taxReturn(2018);
+		float expect = (float) ((invoice1.getIva() + invoice2.getIva())*0.05);
+		Assert.assertEquals(expect, test, 0);
+	}
+	
 	
 	@Test(expected = TaxException.class)
 	public void noYearTax() {
