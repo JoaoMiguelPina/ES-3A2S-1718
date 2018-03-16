@@ -95,7 +95,7 @@ public abstract class Vehicle {
 			throw new CarException();
 		}
 
-		Renting renting = new Renting(drivingLicence, arrival, departure);
+		Renting renting = new Renting(drivingLicence, arrival, departure, this);
 		this.rentings.add(renting);
 
 		return renting;
@@ -109,5 +109,9 @@ public abstract class Vehicle {
 			}
 		}
 		return count;
+	}
+	
+	public void setKilometers(int kilometers) {
+		this.kilometers = kilometers;
 	}
 }

@@ -20,7 +20,8 @@ public class GetRentingMethodTest {
 	@Test
 	public void success() {
 		RentACar rentacar = new RentACar(NAME);
-		Renting renting = new Renting(DRIVING_LICENSE, BEGIN, END);
+		Car car = new Car("12-14-CJ", 34, rentacar);
+		Renting renting = new Renting(DRIVING_LICENSE, BEGIN, END, car);
 		assertNotNull(rentacar.getRenting(REFERENCE));
 		assertTrue(rentacar.getRenting(REFERENCE).getDrivingLicense() == renting.getDrivingLicense());
 		assertTrue(rentacar.getRenting(REFERENCE).getBegin() == renting.getBegin());

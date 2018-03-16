@@ -15,10 +15,11 @@ public class RentingConstructorTest {
 	private final String NAME = "João Siva";
 	Renting renting;
 	RentACar RAC = new RentACar("tuxedo cars");
+	Car car = new Car("12-14-CJ", 34, RAC);
 	
 	@Before
 	public void setUp() {
-		this.renting = new Renting("AAA111", LocalDate.now(), LocalDate.now());
+		this.renting = new Renting("AAA111", LocalDate.now(), LocalDate.now(), car);
 	}
 	
 	@Test
