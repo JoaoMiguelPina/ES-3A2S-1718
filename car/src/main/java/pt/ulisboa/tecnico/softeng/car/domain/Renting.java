@@ -28,8 +28,8 @@ public class Renting{
 		this.kilometers = 0;
 	}
 
-	private void checkArguments(String drivingLicence, LocalDate begin, LocalDate end) {
-		if (drivingLicence == null || drivingLicence == ""  || begin == null || end == null) {
+	private void checkArguments(String drivingLicense, LocalDate begin, LocalDate end) {
+		if (drivingLicense == null || drivingLicense == ""  || begin == null || end == null) {
 			throw new CarException();
 		}
 
@@ -37,13 +37,13 @@ public class Renting{
 			throw new CarException();
 		}
 		
-		if (invalidDrivingLicence(this.drivingLicense)) {
+		if (invalidDrivingLicence(drivingLicense)) {
 			throw new CarException();
 		}
 	}
 	
 	public boolean invalidDrivingLicence(String drivingLicence){
-		return drivingLicence.matches("[a-zA-Z]+[0-9]+");
+		return !(drivingLicence.matches("[a-zA-Z]+[0-9]+"));
 	}
 
 	public String getReference() {
