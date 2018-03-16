@@ -62,6 +62,10 @@ public class RentACar{
 	
 	Set<Car> getAllAvailableCars(LocalDate begin, LocalDate end) {
 		Set<Car> cars = new HashSet<>();
+		if(begin == null || end == null)
+			throw new CarException();
+		if(begin.isAfter(end))
+			throw new CarException();
 		for (RentACar rentacar : rentACars) {
 			for (Car car : rentacar.cars) {
 				if (car.isFree(begin, end)) {
@@ -105,5 +109,11 @@ public class RentACar{
 			}
 		}
 		throw new CarException();
+	}
+	
+	public void tearDown() {
+		vehicles.clear();
+		cars.clear();
+		motorcycles.clear();
 	}
 }
