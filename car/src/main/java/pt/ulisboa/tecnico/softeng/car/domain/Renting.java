@@ -26,6 +26,7 @@ public class Renting{
 		this.begin = begin;
 		this.end = end;
 		this.kilometers = 0;
+		this.vehicle = vehicle;
 	}
 
 	private void checkArguments(String drivingLicense, LocalDate begin, LocalDate end) {

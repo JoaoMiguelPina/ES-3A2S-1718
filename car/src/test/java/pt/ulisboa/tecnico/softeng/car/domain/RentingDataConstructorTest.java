@@ -38,8 +38,8 @@ public class RentingDataConstructorTest {
 		Assert.assertEquals("66-67-TC", rd.getPlate());
 		Assert.assertEquals("AAA111", rd.getDrivingLicense());
 		Assert.assertEquals("Top Fleet", rd.getRentACarCode());
-		Assert.assertEquals(java.time.LocalDate.now(), rd.getBegin());
-		Assert.assertEquals(java.time.LocalDate.now(), rd.getEnd());
+		Assert.assertEquals(LocalDate.now(), rd.getBegin());
+		Assert.assertEquals(LocalDate.now(), rd.getEnd());
 		
 	}
 	
