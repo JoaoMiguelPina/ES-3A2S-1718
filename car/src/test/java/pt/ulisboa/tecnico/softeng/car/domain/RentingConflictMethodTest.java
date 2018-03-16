@@ -21,6 +21,7 @@ public class RentingConflictMethodTest {
 		RentACar rentACar = new RentACar("Deluxe Car");
 		Car car = new Car("12-14-CJ", 34, rentACar);
 		this.renting = new Renting(this.drivingLicence, this.arrival, this.departure, car);
+		car.rent(this.drivingLicence, this.arrival, this.departure);
 	}
 
 	@Test
@@ -92,7 +93,8 @@ public class RentingConflictMethodTest {
 
 	@After
 	public void tearDown() {
-		//Vehicle.vehicles.clear();
+		Vehicle.vehicles.clear();
+		RentACar.rentACars.clear();
 	}
 
 }

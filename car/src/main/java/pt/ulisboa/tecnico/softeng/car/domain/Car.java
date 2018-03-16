@@ -18,8 +18,4 @@ public class Car extends Vehicle{
 		return this.rentACar;
 	}
 	
-	public void destroyCar() {
-		
-	}
-	
 }
