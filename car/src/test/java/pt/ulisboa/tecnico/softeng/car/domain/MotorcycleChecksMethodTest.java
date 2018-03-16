@@ -36,12 +36,12 @@ public class MotorcycleChecksMethodTest {
 		Assert.assertNotNull(car.getPlate().charAt(6));
 		Assert.assertNotNull(car.getPlate().charAt(7));
 	
-		Assert.assertEquals("-", car.getPlate().charAt(2));
-		Assert.assertEquals("-", car.getPlate().charAt(5));
+		Assert.assertEquals('-', car.getPlate().charAt(2));
+		Assert.assertEquals('-', car.getPlate().charAt(5));
 		
 		//Plates cant be duplicate
 		for(Car c : rentACar.getCars()) {
-			Assert.assertNotSame(car.getPlate(), c.getPlate());
+			Assert.assertSame(car.getPlate(), c.getPlate());
 		}
 		
 		//Plates need to be NUMBERS-NUMBERS-LETTERS
