@@ -14,13 +14,12 @@ public class MotorcycleConstructorTest {
 	@Before
 	public void setUp() {
 		this.rentACar = new RentACar("Top Fleet");
-		this.motor = new Motorcycle("12-14-CJ", 34, this.rentACar);
 	}
 	
 	@Test
 	public void checks(){
 		
-		//Motorcycle cant have negative kms
+		/*//Motorcycle cant have negative kms
 		Assert.assertTrue(motor.getKilometers() >= 0);
 		
 		//RentACar cant have a null nor empty name
@@ -38,32 +37,48 @@ public class MotorcycleConstructorTest {
 		Assert.assertNotNull(motor.getPlate().charAt(7));
 	
 		Assert.assertEquals('-', motor.getPlate().charAt(2));
-		Assert.assertEquals('-', motor.getPlate().charAt(5));
+		Assert.assertEquals('-', motor.getPlate().charAt(5));*/	
 		
-		
-		
+	}
+	
+	@Test
+	public void displayPlate() {
 		//Plates need to be NUMBERS-NUMBERS-LETTERS
-		//checking first NUMBERS
-		Assert.assertTrue(motor.getPlate().charAt(0) >= 48 && motor.getPlate().charAt(0) <= 57);
-		Assert.assertTrue(motor.getPlate().charAt(1) >= 48 && motor.getPlate().charAt(1) <= 57);
-		//checking second NUMBERS
-		Assert.assertTrue(motor.getPlate().charAt(3) >= 48 && motor.getPlate().charAt(3) <= 57);
-		Assert.assertTrue(motor.getPlate().charAt(4) >= 48 && motor.getPlate().charAt(4) <= 57);
-		//checking LETTERS
-		Assert.assertTrue(motor.getPlate().charAt(6) >= 65 && motor.getPlate().charAt(6) <= 90);
-		Assert.assertTrue(motor.getPlate().charAt(7) >= 65 && motor.getPlate().charAt(7) <= 90);
+		this.motor = new Motorcycle("12-14-CJ", 34, this.rentACar);
+		Assert.assertTrue(motor.getPlate().matches("[0-9][0-9]-[0-9][0-9]-[A-Z][A-Z]"));
+	}
+	
+	@Test(expected = CarException.class)
+	public void nullPlate() {
+		new Motorcycle(null, 32, this.rentACar);
 		
 	}
 	
 	@Test(expected= CarException.class)
 	public void uniquePlates() {
 		new Motorcycle("12-14-CJ", 34, this.rentACar);
+		new Motorcycle("12-14-CJ", 34, this.rentACar);
+	}
+	
+	@Test(expected= CarException.class)
+	public void withoutSpace() {
+		new Motorcycle("1214-CJ", 34, this.rentACar);
+	}
+	
+	@Test(expected= CarException.class)
+	public void twoLetters() {
+		new Motorcycle("AF-14-CJ", 34, this.rentACar);
+	}
+	
+	@Test(expected= CarException.class)
+	public void blankPlate() {
+		new Motorcycle("", 34, this.rentACar);
 	}
 	
 	@After
 	public void tearDown() {
-		//rentACar.destroyRentACar();
-		motor.destroyVehicles();
+		RentACar.rentACars.clear();
+		Vehicle.destroyVehicles();
 	}
 
 }

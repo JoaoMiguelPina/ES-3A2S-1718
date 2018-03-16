@@ -123,7 +123,7 @@ public abstract class Vehicle {
 		this.kilometers = kilometers;
 	}
 	
-	public void destroyVehicles() {
+	public static void destroyVehicles() {
 		vehicles.clear();
 	}
 }
