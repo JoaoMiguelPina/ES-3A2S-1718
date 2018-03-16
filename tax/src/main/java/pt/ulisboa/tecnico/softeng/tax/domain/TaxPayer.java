@@ -83,7 +83,9 @@ public abstract class TaxPayer {
 	protected float getIvaValueByYear(int year) {
 		float totalIVA = 0;
 		
-		if (year < 1970) throw new TaxException();
+		if (year < 1970) {
+			throw new TaxException();
+		}
 		
 		for (Invoice i: this.invoices.values()) {
 			LocalDate date = i.getDate();
