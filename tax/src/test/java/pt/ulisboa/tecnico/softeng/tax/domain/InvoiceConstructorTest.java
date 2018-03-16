@@ -38,6 +38,7 @@ public class InvoiceConstructorTest {
 	public void checkMatchingItemType() {
 		Invoice newInvoice = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
 		/* TO DO - check #134 */
+		/*quando nao há fatura deve devolver 0, 1 e 2*/
 	}
 	
 	/* NULL */
@@ -62,6 +63,14 @@ public class InvoiceConstructorTest {
 		new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, null);
 	}
 	
+	
+	@Test
+	public void IVAequalsTAX() {
+		
+		ItemType testItemType = new ItemType(TYPE_NAME, 10);
+		Invoice invoice = new Invoice(VALUE, DATE, testItemType, SELLER, BUYER);
+		assertEquals(invoice.getIva(), testItemType.getTax(), 0);
+	}
 	
 	@Test(expected = TaxException.class)
 	public void overIVA() {
