@@ -1,11 +1,15 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class Renting{
 	private static int counter = 0;
+	public static Set<Renting> rentingSet = new HashSet<>();
 
 	private final String reference;
 	private String drivingLicense;
@@ -27,6 +31,16 @@ public class Renting{
 		this.end = end;
 		this.kilometers = 0;
 		this.vehicle = vehicle;
+		
+		for(Renting r: rentingSet) {
+			if(begin.isEqual(r.getBegin()) && end.isEqual(r.getEnd()))
+				throw new CarException();
+			if(begin.isAfter(r.getBegin()) && begin.isBefore(end))
+				throw new CarException();
+		}
+		rentingSet.add(this);
+		
+		
 	}
 
 	private void checkArguments(String drivingLicense, LocalDate begin, LocalDate end) {
