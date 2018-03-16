@@ -34,11 +34,14 @@ public class InvoiceConstructorTest {
 	}
 	
 	
+	/*quando nao há fatura deve devolver 0, 1 e 2*/
 	@Test
 	public void checkMatchingItemType() {
 		Invoice newInvoice = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
-		/* TO DO - check #134 */
-		/*quando nao há fatura deve devolver 0, 1 e 2*/
+		
+		Invoice obtained = ITEM_TYPE.getInvoiceByReference(newInvoice.getReference());
+		
+		assertEquals(newInvoice, obtained);
 	}
 	
 	/* NULL */
