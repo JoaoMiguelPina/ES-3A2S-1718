@@ -1,8 +1,6 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
@@ -10,15 +8,19 @@ import org.joda.time.LocalDate;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public abstract class Vehicle {
+	public static Set<Vehicle> vehicles = new HashSet<>();
+
 	private String plate;
 	private int kilometers;
-	public Set<Renting> rentings = new HashSet<>();
+	private Set<Renting> rentings = new HashSet<>();
 	
 	public Vehicle(String plate, int kilometers){
 		checkArguments(plate, kilometers);
 		
 		this.plate = plate;
 		this.kilometers = kilometers;
+		
+		Vehicle.vehicles.add(this);
 		
 	}
 	

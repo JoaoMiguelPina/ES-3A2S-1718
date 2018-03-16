@@ -39,7 +39,7 @@ public class MotorcycleConstructorTest {
 		Assert.assertEquals("-", motor.getPlate().charAt(5));
 		
 		//Plates cant be duplicate
-		for(Motorcycle m : rentACar.motorcycles) {
+		for(Motorcycle m : rentACar.getMotorycles()) {
 			Assert.assertNotSame(motor.getPlate(), m.getPlate());
 		}
 		

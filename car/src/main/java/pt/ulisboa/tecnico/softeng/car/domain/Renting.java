@@ -43,22 +43,7 @@ public class Renting{
 	}
 	
 	public boolean invalidDrivingLicence(String drivingLicence){
-		if(drivingLicence == null || drivingLicence == "") {
-			return true;
-		}
-		
-		String[] servicoEmissor = drivingLicence.split("\\d+");
-		String[] ordinal = drivingLicence.split("[a-zA-Z]+");
-		if (servicoEmissor.length != 1 || ordinal.length != 1) {
-			return true;
-		}
-		
-		String checkDriving = servicoEmissor[0] + ordinal[0];
-		if(checkDriving != drivingLicence) {
-			return true;
-		}
-		
-		return false;
+		return drivingLicence.matches("[a-zA-Z]+[0-9]+");
 	}
 
 	public String getReference() {

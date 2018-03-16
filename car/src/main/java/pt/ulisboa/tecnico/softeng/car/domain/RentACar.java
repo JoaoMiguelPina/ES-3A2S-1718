@@ -5,13 +5,14 @@ import java.util.Set;
 
 import org.joda.time.LocalDate;
 
+import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentACar{
 	public static Set<RentACar> rentACars = new HashSet<>();
-	public Set<Vehicle> vehicles = new HashSet<>();
-	public Set<Car> cars = new HashSet<>();
-	public Set<Motorcycle> motorcycles = new HashSet<>();
+	private Set<Vehicle> vehicles = new HashSet<>();
+	private Set<Car> cars = new HashSet<>();
+	private Set<Motorcycle> motorcycles = new HashSet<>();
 	private final String name;
 	private static int counter = 0;
 	private final String code;
@@ -23,8 +24,24 @@ public class RentACar{
 		RentACar.rentACars.add(this);
 	}
 
+	public Set<Vehicle> getVehicles() {
+		return this.vehicles;
+	}
+	
+	public Set<Car> getCars() {
+		return this.cars;
+	}
+	
+	public Set<Motorcycle> getMotorycles() {
+		return this.motorcycles;
+	}
+	
 	public String getName() {
 		return this.name;
+	}
+	
+	public String getCode() {
+		return this.code;
 	}
 	
 	private void checkName(String name) {
@@ -78,4 +95,15 @@ public class RentACar{
 		return null;
 	}
 	
+	public static RentingData getRentingData(String reference) {
+		for (RentACar rentACar : RentACar.rentACars) {
+			for (Vehicle vehicle : rentACar.getVehicles()) {
+				Renting renting = vehicle.getRenting(reference);
+				if (renting != null) {
+					return new RentingData(reference, vehicle.getPlate(), renting.getDrivingLicense(), rentACar.getCode(), renting.getBegin(), renting.getEnd());
+				}
+			}
+		}
+		throw new CarException();
+	}
 }
