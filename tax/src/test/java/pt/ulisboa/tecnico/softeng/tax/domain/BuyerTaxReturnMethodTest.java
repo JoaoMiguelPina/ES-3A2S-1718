@@ -26,7 +26,6 @@ public class BuyerTaxReturnMethodTest {
 	private static final String ITEM_TYPE_NAME2 = "Mercearia";
 	private static final int IVA2 = 15;
 	private ItemType itemType2;
-	private Buyer buyer2;
 	
 	Invoice invoice1;
 	Invoice invoice2;
@@ -70,12 +69,10 @@ public class BuyerTaxReturnMethodTest {
 		Assert.assertEquals(expect, test, 0);
 	}
 	
-	
-	@Test(expected = TaxException.class)
+	@Test
 	public void noYearTax() {
 		float test = this.buyer1.taxReturn(2017);
-		float expect = invoice1.getIva() + invoice2.getIva();
-		Assert.assertEquals(expect, test, 0);
+		Assert.assertEquals(0, test, 0);
 	}
 	
 	
