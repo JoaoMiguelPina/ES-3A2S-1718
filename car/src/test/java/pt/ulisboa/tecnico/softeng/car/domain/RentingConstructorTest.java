@@ -26,11 +26,11 @@ public class RentingConstructorTest {
 	public void success() {
 		
 		//Renting constructor Test
-		Assert.assertEquals("1234", renting.getReference());
+		Assert.assertEquals("1", renting.getReference());
 		Assert.assertEquals("AAA111", renting.getDrivingLicense());
 		Assert.assertEquals(LocalDate.now(), renting.getBegin());
 		Assert.assertEquals(LocalDate.now(), renting.getEnd());
-		Assert.assertEquals(33, renting.getKilometers());
+		Assert.assertEquals(0, renting.getKilometers());
 		
 		//I assumed that checkout(kms) means that the kms turn into the value that the function receives
 		renting.checkout(20);
