@@ -121,12 +121,12 @@ public class IRSSubmitInvoiceMethodTest {
 	
 	@Test(expected = TaxException.class)
 	public void valueMinusOneThanMinimal(){
-		IRS.submitInvoice(new InvoiceData(this.buyer.getNif(), this.seller.getNif(), this.itemType.getName(), VALUE - 1, date));
+		IRS.submitInvoice(new InvoiceData(this.buyer.getNif(), this.seller.getNif(), this.itemType.getName(), MIN_VALUE - 1, date));
 	}
 	
 	@Test
 	public void valueEqualsMinimal(){
-		IRS.submitInvoice(new InvoiceData(this.buyer.getNif(), this.seller.getNif(), this.itemType.getName(), VALUE, date));
+		IRS.submitInvoice(new InvoiceData(this.buyer.getNif(), this.seller.getNif(), this.itemType.getName(), MIN_VALUE, date));
 		assertEquals(1, this.seller.getNumberOfInvoices());
 		assertEquals(1, this.buyer.getNumberOfInvoices());
 		assertEquals(1, this.itemType.getNumberOfInvoices());
@@ -134,7 +134,7 @@ public class IRSSubmitInvoiceMethodTest {
 	
 	@Test
 	public void valuePlusOneThanMinimal(){
-		IRS.submitInvoice(new InvoiceData(this.buyer.getNif(), this.seller.getNif(), this.itemType.getName(), VALUE + 1, date));
+		IRS.submitInvoice(new InvoiceData(this.buyer.getNif(), this.seller.getNif(), this.itemType.getName(), MIN_VALUE + 1, date));
 		assertEquals(1, this.seller.getNumberOfInvoices());
 		assertEquals(1, this.buyer.getNumberOfInvoices());
 		assertEquals(1, this.itemType.getNumberOfInvoices());
