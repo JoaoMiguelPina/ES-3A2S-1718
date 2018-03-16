@@ -45,6 +45,12 @@ public abstract class Vehicle {
 			plate.charAt(7) < 65 || plate.charAt(7) > 90) {
 		throw new CarException();
 		}
+		
+		//Aplicar restricao de nao poder ser repetido
+		for(Vehicle v : vehicles) {
+			if (v.getPlate() == plate)
+				throw new CarException();
+		}
 	}
 
 	private void checkKilometers(int kilometers) {
@@ -115,5 +121,9 @@ public abstract class Vehicle {
 	
 	public void setKilometers(int kilometers) {
 		this.kilometers = kilometers;
+	}
+	
+	public static void destroyVehicles() {
+		vehicles.clear();
 	}
 }
