@@ -94,8 +94,23 @@ public class IRSSubmitInvoiceMethodTest {
 	
 	/*TYPEITEM ERRORS*/
 	@Test(expected = TaxException.class)
-	public void nullItemType(){
+	public void nullItemTypeName(){
 		IRS.submitInvoice(new InvoiceData(this.buyer.getNif(), this.seller.getNif(), this.itemType.getName(), VALUE, date));
+	}
+	
+	@Test(expected = TaxException.class)
+	public void blankItemTypeName(){
+		IRS.submitInvoice(new InvoiceData(this.buyer.getNif(), this.seller.getNif(), "   ", VALUE, date));
+	}
+	
+	@Test(expected = TaxException.class)
+	public void emptyItemTypeName(){
+		IRS.submitInvoice(new InvoiceData(this.buyer.getNif(), this.seller.getNif(), "", VALUE, date));
+	}
+	
+	@Test(expected = TaxException.class)
+	public void wrongItemTypeName(){
+		IRS.submitInvoice(new InvoiceData(this.buyer.getNif(), this.seller.getNif(), "WrongName", VALUE, date));
 	}
 	
 	/*VALUE TESTS*/
