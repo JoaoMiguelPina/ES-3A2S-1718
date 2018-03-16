@@ -71,9 +71,45 @@ public class MotorcycleConstructorTest {
 	}
 	
 	@Test(expected= CarException.class)
-	public void blankPlate() {
+	public void emptyPlate() {
 		new Motorcycle("", 34, this.rentACar);
 	}
+	
+	@Test(expected= CarException.class)
+	public void justNumbers() {
+		new Motorcycle("11-11-11", 34, this.rentACar);
+	}
+	
+	@Test(expected= CarException.class)
+	public void blankPlate() {
+		new Motorcycle("  -  -  ", 34, this.rentACar);
+	}
+	
+	@Test(expected= CarException.class)
+	public void negativeKms() {
+		new Motorcycle("12-14-CJ", -34, this.rentACar);
+	}
+	
+	@Test(expected= CarException.class)
+	public void minusOne() {
+		new Motorcycle("12-14-CJ", -1, this.rentACar);
+	}
+	
+	@Test
+	public void zero() {
+		new Motorcycle("12-14-CJ", 0, this.rentACar);
+	}
+	
+	@Test
+	public void One() {
+		new Motorcycle("12-14-CJ", 1, this.rentACar);
+	}
+	
+	@Test(expected= CarException.class)
+	public void rentNull() {
+		new Motorcycle("12-14-CJ", 10, null);
+	}
+	
 	
 	@After
 	public void tearDown() {
