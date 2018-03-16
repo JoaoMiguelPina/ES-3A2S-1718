@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import pt.ulisboa.tecnico.softeng.car.exception.CarException;
+
 public class MotorcycleConstructorTest {
 	private Motorcycle motor;
 	private RentACar rentACar;
@@ -38,10 +40,7 @@ public class MotorcycleConstructorTest {
 		Assert.assertEquals("-", motor.getPlate().charAt(2));
 		Assert.assertEquals("-", motor.getPlate().charAt(5));
 		
-		//Plates cant be duplicate
-		for(Motorcycle m : rentACar.getMotorycles()) {
-			Assert.assertNotSame(motor.getPlate(), m.getPlate());
-		}
+		
 		
 		//Plates need to be NUMBERS-NUMBERS-LETTERS
 		//checking first NUMBERS
@@ -54,6 +53,11 @@ public class MotorcycleConstructorTest {
 		Assert.assertTrue(motor.getPlate().charAt(6) >= 65 && motor.getPlate().charAt(6) <= 90);
 		Assert.assertTrue(motor.getPlate().charAt(7) >= 65 && motor.getPlate().charAt(7) <= 90);
 		
+	}
+	
+	@Test(expected= CarException.class)
+	public void uniquePlates() {
+		new Motorcycle("12-14-CJ", 34, this.rentACar);
 	}
 	
 	@After
