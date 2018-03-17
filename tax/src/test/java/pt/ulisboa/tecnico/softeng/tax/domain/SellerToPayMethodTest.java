@@ -24,7 +24,6 @@ public class SellerToPayMethodTest {
 	private static final String ITEM_TYPE_NAME2 = "Mercearia";
 	private static final int IVA2 = 10;
 	private ItemType itemType2;
-	private Buyer buyer2;
 	
 	Invoice invoice1;
 	Invoice invoice2;
@@ -36,36 +35,51 @@ public class SellerToPayMethodTest {
 		this.buyer1 = new Buyer("225031690", "António", "Rua Nova");
 
 		this.itemType2 = new ItemType(ITEM_TYPE_NAME2, IVA2);
-		this.buyer2 = new Buyer("225031390", "José", "Rua Nova Areeiro");
 		
 		this.invoice1 = new Invoice(VALUE1, DATE1, this.itemType1, this.seller1, this.buyer1);
-		this.invoice2 = new Invoice(VALUE2, DATE2, this.itemType2, this.seller1, this.buyer2);
+		this.invoice2 = new Invoice(VALUE2, DATE2, this.itemType2, this.seller1, this.buyer1);
 	}
 	
 	@Test
-	public void success() {
+	public void noInvoices(){
+		this.seller1.clear();
+		assertEquals(0, this.seller1.toPay(2018), 0);
+	}
+	
+	@Test
+	public void oneInvoices(){
+		this.seller1.clear();
+		assertEquals(0, this.seller1.toPay(2018), 0);
+	}
+	
+	@Test
+	public void twoInvoicesInSameYear() {	
 		float test = this.seller1.toPay(2018);
-		float expect = this.invoice1.getIva() + this.invoice2.getIva();
+		float expect = (float) (invoice1.getIva() + invoice2.getIva());
 		Assert.assertEquals(expect, test, 0);
 	}
 	
-	@Test(expected = TaxException.class)
-	public void noYear() {
+	@Test
+	public void twoInvoicesInSameYearAndOtherInvoiceInOther() {	
+		new Invoice(VALUE2, new LocalDate(2017,6,7), this.itemType2, this.seller1, this.buyer1);
+		float test = this.seller1.toPay(2018);
+		float expect = (float) (invoice1.getIva() + invoice2.getIva());
+		Assert.assertEquals(expect, test, 0);
+	}
+	
+	@Test
+	public void noYearTax() {
 		float test = this.seller1.toPay(2017);
-		float expect = this.invoice1.getIva() + this.invoice2.getIva();
-		Assert.assertEquals(expect, test, 0);
+		Assert.assertEquals(0, test, 0);
 	}
 	
-	
 	@Test(expected = TaxException.class)
-	public void yearBefore1970() {
-		this.seller1.toPay(1969);
+	public void yearBefore1970Tax() {
+		this.buyer1.taxReturn(1969);
 	}
 	
 	@After
 	public void tearDown() {
 		IRS.clear();
 	}
-	
-
 }

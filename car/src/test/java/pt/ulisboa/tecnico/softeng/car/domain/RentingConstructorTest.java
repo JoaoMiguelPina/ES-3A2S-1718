@@ -14,12 +14,19 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 public class RentingConstructorTest {
 	private final String NAME = "João Siva";
 	Renting renting;
+	Renting renting2;
+	
+	LocalDate begin = new LocalDate(2016, 12, 19);
+	LocalDate end = new LocalDate(2016, 12, 31);
+	
 	RentACar RAC = new RentACar("tuxedo cars");
 	Car car = new Car("12-12-CJ", 34, RAC);
 	
 	@Before
 	public void setUp() {
-		this.renting = new Renting("AAA111", LocalDate.now(), LocalDate.now(), car);
+		this.renting = new Renting("AAA111", begin, end, car);
+		
+		
 	}
 	
 	@Test
@@ -27,8 +34,8 @@ public class RentingConstructorTest {
 		//Renting constructor Test
 		Assert.assertNotNull(this.renting.getReference());
 		Assert.assertEquals("AAA111", renting.getDrivingLicense());
-		Assert.assertEquals(LocalDate.now(), renting.getBegin());
-		Assert.assertEquals(LocalDate.now(), renting.getEnd());
+		Assert.assertTrue(begin.equals(renting.getBegin()));
+		Assert.assertTrue(end.equals(renting.getEnd()));
 		Assert.assertEquals(0, renting.getKilometers());
 		
 		//I assumed that checkout(kms) means that the kms turn into the value that the function receives
@@ -48,10 +55,15 @@ public class RentingConstructorTest {
 		this.renting.checkout(10000);
 	}
 	
+	@Test (expected = CarException.class)
+	public void rentingConflict() {
+		this.renting2 = new Renting("AAA111", begin, end, car);
+	}
+	
 	
 	@After
 	public void tearDown() {
 		Vehicle.vehicles.clear();
-		//renting.destroyRenting();
+		Renting.rentingSet.clear();
 	}
 }

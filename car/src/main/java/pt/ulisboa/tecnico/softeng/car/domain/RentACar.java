@@ -10,9 +10,9 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentACar{
 	public static Set<RentACar> rentACars = new HashSet<>();
-	private Set<Vehicle> vehicles = new HashSet<>();
-	private Set<Car> cars = new HashSet<>();
-	private Set<Motorcycle> motorcycles = new HashSet<>();
+	public static Set<Vehicle> vehicles = new HashSet<>();
+	public static Set<Car> cars = new HashSet<>();
+	public static Set<Motorcycle> motorcycles = new HashSet<>();
 	private final String name;
 	private static int counter = 0;
 	private final String code;
@@ -25,15 +25,24 @@ public class RentACar{
 	}
 
 	public Set<Vehicle> getVehicles() {
-		return this.vehicles;
+		if(this.vehicles.isEmpty())
+			throw new CarException();
+		else
+			return this.vehicles;
 	}
 	
 	public Set<Car> getCars() {
-		return this.cars;
+		if(this.cars.isEmpty())
+			throw new CarException();
+		else
+			return this.cars;
 	}
 	
-	public Set<Motorcycle> getMotorycles() {
-		return this.motorcycles;
+	public Set<Motorcycle> getMotorcycles() {
+		if(this.motorcycles.isEmpty())
+			throw new CarException();
+		else
+			return this.motorcycles;
 	}
 	
 	public String getName() {
