@@ -19,7 +19,7 @@ public class Renting{
 
 
 	Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle) {
-		checkArguments(drivingLicense, begin, end);
+		checkArguments(drivingLicense, begin, end, vehicle);
 
 		this.drivingLicense = drivingLicense;
 		this.reference = Integer.toString(++Renting.counter);
@@ -29,8 +29,8 @@ public class Renting{
 		this.vehicle = vehicle;
 	}
 
-	private void checkArguments(String drivingLicense, LocalDate begin, LocalDate end) {
-		if (drivingLicense == null || drivingLicense == ""  || begin == null || end == null) {
+	private void checkArguments(String drivingLicense, LocalDate begin, LocalDate end, Vehicle Vehicle) {
+		if (drivingLicense == null || drivingLicense == ""  || begin == null || end == null || vehicle == null) {
 			throw new CarException();
 		}
 
