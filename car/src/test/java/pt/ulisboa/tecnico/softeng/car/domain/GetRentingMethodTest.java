@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.joda.time.LocalDate;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 
@@ -12,37 +13,37 @@ public class GetRentingMethodTest {
 	private final String DRIVING_LICENSE = "AAA111";
 	private final LocalDate BEGIN = LocalDate.now();
 	private final LocalDate END = LocalDate.now();
+	private RentACar rentACar;
+	private Car car;
+	
+	@Before
+	public void setUp() {
+		this.rentACar = new RentACar("deluxe");
+		this.car = new Car("66-66-AS", 20, this.rentACar);
+	}
 	
 	@Test
 	public void getRentingTestSucess() {
-		RentACar rentACar =  new RentACar("New rentACar");
-		Car car = new Car("12-12-CJ", 34, rentACar);
 		Renting renting = car.rent(this.DRIVING_LICENSE, this.BEGIN, this.END); 
 		assertNotNull(rentACar.getRenting(renting.getReference()));
 	}
 	
 	@Test
 	public void getRentingNoVehiclesTest() {
-		RentACar rentACar =  new RentACar("New rents test 1");
-		assertNull(rentACar.getRenting(""));
+		RentACar rentacar =  new RentACar("New rents test 1");
+		assertNull(rentacar.getRenting(""));
 	}
 	
 	@Test
 	public void getRentingNoRentingsTest() {
-		RentACar rentACar =  new RentACar("New rents test 2");
-		assertNull(rentACar.getRenting(""));
+		RentACar rentacar =  new RentACar("New rents test 2");
+		assertNull(rentacar.getRenting(""));
 	}
 	
 	@Test
 	public void getRentingDoesNotExistTest() {
-		RentACar rentACar =  new RentACar("New rents test 3");
-		assertNull(rentACar.getRenting(""));
-	}
-	
-	@Test
-	public void getRentingNoReferenceTest() {
-		RentACar rentACar = new RentACar("Nem rents test 4");
-		assertNull(rentACar.getRenting("123456789"));
+		this.car.rent(this.DRIVING_LICENSE, this.BEGIN, this.END); 
+		assertNull(this.rentACar.getRenting("9876"));
 	}
 
 	
