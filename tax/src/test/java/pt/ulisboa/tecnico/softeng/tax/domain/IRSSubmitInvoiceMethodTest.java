@@ -158,10 +158,9 @@ public class IRSSubmitInvoiceMethodTest {
 		assertEquals(1, this.buyer.getNumberOfInvoices());
 		assertEquals(1, this.itemType.getNumberOfInvoices());
 	}
+	
 	@After
 	public void tearDown(){
 		IRS.clear();
 	}
-	
-	
 }

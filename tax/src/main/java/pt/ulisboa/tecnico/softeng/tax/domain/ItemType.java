@@ -65,5 +65,4 @@ public class ItemType {
 	public void clear(){
 		invoices.clear();
 	}
-	
 }

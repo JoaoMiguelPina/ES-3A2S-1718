@@ -15,7 +15,6 @@ public class SellerGetInvoiceByReferenceMethodTest {
 	private Buyer buyer;
 	private Invoice invoice;
 
-	
 	@Before
 	public void setUp() {
 		this.itemType = new ItemType("Mercearia", 8);
@@ -65,7 +64,6 @@ public class SellerGetInvoiceByReferenceMethodTest {
 		Assert.assertNull(this.seller.getInvoiceByReference("WrongReference"));
 	}
 	
-
 	@After
 	public void tearDown() {
 		IRS.clear();

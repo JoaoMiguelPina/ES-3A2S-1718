@@ -19,8 +19,6 @@ public class BuyerTaxReturnMethodTest {
 	private Seller seller1;
 	private Buyer buyer1;
 	
-	
-	
 	private static final float VALUE2 = (float) 100.0;
 	private static final LocalDate DATE2 = new LocalDate(2018, 10, 9); 
 	private static final String ITEM_TYPE_NAME2 = "Mercearia";
@@ -77,7 +75,6 @@ public class BuyerTaxReturnMethodTest {
 		Assert.assertEquals(0, test, 0);
 	}
 	
-	
 	@Test(expected = TaxException.class)
 	public void yearBefore1970Tax() {
 		this.buyer1.taxReturn(1969);
@@ -87,5 +84,4 @@ public class BuyerTaxReturnMethodTest {
 	public void tearDown() {
 		IRS.clear();
 	}
-
 }

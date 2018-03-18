@@ -97,5 +97,4 @@ public class SellerConstructorTest {
 	public void tearDown() {
 		IRS.clear();
 	}
-
 }

@@ -7,7 +7,6 @@ import org.junit.After;
 import org.junit.Test;
 
 public class IRSGetTaxPayerByNIFMethodTest {
-	
 	private static final String NIF1 = "111111111";
 	private static final String Name1 = "Manuela";
 	private static final String Address1 = "Rua da Igreja";
@@ -16,7 +15,6 @@ public class IRSGetTaxPayerByNIFMethodTest {
 	private static final String Name2 = "Manel";
 	private static final String Address2 = "Rua da Igreja do Monte";
 		
-	
 	@Test
 	public void nullParameter() {		
 		new Seller(NIF1, Name1, Address1);

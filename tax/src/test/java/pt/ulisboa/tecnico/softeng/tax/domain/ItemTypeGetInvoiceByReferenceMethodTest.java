@@ -16,7 +16,6 @@ public class ItemTypeGetInvoiceByReferenceMethodTest {
 	private Buyer buyer;
 	private Invoice invoice;
 
-	
 	@Before
 	public void setUp() {
 		this.itemType = new ItemType("Mercearia", 8);
