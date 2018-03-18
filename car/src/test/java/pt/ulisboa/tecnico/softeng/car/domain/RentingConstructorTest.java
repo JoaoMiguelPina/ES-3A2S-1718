@@ -55,14 +55,17 @@ public class RentingConstructorTest {
 	
 	@Test
 	public void getEmptyCancellationTest() {
-		Assert.assertTrue(this.renting.getCancellation() == null);
+		Assert.assertNull(this.renting.getCancellation());
+		Assert.assertNull(this.renting.getCancellationDate());
 	}
 	
 	@Test
 	public void getCancellationTest() {
 		String c = this.renting.cancel();
 		Assert.assertTrue(this.renting.getCancellation() == c);
+		Assert.assertNotNull(this.renting.getCancellationDate());
 	}
+	
 	
 	
 	
