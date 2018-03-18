@@ -16,59 +16,64 @@ import java.util.Set;
 
 
 public class GetAllAvailableCarsTest{
-	LocalDate begin = new LocalDate(2018,4,1);
-	LocalDate end = new LocalDate(2019,4,1);
-	RentACar rac;
-	Car c1;
-	Car c2;
-	Motorcycle m1;
-	Motorcycle m2;
+	private LocalDate begin = new LocalDate(2018,4,1);
+	private LocalDate end = new LocalDate(2019,4,1);
+	private final String drivingLicence = "IMTT000";
+	private RentACar rentACar;
+	private Car car1;
+	private Car car2;
+
 	@Before
 	public void setUp() {
-		rac = new RentACar("deluxe");
-		c1 = new Car("66-66-AS", 20, rac);
-		c2 = new Car("99-66-AS", 20, rac);
-		m1 = new Motorcycle("66-34-AS", 20, rac);
-		m2 = new Motorcycle("66-12-AS", 20, rac);
+		this.rentACar = new RentACar("deluxe");
+		this.car1 = new Car("66-66-AS", 20, this.rentACar);
+		this.car2 = new Car("99-66-AS", 20, this.rentACar);
 	}
 	
 	@Test
 	public void success() {
-		Assert.assertTrue(rac.getVehicles().size() == 4);
-		Assert.assertTrue(rac.getCars().size() == 2);
-		Assert.assertTrue(rac.getMotorcycles().size() == 2);	
+		assertEquals(2, RentACar.getAllAvailableCars(this.begin, this.end).size());	
 	}
 	
 	@Test (expected = CarException.class)
-	public void nullDateEnd() {
-		rac.getAllAvailableCars(begin, null);
+	public void nullDateEnd(){
+		RentACar.getAllAvailableCars(this.begin, null);
 	}
 	
 	@Test (expected = CarException.class)
 	public void nullDateBegin() {
-		rac.getAllAvailableCars(null, end);
+		RentACar.getAllAvailableCars(null, this.end);
 	}
 	
 	@Test (expected = CarException.class)
 	public void switchedDate() {
-		rac.getAllAvailableCars(end, begin);
+		RentACar.getAllAvailableCars(this.end, this.begin);
 	}
 	
 	@Test 
 	public void sameDate() {
-		rac.getAllAvailableCars(begin, begin);
+		assertEquals(2, RentACar.getAllAvailableCars(this.begin, this.begin).size());
 	}
 	
 	@Test 
-	public void noCar() {
-		this.tearDown();
-		Set<Car> teste = rac.getAllAvailableCars(begin, end);
+	public void oneCarAvailable() {
+		this.car1.rent(this.drivingLicence, this.begin, this.end);
+		Set<Car> teste = RentACar.getAllAvailableCars(this.begin, this.end);
+		assertEquals(1, teste.size());
+	}
+	
+	@Test 
+	public void noCarsAvailable() {
+		this.car1.rent(this.drivingLicence, this.begin, this.end);
+		this.car2.rent(this.drivingLicence, this.begin, this.end);
+		Set<Car> teste = RentACar.getAllAvailableCars(this.begin, this.end);
 		assertEquals(0, teste.size());
 	}
 	
 	@After
 	public void tearDown() {
-		rac.tearDown();
+		rentACar.tearDown();
+		RentACar.rentACars.clear();
 		Vehicle.destroyVehicles();
 	}
 }

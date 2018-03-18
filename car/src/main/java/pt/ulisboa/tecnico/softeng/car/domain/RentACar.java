@@ -69,12 +69,14 @@ public class RentACar{
 		this.vehicles.add(motorcycle);
 	}
 	
-	Set<Car> getAllAvailableCars(LocalDate begin, LocalDate end) {
+	public static Set<Car> getAllAvailableCars(LocalDate begin, LocalDate end) {
 		Set<Car> cars = new HashSet<>();
-		if(begin == null || end == null)
+		if(begin == null || end == null) {
 			throw new CarException();
-		if(begin.isAfter(end))
+		}
+		if(begin.isAfter(end)) {
 			throw new CarException();
+		}
 		for (RentACar rentacar : rentACars) {
 			for (Car car : rentacar.cars) {
 				if (car.isFree(begin, end)) {
@@ -86,8 +88,15 @@ public class RentACar{
 	}
 	
 	
-	Set<Motorcycle> getAllAvailableMotorcycles(LocalDate begin, LocalDate end) {
+	public static Set<Motorcycle> getAllAvailableMotorcycles(LocalDate begin, LocalDate end) {
 		Set<Motorcycle> motorcycles = new HashSet<>();
+		if(begin == null || end == null) {
+			throw new CarException();
+		}
+		if(begin.isAfter(end)) {
+			throw new CarException();
+		}
+		
 		for (RentACar rentacar : rentACars) {
 			for (Motorcycle motorcycle : rentacar.motorcycles) {
 				if (motorcycle.isFree(begin, end)) {
