@@ -70,14 +70,6 @@ public class RentACarConstructorTest {
 	}
 	
 	@Test
-	public void getCarsTest() {
-		new Car("45-46-DF", 89, rentacar);
-		assertTrue(rentacar.getCars().size() == 1);
-		RentACar.vehicles.clear();
-		RentACar.cars.clear();
-	}
-	
-	@Test
 	public void getCarsTest2() {
 		new Car("45-46-DF", 89, rentacar);
 		new Car("60-46-DF", 9, rentacar);
@@ -94,7 +86,7 @@ public class RentACarConstructorTest {
 	
 	@After
 	public void tearDown() {
-		RentACar.rentACars.clear();
+		rentacar.tearDown();
 		RentACar.vehicles.clear();
 	}
 }
