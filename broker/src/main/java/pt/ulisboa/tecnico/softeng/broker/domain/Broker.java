@@ -46,6 +46,10 @@ public class Broker {
 			throw new BrokerException();
 		}
 	}
+	
+	public Set<BulkRoomBooking> getBulkBookings(){
+		return this.bulkBookings;
+	}
 
 	String getCode() {
 		return this.code;
