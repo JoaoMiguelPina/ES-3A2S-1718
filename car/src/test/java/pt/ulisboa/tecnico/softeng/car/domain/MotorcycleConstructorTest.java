@@ -17,28 +17,12 @@ public class MotorcycleConstructorTest {
 	}
 	
 	@Test
-	public void checks(){
-		
-		/*//Motorcycle cant have negative kms
-		Assert.assertTrue(motor.getKilometers() >= 0);
-		
-		//RentACar cant have a null nor empty name
-		Assert.assertFalse(motor.getRentACar().getName() == "");
-		Assert.assertNotNull(motor.getRentACar().getName());
-		
-		//Plates cant be null and need to have the format: "XX-XX-XX"
-		Assert.assertNotNull(motor.getPlate());
-		
-		Assert.assertNotNull(motor.getPlate().charAt(0));
-		Assert.assertNotNull(motor.getPlate().charAt(1));
-		Assert.assertNotNull(motor.getPlate().charAt(3));
-		Assert.assertNotNull(motor.getPlate().charAt(4));
-		Assert.assertNotNull(motor.getPlate().charAt(6));
-		Assert.assertNotNull(motor.getPlate().charAt(7));
-	
-		Assert.assertEquals('-', motor.getPlate().charAt(2));
-		Assert.assertEquals('-', motor.getPlate().charAt(5));*/	
-		
+	public void success(){
+		this.motor = new Motorcycle("99-14-CJ", 34, this.rentACar);		
+		Assert.assertTrue(motor.getPlate().matches("[0-9][0-9]-[0-9][0-9]-[A-Z][A-Z]"));
+		Assert.assertTrue(motor.getPlate() == "99-14-CJ");
+		Assert.assertTrue(motor.getRentACar().getName() == "Top Fleet");
+		Assert.assertTrue(motor.getKilometers() == 34);
 	}
 	
 	@Test

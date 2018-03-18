@@ -18,6 +18,15 @@ public class CarConstructorTest {
 	}
 	
 	@Test
+	public void success(){
+		this.car = new Car("19-14-CJ", 34, this.rentACar);		
+		Assert.assertTrue(car.getPlate().matches("[0-9][0-9]-[0-9][0-9]-[A-Z][A-Z]"));
+		Assert.assertTrue(car.getPlate() == "19-14-CJ");
+		Assert.assertTrue(car.getRentACar().getName() == "Top Fleet");
+		Assert.assertTrue(car.getKilometers() == 34);
+	}
+	
+	@Test
 	public void displayPlate() {
 		//Plates need to be NUMBERS-NUMBERS-LETTERS
 		this.car = new Car("12-14-CJ", 34, this.rentACar);
