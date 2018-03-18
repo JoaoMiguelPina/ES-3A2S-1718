@@ -38,6 +38,12 @@ public class GetRentingMethodTest {
 		RentACar rentACar =  new RentACar("New rents test 3");
 		assertNull(rentACar.getRenting(""));
 	}
+	
+	@Test
+	public void getRentingNoReferenceTest() {
+		RentACar rentACar = new RentACar("Nem rents test 4");
+		assertNull(rentACar.getRenting("123456789"));
+	}
 
 	
 	@After
