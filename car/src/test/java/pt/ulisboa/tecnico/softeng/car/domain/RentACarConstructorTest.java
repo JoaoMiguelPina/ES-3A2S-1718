@@ -15,9 +15,13 @@ public class RentACarConstructorTest {
 	
 	@Test
 	public void success() {
-		
+		new Car("09-46-DF", 89, rentacar);
+		new Motorcycle("11-22-XA", 70, rentacar);
 		assertEquals(NAME, rentacar.getName());
-		assertEquals(1, RentACar.rentACars.size());
+		assertEquals(2, RentACar.rentACars.size());
+		RentACar.cars.clear();
+		RentACar.motorcycles.clear();
+		
 	}
 	
 	/**BLANK AND NULL NAMES**/
@@ -43,7 +47,7 @@ public class RentACarConstructorTest {
 	
 	@Test
 	public void getVehiclesTest() {
-		new Car("45-46-DF", 89, rentacar);
+		new Car("90-46-DF", 89, rentacar);
 		assertTrue(rentacar.getVehicles().size() == 1);
 		Vehicle.destroyVehicles();
 		RentACar.cars.clear();
@@ -57,7 +61,7 @@ public class RentACarConstructorTest {
 	
 	@Test
 	public void getMotorcyclesTest2() {
-		new Motorcycle("45-46-DF", 89, rentacar);
+		new Motorcycle("05-46-DF", 89, rentacar);
 		new Motorcycle("70-46-DF", 90, rentacar);
 		assertTrue(rentacar.getMotorcycles().size() == 2);
 		Vehicle.destroyVehicles();
@@ -71,7 +75,7 @@ public class RentACarConstructorTest {
 	
 	@Test
 	public void getCarsTest2() {
-		new Car("45-46-DF", 89, rentacar);
+		new Car("95-46-DF", 89, rentacar);
 		new Car("60-46-DF", 9, rentacar);
 		assertTrue(rentacar.getCars().size() == 2);
 		RentACar.vehicles.clear();
