@@ -15,14 +15,13 @@ public class VehicleIsFreeMethodTest {
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
 	private final LocalDate departure = new LocalDate(2016, 12, 24);
 	private Car car;
-	private Renting renting;
 	
 
 	@Before
 	public void setUp() {
 		RentACar rentACar = new RentACar("New rent");
 		this.car = new Car("14-14-GG", 0, rentACar);
-		this.renting = this.car.rent(this.drivingLicence, this.arrival, this.departure);
+		this.car.rent(this.drivingLicence, this.arrival, this.departure);
 	}
 
 	@Test
