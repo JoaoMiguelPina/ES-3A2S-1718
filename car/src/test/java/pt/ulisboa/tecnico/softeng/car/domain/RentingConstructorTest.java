@@ -1,6 +1,5 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
-import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -12,7 +11,6 @@ import org.joda.time.LocalDate;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentingConstructorTest {
-	private final String NAME = "João Siva";
 	Renting renting;
 	
 	LocalDate begin = new LocalDate(2016, 12, 19);

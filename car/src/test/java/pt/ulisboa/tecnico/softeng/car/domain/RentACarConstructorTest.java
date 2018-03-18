@@ -3,10 +3,8 @@ package pt.ulisboa.tecnico.softeng.car.domain;
 import static org.junit.Assert.*;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import junit.framework.Assert;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentACarConstructorTest {
