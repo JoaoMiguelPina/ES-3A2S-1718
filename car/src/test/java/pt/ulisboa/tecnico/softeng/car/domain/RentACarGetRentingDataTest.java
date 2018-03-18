@@ -29,13 +29,13 @@ public class RentACarGetRentingDataTest {
 	@Test
 	public void success() {
 		String ref = this.renting.getReference();
-		assertNotNull(this.rentACar.getRentingData(ref));
+		assertNotNull(RentACar.getRentingData(ref));
 		
 	}
 	
 	@Test (expected = CarException.class)
 	public void noReference() {
-		assertNull(this.rentACar.getRentingData(""));
+		assertNull(RentACar.getRentingData(""));
 	}
 	
 	
