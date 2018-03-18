@@ -25,8 +25,6 @@ public class RentingConstructorTest {
 	@Before
 	public void setUp() {
 		this.renting = new Renting("AAA111", begin, end, car);
-		
-		
 	}
 	
 	@Test
@@ -55,15 +53,9 @@ public class RentingConstructorTest {
 		this.renting.checkout(10000);
 	}
 	
-	@Test (expected = CarException.class)
-	public void rentingConflict() {
-		this.renting2 = new Renting("AAA111", begin, end, car);
-	}
-	
 	
 	@After
 	public void tearDown() {
 		Vehicle.vehicles.clear();
-		Renting.rentingSet.clear();
 	}
 }

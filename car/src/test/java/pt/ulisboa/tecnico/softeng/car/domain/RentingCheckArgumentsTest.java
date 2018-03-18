@@ -59,9 +59,9 @@ public class RentingCheckArgumentsTest {
 		
 	}
 	
-	@Test (expected = CarException.class)
+	@Test 
 	public void equalDates() {
-		Renting renting = new Renting("AAA111", this.begin, this.begin, car);
+		assertNotNull(new Renting("AAA111", this.begin, this.begin, car));
 	}
 	
 	@Test (expected = CarException.class)

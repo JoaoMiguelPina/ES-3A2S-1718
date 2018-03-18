@@ -93,6 +93,7 @@ public abstract class Vehicle {
 	}
 	
 	public Renting rent(String drivingLicence, LocalDate arrival, LocalDate departure) {
+		//este if evita sobreposicao de reservas num vehicle
 		if (!isFree(arrival, departure)) {
 			throw new CarException();
 		}

@@ -31,7 +31,7 @@ public class VehicleRentMethodTest {
 
 	@Test
 	public void success() {
-		assertNotNull(car.rent(this.drivingLicence, this.arrival, this.departure));
+		assertNotNull(this.car.rent(this.drivingLicence, this.arrival, this.departure));
 	}
 
 	@Test(expected = CarException.class)
