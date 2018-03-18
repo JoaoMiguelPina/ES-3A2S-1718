@@ -10,9 +10,9 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentACar{
 	public static Set<RentACar> rentACars = new HashSet<>();
-	public static Set<Vehicle> vehicles = new HashSet<>();
-	public static Set<Car> cars = new HashSet<>();
-	public static Set<Motorcycle> motorcycles = new HashSet<>();
+	private Set<Vehicle> vehicles = new HashSet<>();
+	private Set<Car> cars = new HashSet<>();
+	private Set<Motorcycle> motorcycles = new HashSet<>();
 	private final String name;
 	private static int counter = 0;
 	private final String code;

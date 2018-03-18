@@ -14,7 +14,7 @@ public abstract class Vehicle {
 	private int kilometers;
 	private Set<Renting> rentings = new HashSet<>();
 	
-	public Vehicle(String plate, int kilometers){
+	Vehicle(String plate, int kilometers){
 		checkArguments(plate, kilometers);
 		
 		this.plate = plate;
