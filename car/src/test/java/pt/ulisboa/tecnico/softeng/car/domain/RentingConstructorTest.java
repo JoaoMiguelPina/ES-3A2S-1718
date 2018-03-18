@@ -14,7 +14,6 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 public class RentingConstructorTest {
 	private final String NAME = "João Siva";
 	Renting renting;
-	Renting renting2;
 	
 	LocalDate begin = new LocalDate(2016, 12, 19);
 	LocalDate end = new LocalDate(2016, 12, 31);
@@ -52,6 +51,20 @@ public class RentingConstructorTest {
 		this.renting.checkout(0);
 		this.renting.checkout(10000);
 	}
+	
+	
+	@Test
+	public void getEmptyCancellationTest() {
+		Assert.assertTrue(this.renting.getCancellation() == null);
+	}
+	
+	@Test
+	public void getCancellationTest() {
+		String c = this.renting.cancel();
+		Assert.assertTrue(this.renting.getCancellation() == c);
+	}
+	
+	
 	
 	
 	@After

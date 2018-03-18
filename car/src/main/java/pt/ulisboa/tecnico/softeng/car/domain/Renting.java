@@ -11,7 +11,10 @@ public class Renting{
 	private String drivingLicense;
 
 	private String cancellation;
-	private LocalDate cancellationDate;
+	
+	
+	private LocalDate cancellationDate; 
+	
 	private final LocalDate begin;
 	private final LocalDate end;
 	private int kilometers;
