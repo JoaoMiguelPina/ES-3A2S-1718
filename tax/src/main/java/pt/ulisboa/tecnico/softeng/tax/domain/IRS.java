@@ -68,12 +68,9 @@ public class IRS {
 		return taxPayers.size();
 	}
 	
-
-	
 	public static int getNumberItemType(){
 		return itemTypes.size();
 	}
-	
 	
 	public static void clear(){
 		taxPayers.clear();

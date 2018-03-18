@@ -1,7 +1,7 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
 public class Buyer extends TaxPayer {
-	private static int RETURN_TAX = 5; 
+	private static int RETURN_TAX = 5; /*In percentage!*/
 
 	public Buyer(String nif, String name, String address) {
 		super(nif, name, address);

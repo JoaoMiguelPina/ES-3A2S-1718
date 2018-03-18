@@ -18,7 +18,6 @@ public class InvoiceConstructorTest {
 	private static final Seller SELLER = new Seller("500192612", "Alberto, Lda", "Rua José Pacheco");
 	private static final Buyer BUYER = new Buyer("225031690", "António", "Rua Nova");
 	
-	
 	@Test
 	public void success() {
 		Invoice invoice = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
@@ -32,9 +31,7 @@ public class InvoiceConstructorTest {
 		Assert.assertEquals(1, SELLER.getNumberOfInvoices());
 		Assert.assertEquals(1, ITEM_TYPE.getNumberOfInvoices());
 	}
-	
-	
-	
+		
 	@Test
 	public void checkMatchingItemType() {
 		Invoice newInvoice = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
@@ -45,7 +42,6 @@ public class InvoiceConstructorTest {
 	}
 	
 	/* NULL */
-	
 	@Test(expected = TaxException.class)
 	public void nullDate() {
 		new Invoice(VALUE, null, ITEM_TYPE, SELLER, BUYER);
@@ -83,7 +79,6 @@ public class InvoiceConstructorTest {
 	}
 	
 	/* NEGATIVE VALUES */
-	
 	@Test(expected = TaxException.class)
 	public void negativeValue1() {
 		new Invoice((float)-20.6, DATE, ITEM_TYPE, SELLER, BUYER);
@@ -103,8 +98,6 @@ public class InvoiceConstructorTest {
 	
 	
 	/* NEGATIVE VALUES */
-	
-	
 	@Test(expected = TaxException.class)
 	public void notBefore1904() {
 		LocalDate newDATE = new LocalDate(1904, 3, 6); 
@@ -124,7 +117,6 @@ public class InvoiceConstructorTest {
 		assertEquals(newDate, testIn.getDate());
 	}
 	
-	
 	@Test
 	public void uniqueReference(){
 		Invoice invoice1 = new Invoice(VALUE, DATE, ITEM_TYPE, SELLER, BUYER);
@@ -132,17 +124,13 @@ public class InvoiceConstructorTest {
 		Assert.assertNotEquals(invoice1.getReference(), invoice2.getReference());
 	}
 	
-	
 	/* RETURN CORRECT NUMBER OF INVOICES */
-	
-
 	@Test
 	public void zeroInvoices() {
 		ItemType iTYPE = new ItemType("teste", IVA);
 		int numberInvoices = iTYPE.getNumberOfInvoices();
 		assertEquals(0, numberInvoices);
 	}
-	
 	
 	@Test
 	public void oneInvoices() {
@@ -151,8 +139,7 @@ public class InvoiceConstructorTest {
 		int numberInvoices = iTYPE.getNumberOfInvoices();
 		assertEquals(1, numberInvoices);
 	}
-	
-	
+		
 	@Test
 	public void twoInvoices() {
 		ItemType iTYPE = new ItemType("teste", IVA);
@@ -161,8 +148,7 @@ public class InvoiceConstructorTest {
 		int numberInvoices = iTYPE.getNumberOfInvoices();
 		assertEquals(2, numberInvoices);
 	}
-	
-	
+		
 	@After
 	public void tearDown() {
 		IRS.clear();
