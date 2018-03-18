@@ -56,5 +56,11 @@ public class MotorcycleChecksMethodTest {
 		Assert.assertTrue(car.getPlate().charAt(7) >= 65 && car.getPlate().charAt(7) <= 90);
 		
 	}
+	
+	@After
+	public void tearDown() {
+		RentACar.rentACars.clear();
+		Vehicle.vehicles.clear();
+	}
 
 }

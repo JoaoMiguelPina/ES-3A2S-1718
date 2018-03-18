@@ -95,9 +95,6 @@ public class RentACarConstructorTest {
 	@After
 	public void tearDown() {
 		RentACar.rentACars.clear();
-		Vehicle.destroyVehicles();
 		RentACar.vehicles.clear();
-		RentACar.cars.clear();
-		RentACar.motorcycles.clear();
 	}
 }

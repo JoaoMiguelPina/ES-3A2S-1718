@@ -35,4 +35,10 @@ public class GetAllAvailableMotorcyclesTest{
 		assertTrue(this.motorcycles.containsAll(motorcycleSet));
 		
 	}
+	
+	@After
+	public void tearDown() {
+		RentACar.rentACars.clear();
+		Vehicle.vehicles.clear();
+	}
 }
