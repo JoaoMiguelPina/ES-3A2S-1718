@@ -56,8 +56,10 @@
 					<configuration>
 						<destFile>${basedir}/target/coverage-reports/jacoco.exec</destFile>
 						<dataFile>${basedir}/target/coverage-reports/jacoco.exec</dataFile>
-						<exclude>pt.ulisboa.tecnico.softeng.activity.dataobjects</exclude>
-						<exclude>pt.ulisboa.tecnico.softeng.activity.exception</exclude>
+						<excludes>
+							<exclude>**/dataobjects/**</exclude>
+							<exclude>**/exception/**</exclude>
+						</excludes>
 					</configuration>
 					<executions>
 						<execution>
