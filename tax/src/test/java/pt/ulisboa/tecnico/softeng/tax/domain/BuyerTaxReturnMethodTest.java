@@ -49,9 +49,11 @@ public class BuyerTaxReturnMethodTest {
 	}
 	
 	@Test
-	public void oneInvoices(){
+	public void oneInvoice(){
 		this.buyer1.clear();
-		assertEquals(0, this.buyer1.taxReturn(2018), 0);
+		this.invoice1 = new Invoice(VALUE1, DATE1, this.itemType1, this.seller1, this.buyer1);
+		float expect = (float) (this.invoice1.getIva() * 0.05);
+		assertEquals(expect, this.buyer1.taxReturn(2018), 0);
 	}
 	
 	@Test

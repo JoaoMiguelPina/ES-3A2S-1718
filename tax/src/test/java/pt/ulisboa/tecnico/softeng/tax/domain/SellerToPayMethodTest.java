@@ -49,7 +49,9 @@ public class SellerToPayMethodTest {
 	@Test
 	public void oneInvoices(){
 		this.seller1.clear();
-		assertEquals(0, this.seller1.toPay(2018), 0);
+		this.invoice1 = new Invoice(VALUE1, DATE1, this.itemType1, this.seller1, this.buyer1);
+		float expected = (float) this.invoice1.getIva();
+		assertEquals(expected, this.seller1.toPay(2018), 0);
 	}
 	
 	@Test
