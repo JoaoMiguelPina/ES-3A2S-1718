@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
-import java.util.HashSet;
 import java.util.Set;
 
 
