@@ -45,6 +45,15 @@ public class GetRentingMethodTest {
 		this.car.rent(this.DRIVING_LICENSE, this.BEGIN, this.END); 
 		assertNull(this.rentACar.getRenting("9876"));
 	}
+	
+	@Test
+	public void getRentingCancelled() {
+		RentACar rentacar =  new RentACar("New rents test 3");
+		Car car = new Car("67-66-AS", 20, rentacar);
+		Renting renting = car.rent(this.DRIVING_LICENSE, this.BEGIN, this.END); 
+		renting.cancel();
+		assertNotNull(car.getRenting(renting.getReference() + "CANCEL"));		
+	}
 
 	
 	@After
