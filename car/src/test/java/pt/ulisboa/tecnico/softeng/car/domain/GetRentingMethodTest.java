@@ -7,7 +7,6 @@ import org.joda.time.LocalDate;
 import org.junit.After;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class GetRentingMethodTest {
 	private final String DRIVING_LICENSE = "AAA111";
@@ -31,15 +30,12 @@ public class GetRentingMethodTest {
 	@Test
 	public void getRentingNoRentingsTest() {
 		RentACar rentACar =  new RentACar("New rents test 2");
-		Car car = new Car("12-14-CC", 34, rentACar);
 		assertNull(rentACar.getRenting(""));
 	}
 	
 	@Test
 	public void getRentingDoesNotExistTest() {
 		RentACar rentACar =  new RentACar("New rents test 3");
-		Car car = new Car("12-14-CJ", 34, rentACar);
-		Renting renting = car.rent(this.DRIVING_LICENSE, this.BEGIN, this.END); 
 		assertNull(rentACar.getRenting(""));
 	}
 
