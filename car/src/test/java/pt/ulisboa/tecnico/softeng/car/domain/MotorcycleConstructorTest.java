@@ -94,6 +94,12 @@ public class MotorcycleConstructorTest {
 		new Motorcycle("12-14-CJ", 10, null);
 	}
 	
+	@Test
+	public void rentACarTest() {
+		Motorcycle m = new Motorcycle("12-14-CJ", 10, this.rentACar);
+		m.getRentACar();
+	}
+	
 	
 	@After
 	public void tearDown() {

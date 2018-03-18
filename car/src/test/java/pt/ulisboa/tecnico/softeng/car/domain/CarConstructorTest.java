@@ -95,6 +95,12 @@ public class CarConstructorTest {
 		new Car("12-14-CJ", 10, null);
 	}
 	
+	@Test
+	public void rentACarTest() {
+		Car c = new Car("12-14-CJ", 10, this.rentACar);
+		c.getRentACar();
+	}
+	
 	@After
 	public void tearDown() {
 		RentACar.rentACars.clear();
