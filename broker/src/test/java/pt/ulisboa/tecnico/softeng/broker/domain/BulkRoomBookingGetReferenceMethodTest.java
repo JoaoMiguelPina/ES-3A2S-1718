@@ -2,14 +2,11 @@ package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import org.joda.time.LocalDate;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 import pt.ulisboa.tecnico.softeng.broker.domain.BulkRoomBooking;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
-import pt.ulisboa.tecnico.softeng.hotel.domain.Booking;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
