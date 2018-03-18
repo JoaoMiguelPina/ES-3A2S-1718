@@ -12,7 +12,6 @@ import org.joda.time.LocalDate;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentingCheckArgumentsTest {
-	private final String NAME = "João Siva";
 	RentACar RAC = new RentACar("tuxedo cars");
 	private final LocalDate begin = new LocalDate(2016, 12, 19);
 	private final LocalDate end = new LocalDate(2016, 12, 21);
@@ -26,36 +25,39 @@ public class RentingCheckArgumentsTest {
 	@Test
 	public void success() {
 		Renting renting = new Renting("AAA111", this.begin, this.end, car);
+		Assert.assertTrue(renting.getBegin() == begin);
+		Assert.assertTrue(renting.getEnd() == end);
+		Assert.assertTrue(renting.getDrivingLicense() == "AAA111");
 	}
 	
 	@Test (expected = CarException.class)
 	public void nullCar() {
-		Renting renting = new Renting("AAA111", this.begin, this.end, null);
+		new Renting("AAA111", this.begin, this.end, null);
 	}
 	
 	@Test (expected = CarException.class)
 	public void nullDriving() {
-		Renting renting = new Renting(null, this.begin, this.end, car);
+		new Renting(null, this.begin, this.end, car);
 	}	
 	
 	@Test (expected = CarException.class)
 	public void stringVazia() {
-		Renting renting = new Renting("", this.begin, this.end, car);
+		new Renting("", this.begin, this.end, car);
 	}
 	
 	@Test (expected = CarException.class)
 	public void nullBegin() {
-		Renting renting = new Renting("AAA111", null, this.end, car);
+		new Renting("AAA111", null, this.end, car);
 	}
 	
 	@Test (expected = CarException.class)
 	public void nullEnd() {
-		Renting renting = new Renting("AAA111", this.begin, null, car);
+		new Renting("AAA111", this.begin, null, car);
 	}
 	
 	@Test (expected = CarException.class)
 	public void endBeforeBegin() {
-		Renting renting = new Renting("AAA111", this.end, this.begin, car);
+		new Renting("AAA111", this.end, this.begin, car);
 		
 	}
 	
@@ -66,37 +68,37 @@ public class RentingCheckArgumentsTest {
 	
 	@Test (expected = CarException.class)
 	public void invalidOnlyLetters() {
-		Renting renting = new Renting("AAAAAA", this.begin, this.end, car);	
+		new Renting("AAAAAA", this.begin, this.end, car);	
 	}
 	
 	@Test (expected = CarException.class)
 	public void invalidSingleLetter() {
-		Renting renting = new Renting("A", this.begin, this.end, car);	
+		new Renting("A", this.begin, this.end, car);	
 	}
 	
 	@Test (expected = CarException.class)
 	public void invalidOnlyNumbers() {
-		Renting renting = new Renting("111111", this.begin, this.end, car);	
+		new Renting("111111", this.begin, this.end, car);	
 	}
 	
 	@Test (expected = CarException.class)
 	public void invalidSingleNumber() {
-		Renting renting = new Renting("1", this.begin, this.end, car);	
+		new Renting("1", this.begin, this.end, car);	
 	}
 	
 	@Test (expected = CarException.class)
 	public void invalidNumbersBeforeLetters() {
-		Renting renting = new Renting("111AAA", this.begin, this.end, car);	
+		new Renting("111AAA", this.begin, this.end, car);	
 	}
 	
 	@Test (expected = CarException.class)
 	public void invalidSingleNumberBeforeLetter() {
-		Renting renting = new Renting("1A", this.begin, this.end, car);	
+		new Renting("1A", this.begin, this.end, car);	
 	}
 	
 	@Test (expected = CarException.class)
 	public void invalidMoreCombinations() {
-		Renting renting = new Renting("A1A1", this.begin, this.end, car);	
+		new Renting("A1A1", this.begin, this.end, car);	
 	}
 	
 	@After
