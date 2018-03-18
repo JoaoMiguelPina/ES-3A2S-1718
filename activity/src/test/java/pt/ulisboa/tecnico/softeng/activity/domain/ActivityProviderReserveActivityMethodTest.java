@@ -88,14 +88,43 @@ public class ActivityProviderReserveActivityMethodTest {
 	@Test(expected = ActivityException.class)
 	public void nullBeginDate() {
 		ActivityProvider.reserveActivity(null, end, AGE);
-
 	}
 
 	@Test(expected = ActivityException.class)
 	public void nullEndDate() {
 		ActivityProvider.reserveActivity(begin, null, AGE);
 	}
+	
+	@Test(expected = ActivityException.class)
+	public void sameDate() {
+		ActivityProvider.reserveActivity(begin, begin, AGE);
+	}
+	
+	@Test(expected = ActivityException.class)
+	public void beginOneDayEarly() {
+		ActivityProvider.reserveActivity(begin.minusDays(1), end, AGE);
+	}
+	
+	@Test(expected = ActivityException.class)
+	public void beginOneDayAfter() {
+		ActivityProvider.reserveActivity(begin.plusDays(1), end, AGE);
+	}
+	
+	@Test(expected = ActivityException.class)
+	public void endOneDayEarly() {
+		ActivityProvider.reserveActivity(begin, end.minusDays(1), AGE);
+	}
+	
+	@Test(expected = ActivityException.class)
+	public void endOneDayAfter() {
+		ActivityProvider.reserveActivity(begin, end.plusDays(1), AGE);
+	}
 
+	@Test(expected = ActivityException.class)
+	public void swapedDates() {
+		ActivityProvider.reserveActivity(end, begin, AGE);
+	}
+	
 	@After
 	public void tearDown() {
 		ActivityProvider.providers.clear();
