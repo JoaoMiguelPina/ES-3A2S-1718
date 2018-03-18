@@ -142,6 +142,11 @@ public class IRSSubmitInvoiceMethodTest {
 	
 	/*DATE TESTS*/
 	@Test(expected = TaxException.class)
+	public void nullDate(){
+		IRS.submitInvoice(new InvoiceData(SELLER_NIF, BUYER_NIF, this.itemType.getName(), VALUE, null));
+	}
+	
+	@Test(expected = TaxException.class)
 	public void yearBefore1970(){
 		IRS.submitInvoice(new InvoiceData(SELLER_NIF, BUYER_NIF, this.itemType.getName(), VALUE, new LocalDate(1969, 12, 31)));
 	}
