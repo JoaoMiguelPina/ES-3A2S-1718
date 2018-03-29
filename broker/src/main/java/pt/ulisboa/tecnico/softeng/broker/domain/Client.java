@@ -35,8 +35,8 @@ public class Client {
 		}
 	}
 
-	private void checkIban(String iban2) {
-		if(nif == null || nif.equals("") || (nif.trim()).equals("")){
+	private void checkIban(String iban) {
+		if(iban == null || iban.equals("") || (iban.trim()).equals("")){
 			throw new BrokerException();
 		}
 	}
@@ -54,10 +54,13 @@ public class Client {
 	}
 
 	private void checkDrivingLicense(String drivingLicense) {
+		if(drivingLicense == null){
+			return;
+		}
 		if(drivingLicense.equals("") || (drivingLicense.trim()).equals("")){
 			throw new BrokerException();
 		}
-		if(!nif.matches("[a-zA-Z]+[0-9]+")){
+		if(!drivingLicense.matches("[a-zA-Z]+[0-9]+")){
 			throw new BrokerException();
 		}
 	}

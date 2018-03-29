@@ -9,7 +9,7 @@ import org.junit.Test;
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 
 public class ClientConstructorMethodTest {
-	private static final Broker BROKER;
+	private static Broker BROKER;
 	private static final String IBAN = "11011";
 	private static final String NIF = "225031999";
 	private static final String DRIVING_LICENSE = "IMT123";
@@ -19,7 +19,7 @@ public class ClientConstructorMethodTest {
 
 	@Before
 	public void setUp(){
-		this.BROKER = new Broker("BR01", "WeExplore", "123456789", "987654321");
+		this.BROKER = new Broker("BR01", "WeExplore", "123456789", "987654321", "123");
 	}
 	
 	@Test
@@ -27,8 +27,8 @@ public class ClientConstructorMethodTest {
 		Client client = new Client(BROKER, IBAN, NIF, DRIVING_LICENSE, AGE);
 		
 		assertEquals(BROKER, client.getBroker());
-		assertEquals(IBAN, client.getIBAN());
-		assertEquals(NIF, client.getNIF());
+		assertEquals(IBAN, client.getIban());
+		assertEquals(NIF, client.getNif());
 		assertEquals(DRIVING_LICENSE, client.getDrivingLicense());
 		assertEquals(AGE, client.getAge());
 	}
@@ -88,10 +88,10 @@ public class ClientConstructorMethodTest {
 		Client client = new Client(BROKER, IBAN, NIF, DRIVING_LICENSE, MIN_AGE);
 		
 		assertEquals(BROKER, client.getBroker());
-		assertEquals(IBAN, client.getIBAN());
-		assertEquals(NIF, client.getNIF());
+		assertEquals(IBAN, client.getIban());
+		assertEquals(NIF, client.getNif());
 		assertEquals(DRIVING_LICENSE, client.getDrivingLicense());
-		assertEquals(AGE, client.getAge());
+		assertEquals(MIN_AGE, client.getAge());
 	}
 	
 	@Test
@@ -99,10 +99,10 @@ public class ClientConstructorMethodTest {
 		Client client = new Client(BROKER, IBAN, NIF, DRIVING_LICENSE, MIN_AGE + 1);
 		
 		assertEquals(BROKER, client.getBroker());
-		assertEquals(IBAN, client.getIBAN());
-		assertEquals(NIF, client.getNIF());
+		assertEquals(IBAN, client.getIban());
+		assertEquals(NIF, client.getNif());
 		assertEquals(DRIVING_LICENSE, client.getDrivingLicense());
-		assertEquals(AGE, client.getAge());
+		assertEquals(MIN_AGE + 1, client.getAge());
 	}
 	
 	@Test
@@ -110,10 +110,10 @@ public class ClientConstructorMethodTest {
 		Client client = new Client(BROKER, IBAN, NIF, DRIVING_LICENSE, MAX_AGE - 1);
 		
 		assertEquals(BROKER, client.getBroker());
-		assertEquals(IBAN, client.getIBAN());
-		assertEquals(NIF, client.getNIF());
+		assertEquals(IBAN, client.getIban());
+		assertEquals(NIF, client.getNif());
 		assertEquals(DRIVING_LICENSE, client.getDrivingLicense());
-		assertEquals(AGE, client.getAge());
+		assertEquals(MAX_AGE - 1, client.getAge());
 	}
 	
 	@Test
@@ -121,10 +121,10 @@ public class ClientConstructorMethodTest {
 		Client client = new Client(BROKER, IBAN, NIF, DRIVING_LICENSE, MAX_AGE);
 		
 		assertEquals(BROKER, client.getBroker());
-		assertEquals(IBAN, client.getIBAN());
-		assertEquals(NIF, client.getNIF());
+		assertEquals(IBAN, client.getIban());
+		assertEquals(NIF, client.getNif());
 		assertEquals(DRIVING_LICENSE, client.getDrivingLicense());
-		assertEquals(AGE, client.getAge());
+		assertEquals(MAX_AGE, client.getAge());
 	}
 	
 	@Test(expected = BrokerException.class)

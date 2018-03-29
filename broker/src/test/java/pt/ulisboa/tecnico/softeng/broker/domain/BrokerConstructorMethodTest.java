@@ -19,8 +19,8 @@ public class BrokerConstructorMethodTest {
 
 		Assert.assertEquals(CODE, broker.getCode());
 		Assert.assertEquals(NAME, broker.getName());
-		Assert.assertEquals(NIF_AS_SELLER, broker.getNifSeller());
-		Assert.assertEquals(NIF_AS_BUYER, broker.getNifBuyer());
+		Assert.assertEquals(NIF_AS_SELLER, broker.getNifAsSeller());
+		Assert.assertEquals(NIF_AS_BUYER, broker.getNifAsBuyer());
 		Assert.assertEquals(IBAN, broker.getIban());
 		Assert.assertEquals(0, broker.getNumberOfAdventures());
 		Assert.assertTrue(Broker.brokers.contains(broker));
@@ -173,7 +173,7 @@ public class BrokerConstructorMethodTest {
 	}
 	
 	@Test
-	public void uniqueNifSeller() {
+	public void uniqueNifBuyer() {
 		Broker broker = new Broker(CODE, NAME, NIF_AS_SELLER, NIF_AS_BUYER, IBAN);
 
 		try {
@@ -269,6 +269,16 @@ public class BrokerConstructorMethodTest {
 	public void tenDigitsNifBuyer() {
 		try {
 			new Broker(CODE, NAME, NIF_AS_SELLER, "1234567890", IBAN);
+			Assert.fail();
+		} catch (BrokerException be) {
+			Assert.assertEquals(0, Broker.brokers.size());
+		}
+	}
+	
+	@Test
+	public void nifSellerEqualsNifBuyer() {
+		try {
+			new Broker(CODE, NAME, NIF_AS_SELLER, NIF_AS_SELLER, IBAN);
 			Assert.fail();
 		} catch (BrokerException be) {
 			Assert.assertEquals(0, Broker.brokers.size());
