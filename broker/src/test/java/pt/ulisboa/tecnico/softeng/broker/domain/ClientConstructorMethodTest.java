@@ -31,6 +31,7 @@ public class ClientConstructorMethodTest {
 		assertEquals(NIF, client.getNif());
 		assertEquals(DRIVING_LICENSE, client.getDrivingLicense());
 		assertEquals(AGE, client.getAge());
+		assertEquals(client, BROKER.getClientByNif(NIF));
 	}
 	
 	/* NULL ARGUMENTS

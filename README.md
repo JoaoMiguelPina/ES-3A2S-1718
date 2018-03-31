@@ -12,7 +12,7 @@ To run tests execute: mvn clean install
 |   85080    |       João Pina         |     joaomfpina@tecnico.ulisboa.pt         | JoaoMiguelPina |   5   |
 |   83473    |     Hélio Domingos      |       helio_domingos@hotmail.com          |  heliodomingos |   6   |
 
-# Car & Broker
+# Broker
 
 |   Number   |          Name           | Grupo |
 | ---------- | ----------------------- | ----- |   
@@ -22,7 +22,7 @@ To run tests execute: mvn clean install
 
 
 
-# Tax, Activity, Bank & Hotel
+# Activity, Bank, Car, Hotel & Tax
 
 |   Number   |          Name           | Grupo |
 | ---------- | ----------------------- | ----- |
