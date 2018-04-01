@@ -10,45 +10,50 @@ public class Adventure {
 	private static Logger logger = LoggerFactory.getLogger(Adventure.class);
 
 	public static enum State {
-		PROCESS_PAYMENT, RESERVE_ACTIVITY, BOOK_ROOM, UNDO, CONFIRMED, CANCELLED
+		PROCESS_PAYMENT, RESERVE_ACTIVITY, BOOK_ROOM, RENT_VEHICLE, TAX_PAYMENT, UNDO, CONFIRMED, CANCELLED
 	}
 
 	private static int counter = 0;
 
 	private final String ID;
 	private final Broker broker;
+	private Client client;
+	private double marginOfProfit;
+	private boolean needsCar;
 	private final LocalDate begin;
 	private final LocalDate end;
-	private final int age;
-	private final String IBAN;
-	private final int amount;
+	private int amount = 0;
 	private String paymentConfirmation;
 	private String paymentCancellation;
 	private String roomConfirmation;
 	private String roomCancellation;
 	private String activityConfirmation;
 	private String activityCancellation;
+	private String vehicleConfirmation;
+	private String vehicleCancellation;
+	private String invoiceConfirmation;
+	private String invoiceCancellation;
 
 	private AdventureState state;
 
-	public Adventure(Broker broker, LocalDate begin, LocalDate end, int age, String IBAN, int amount) {
-		checkArguments(broker, begin, end, age, IBAN, amount);
+	public Adventure(Broker broker, LocalDate begin, LocalDate end, Client client, double marginOfProfit, boolean needsCar) {
+		checkArguments(broker, begin, end, client, marginOfProfit, needsCar);
 
 		this.ID = broker.getCode() + Integer.toString(++counter);
 		this.broker = broker;
 		this.begin = begin;
 		this.end = end;
-		this.age = age;
-		this.IBAN = IBAN;
-		this.amount = amount;
+		this.client = client;
+		this.marginOfProfit = marginOfProfit;
+		this.needsCar = needsCar;
 
 		broker.addAdventure(this);
 
-		setState(State.PROCESS_PAYMENT);
+		setState(State.RESERVE_ACTIVITY);
 	}
 
-	private void checkArguments(Broker broker, LocalDate begin, LocalDate end, int age, String IBAN, int amount) {
-		if (broker == null || begin == null || end == null || IBAN == null || IBAN.trim().length() == 0) {
+	private void checkArguments(Broker broker, LocalDate begin, LocalDate end, Client client, double marginOfProfit, boolean needsCar) {
+		if (broker == null || begin == null || end == null || client == null ) {
 			throw new BrokerException();
 		}
 
@@ -56,11 +61,7 @@ public class Adventure {
 			throw new BrokerException();
 		}
 
-		if (age < 18 || age > 100) {
-			throw new BrokerException();
-		}
-
-		if (amount < 1) {
+		if (marginOfProfit < 0 || marginOfProfit > 100) {
 			throw new BrokerException();
 		}
 	}
@@ -80,17 +81,39 @@ public class Adventure {
 	public LocalDate getEnd() {
 		return this.end;
 	}
-
-	public int getAge() {
-		return this.age;
+	
+	public double getMarginOfProfit() {
+		return this.marginOfProfit;
 	}
-
-	public String getIBAN() {
-		return this.IBAN;
+	
+	public boolean needsCar() {
+		return this.needsCar;
+	}
+	
+	public Client getClient() {
+		return this.client;
 	}
 
 	public int getAmount() {
 		return this.amount;
+	}
+	
+	public void addAmount(int amount) {
+		checkAmount(amount);
+		this.amount += amount;
+	}
+	
+	public void subtractAmount(int amount) {
+		checkAmount(amount);
+		this.amount -= amount;
+	}
+	
+	public void checkAmount(int amount) {
+		if (amount < 0) throw new BrokerException();
+	}
+	
+	public void resetAmount() {
+		this.amount = 0;
 	}
 
 	public String getPaymentConfirmation() {
@@ -140,6 +163,39 @@ public class Adventure {
 	public void setRoomCancellation(String roomCancellation) {
 		this.roomCancellation = roomCancellation;
 	}
+	
+	public String getVehicleConfirmation() {
+		return this.vehicleConfirmation;
+	}
+
+	public void setVehicleConfirmation(String vehicleConfirmation) {
+		this.vehicleConfirmation = vehicleConfirmation;
+	}
+	
+	
+	public String getVehicleCancellation() {
+		return this.vehicleCancellation;
+	}
+
+	public void setVehicleCancellation(String vehicleCancellation) {
+		this.vehicleCancellation = vehicleCancellation;
+	}
+	
+	public String getInvoiceConfirmation() {
+		return this.invoiceConfirmation;
+	}
+
+	public void setInvoiceConfirmation(String invoiceConfirmation) {
+		this.invoiceConfirmation = invoiceConfirmation;
+	}
+	
+	public String getInvoiceCancellation() {
+		return this.invoiceCancellation;
+	}
+
+	public void setInvoiceCancellation(String invoiceCancellation) {
+		this.invoiceCancellation = invoiceCancellation;
+	}
 
 	public State getState() {
 		return this.state.getState();
@@ -153,6 +209,18 @@ public class Adventure {
 		case RESERVE_ACTIVITY:
 			this.state = new ReserveActivityState();
 			break;
+			
+		// TODO: Create 	TaxPaymentState() and RentVehicleState() classes (see #226, #221).
+		// They are commented here so it is possible to run the tests.	
+		/*	
+		case TAX_PAYMENT:
+			this.state = new TaxPaymentState();
+			break;
+		case RENT_VEHICLE:
+			this.state = new RentVehicleState();
+			break;	
+		*/
+			
 		case BOOK_ROOM:
 			this.state = new BookRoomState();
 			break;
@@ -186,5 +254,14 @@ public class Adventure {
 	public boolean cancelPayment() {
 		return getPaymentConfirmation() != null && getPaymentCancellation() == null;
 	}
+	
+	public boolean cancelVehicle() {
+		return getVehicleConfirmation() != null && getVehicleCancellation() == null;
+	}
+
+	public boolean cancelInvoice() {
+		return getInvoiceConfirmation() != null && getInvoiceCancellation() == null;
+	}
+
 
 }

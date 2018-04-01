@@ -7,3 +7,5 @@ infer-out
 *.iml
 .idea
 .DS_Store
+/.metadata/
+/.metadata/

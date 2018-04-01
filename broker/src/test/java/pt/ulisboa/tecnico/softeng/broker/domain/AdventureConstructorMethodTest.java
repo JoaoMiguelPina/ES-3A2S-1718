@@ -14,7 +14,7 @@ public class AdventureConstructorMethodTest {
 	private final LocalDate begin = new LocalDate(2016, 12, 19);
 	private final LocalDate end = new LocalDate(2016, 12, 21);
 	private Client client;
-	private int marginOfProfit = 20;
+	private double marginOfProfit = 20;
 	private boolean needsCar = true;
 	
 	@Before
@@ -28,11 +28,12 @@ public class AdventureConstructorMethodTest {
 	public void success() {
 		Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, this.marginOfProfit, this.needsCar);
 
+		
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.end, adventure.getEnd());
 		Assert.assertEquals(this.client, adventure.getClient());
-		Assert.assertEquals(20, adventure.getMarginOfProfit());
+		Assert.assertEquals(20, adventure.getMarginOfProfit(), 0);
 		Assert.assertEquals(true, adventure.needsCar());
 		Assert.assertTrue(this.broker.hasAdventure(adventure));
 
@@ -63,15 +64,6 @@ public class AdventureConstructorMethodTest {
 		new Adventure(this.broker, this.begin, this.end, null, this.marginOfProfit, this.needsCar);
 	}
 	
-	@Test(expected = BrokerException.class)
-	public void nullMarginOfProfit() {
-		new Adventure(this.broker, this.begin, this.end, this.client, null, this.needsCar);
-	}
-	
-	@Test(expected = BrokerException.class)
-	public void nullNeedsCar() {
-		new Adventure(this.broker, this.begin, this.end, this.client, this.marginOfProfit, null);
-	}
 
 
 	@Test
@@ -82,7 +74,7 @@ public class AdventureConstructorMethodTest {
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.end, adventure.getEnd());
 		Assert.assertEquals(this.client, adventure.getClient());
-		Assert.assertEquals(20, adventure.getMarginOfProfit());
+		Assert.assertEquals(100, adventure.getMarginOfProfit(), 0);
 		Assert.assertEquals(true, adventure.needsCar());
 		Assert.assertTrue(this.broker.hasAdventure(adventure));
 
@@ -100,7 +92,7 @@ public class AdventureConstructorMethodTest {
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.end, adventure.getEnd());
 		Assert.assertEquals(this.client, adventure.getClient());
-		Assert.assertEquals(20, adventure.getMarginOfProfit());
+		Assert.assertEquals(0, adventure.getMarginOfProfit(), 0);
 		Assert.assertEquals(true, adventure.needsCar());
 		Assert.assertTrue(this.broker.hasAdventure(adventure));
 
@@ -140,9 +132,9 @@ public class AdventureConstructorMethodTest {
 
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
-		Assert.assertEquals(this.begin, adventure.getEnd());
+		Assert.assertEquals(this.end, adventure.getEnd());
 		Assert.assertEquals(this.client, adventure.getClient());
-		Assert.assertEquals(20, adventure.getMarginOfProfit());
+		Assert.assertEquals(20, adventure.getMarginOfProfit(), 0);
 		Assert.assertEquals(true, adventure.needsCar());
 		Assert.assertTrue(this.broker.hasAdventure(adventure));
 
@@ -158,14 +150,13 @@ public class AdventureConstructorMethodTest {
 		Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, this.marginOfProfit, this.needsCar);
 		
 		adventure.addAmount(50);
-		adventure.subtractAmount(25);
 		
-		Assert.assertEquals(25, adventure.getAmount());
+		Assert.assertEquals(50, adventure.getAmount());
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
-		Assert.assertEquals(this.begin, adventure.getEnd());
+		Assert.assertEquals(this.end, adventure.getEnd());
 		Assert.assertEquals(this.client, adventure.getClient());
-		Assert.assertEquals(20, adventure.getMarginOfProfit());
+		Assert.assertEquals(20, adventure.getMarginOfProfit(), 0);
 		Assert.assertEquals(true, adventure.needsCar());
 		Assert.assertTrue(this.broker.hasAdventure(adventure));
 
@@ -188,9 +179,9 @@ public class AdventureConstructorMethodTest {
 		Assert.assertEquals(0, adventure.getAmount());
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
-		Assert.assertEquals(this.begin, adventure.getEnd());
+		Assert.assertEquals(this.end, adventure.getEnd());
 		Assert.assertEquals(this.client, adventure.getClient());
-		Assert.assertEquals(20, adventure.getMarginOfProfit());
+		Assert.assertEquals(20, adventure.getMarginOfProfit(), 0);
 		Assert.assertEquals(true, adventure.needsCar());
 		Assert.assertTrue(this.broker.hasAdventure(adventure));
 
@@ -199,6 +190,84 @@ public class AdventureConstructorMethodTest {
 		Assert.assertNull(adventure.getRoomConfirmation());
 		Assert.assertNull(adventure.getVehicleConfirmation());
 		Assert.assertNull(adventure.getInvoiceConfirmation());
+	}
+	
+	@Test
+	public void successConfirmation() {
+		Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, this.marginOfProfit, this.needsCar);
+		
+		adventure.setPaymentConfirmation("CONFIRMED");
+		adventure.setActivityConfirmation("CONFIRMED");
+		adventure.setRoomConfirmation("CONFIRMED");
+		adventure.setVehicleConfirmation("CONFIRMED");
+		adventure.setInvoiceConfirmation("CONFIRMED");
+		
+		Assert.assertEquals(0, adventure.getAmount());
+		Assert.assertEquals(this.broker, adventure.getBroker());
+		Assert.assertEquals(this.begin, adventure.getBegin());
+		Assert.assertEquals(this.end, adventure.getEnd());
+		Assert.assertEquals(this.client, adventure.getClient());
+		Assert.assertEquals(20, adventure.getMarginOfProfit(), 0);
+		Assert.assertEquals(true, adventure.needsCar());
+		Assert.assertTrue(this.broker.hasAdventure(adventure));
+
+		Assert.assertEquals("CONFIRMED", adventure.getPaymentConfirmation());
+		Assert.assertEquals("CONFIRMED" ,adventure.getActivityConfirmation());
+		Assert.assertEquals("CONFIRMED", adventure.getRoomConfirmation());
+		Assert.assertEquals("CONFIRMED", adventure.getVehicleConfirmation());
+		Assert.assertEquals("CONFIRMED", adventure.getInvoiceConfirmation());
+	}
+	
+	@Test
+	public void successCancellation() {
+		Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, this.marginOfProfit, this.needsCar);
+		
+		adventure.setPaymentCancellation("CANCELLED");
+		adventure.setActivityCancellation("CANCELLED");
+		adventure.setRoomCancellation("CANCELLED");
+		adventure.setVehicleCancellation("CANCELLED");
+		adventure.setInvoiceCancellation("CANCELLED");
+		
+		Assert.assertEquals(0, adventure.getAmount());
+		Assert.assertEquals(this.broker, adventure.getBroker());
+		Assert.assertEquals(this.begin, adventure.getBegin());
+		Assert.assertEquals(this.end, adventure.getEnd());
+		Assert.assertEquals(this.client, adventure.getClient());
+		Assert.assertEquals(20, adventure.getMarginOfProfit(), 0);
+		Assert.assertEquals(true, adventure.needsCar());
+		Assert.assertTrue(this.broker.hasAdventure(adventure));
+
+		Assert.assertEquals("CANCELLED", adventure.getPaymentCancellation());
+		Assert.assertEquals("CANCELLED" ,adventure.getActivityCancellation());
+		Assert.assertEquals("CANCELLED", adventure.getRoomCancellation());
+		Assert.assertEquals("CANCELLED", adventure.getVehicleCancellation());
+		Assert.assertEquals("CANCELLED", adventure.getInvoiceCancellation());
+	}
+	
+	@Test
+	public void successCancel() {
+		Adventure adventure = new Adventure(this.broker, this.begin, this.end, this.client, this.marginOfProfit, this.needsCar);
+		
+		adventure.setPaymentConfirmation("CONFIRMED");
+		adventure.setActivityConfirmation("CONFIRMED");
+		adventure.setRoomConfirmation("CONFIRMED");
+		adventure.setVehicleConfirmation("CONFIRMED");
+		adventure.setInvoiceConfirmation("CONFIRMED");
+		
+		Assert.assertEquals(0, adventure.getAmount());
+		Assert.assertEquals(this.broker, adventure.getBroker());
+		Assert.assertEquals(this.begin, adventure.getBegin());
+		Assert.assertEquals(this.end, adventure.getEnd());
+		Assert.assertEquals(this.client, adventure.getClient());
+		Assert.assertEquals(20, adventure.getMarginOfProfit(), 0);
+		Assert.assertEquals(true, adventure.needsCar());
+		Assert.assertTrue(this.broker.hasAdventure(adventure));
+
+		Assert.assertEquals(true, adventure.cancelRoom());
+		Assert.assertEquals(true ,adventure.cancelActivity());
+		Assert.assertEquals(true, adventure.cancelPayment());
+		Assert.assertEquals(true, adventure.cancelVehicle());
+		Assert.assertEquals(true, adventure.cancelInvoice());
 	}
 
 	@Test(expected = BrokerException.class)
