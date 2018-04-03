@@ -18,14 +18,18 @@ public class Hotel {
 	private final Set<Room> rooms = new HashSet<>();
 	private final String NIF;
 	private final String IBAN;
+	private final double priceSingle;
+	private final double priceDouble;
 
-	public Hotel(String code, String name, String nif, String iban) {
+	public Hotel(String code, String name, String nif, String iban, double priceS, double priceD) {
 		checkArguments(code, name);
 
 		this.code = code;
 		this.name = name;
 		this.NIF = nif;
 		this.IBAN = iban;
+		this.priceSingle = priceS;
+		this.priceDouble = priceD;
 		Hotel.hotels.add(this);
 	}
 
@@ -173,6 +177,14 @@ public class Hotel {
     public void removeRooms() {
         rooms.clear();
     }
+
+	public double getPriceDouble() {
+		return priceDouble;
+	}
+
+	public double getPriceSingle() {
+		return priceSingle;
+	}
 
 	
 }
