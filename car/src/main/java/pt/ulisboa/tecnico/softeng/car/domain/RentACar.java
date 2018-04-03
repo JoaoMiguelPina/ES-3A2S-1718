@@ -18,9 +18,13 @@ public class RentACar {
 	private final String name;
 	private final String code;
 	private final Map<String, Vehicle> vehicles = new HashMap<>();
+	private final String NIF;
+	private final String IBAN;
 
-	public RentACar(String name) {
+	public RentACar(String name, String nif, String iban) {
 		checkArguments(name);
+		this.NIF = nif;
+		this.IBAN = iban;
 		this.name = name;
 		this.code = Integer.toString(++RentACar.counter);
 
@@ -112,5 +116,13 @@ public class RentACar {
 			renting.getBegin(),
 			renting.getEnd()
 		);
+	}
+
+	public String getNIF() {
+		return NIF;
+	}
+
+	public String getIBAN() {
+		return IBAN;
 	}
 }
