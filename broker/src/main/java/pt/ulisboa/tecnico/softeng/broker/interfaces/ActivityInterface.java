@@ -8,7 +8,6 @@ import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
 public class ActivityInterface {
 
 	public static String reserveActivity(LocalDate begin, LocalDate end, int age, String NIF, String IBAN) {
-		
 		return ActivityProvider.reserveActivity(begin, end, age, NIF, IBAN);
 	}
 

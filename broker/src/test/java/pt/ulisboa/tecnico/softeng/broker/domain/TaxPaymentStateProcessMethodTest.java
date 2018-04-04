@@ -9,10 +9,9 @@ import org.junit.runner.RunWith;
 
 import mockit.Delegate;
 import mockit.Expectations;
-import mockit.FullVerifications;
 import mockit.Mocked;
 import mockit.integration.junit4.JMockit;
-import pt.ulisboa.tecnico.softeng.activity.interfaces.TaxInterface;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
@@ -120,13 +119,11 @@ public class TaxPaymentStateProcessMethodTest {
 						}
 					}
 				};
-				this.times = 5;
+				this.times = 3;
 
 			}
 		};
 
-		this.adventure.process();
-		this.adventure.process();
 		this.adventure.process();
 		this.adventure.process();
 		this.adventure.process();
