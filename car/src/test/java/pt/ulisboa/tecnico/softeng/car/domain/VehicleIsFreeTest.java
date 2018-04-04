@@ -11,6 +11,9 @@ public class VehicleIsFreeTest {
 
 	private static final String PLATE_CAR = "22-33-HZ";
 	private static final String RENT_A_CAR_NAME = "Eartz";
+	private static final String NIF = "224194217";
+	private static final String IBAN = "1234567890";
+	private static final int PRICE = 123;
 	private static final String DRIVING_LICENSE = "lx1423";
 	private static final LocalDate date1 = LocalDate.parse("2018-01-06");
 	private static final LocalDate date2 = LocalDate.parse("2018-01-07");
@@ -20,8 +23,8 @@ public class VehicleIsFreeTest {
 
 	@Before
 	public void setUp() {
-		RentACar rentACar = new RentACar(RENT_A_CAR_NAME);
-		this.car = new Car(PLATE_CAR, 10, rentACar);
+		RentACar rentACar = new RentACar(RENT_A_CAR_NAME, NIF, IBAN);
+		this.car = new Car(PLATE_CAR, 10, PRICE, rentACar);
 	}
 
 	@Test

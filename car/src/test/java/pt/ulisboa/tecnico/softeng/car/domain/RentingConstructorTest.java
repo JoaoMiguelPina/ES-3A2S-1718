@@ -11,6 +11,9 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentingConstructorTest {
 	private static final String RENT_A_CAR_NAME = "Eartz";
+	private static final String NIF = "224194217";
+	private static final String IBAN = "1234567890";
+	private static final int PRICE = 123;
 	private static final String PLATE_CAR = "22-33-HZ";
 	private static final String DRIVING_LICENSE = "br112233";
 	private static final LocalDate date1 = LocalDate.parse("2018-01-06");
@@ -19,8 +22,8 @@ public class RentingConstructorTest {
 
 	@Before
 	public void setUp() {
-		RentACar rentACar1 = new RentACar(RENT_A_CAR_NAME);
-		this.car = new Car(PLATE_CAR, 10, rentACar1);
+		RentACar rentACar1 = new RentACar(RENT_A_CAR_NAME, NIF, IBAN);
+		this.car = new Car(PLATE_CAR, 10, PRICE, rentACar1);
 	}
 
 	@Test
