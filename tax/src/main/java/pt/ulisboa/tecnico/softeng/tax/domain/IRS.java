@@ -6,7 +6,7 @@ import java.util.Set;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 
 public class IRS {
-	private final Set<TaxPayer> taxPayers = new HashSet<>();
+	private final static Set<TaxPayer> taxPayers = new HashSet<>();
 	private final Set<ItemType> itemTypes = new HashSet<>(); 
 
 	private static IRS instance;
@@ -58,7 +58,15 @@ public class IRS {
 	}
 	
 	public static void cancelInvoice(String invoiceReference) {
-		IRS irs = IRS.getIRS();
+
+		//temos que ir a hash invoices de taxpayer e remover a correspondente a reference
+		//mudei o vetor taxPayers para static
+		for (TaxPayer tp : taxPayers) {
+			for(Invoice invoice : tp.invoices) {
+				if(invoice.getReference() == invoiceReference)
+					tp.removeInvoice(invoice);
+			}
+		}
 		
 	}
 
