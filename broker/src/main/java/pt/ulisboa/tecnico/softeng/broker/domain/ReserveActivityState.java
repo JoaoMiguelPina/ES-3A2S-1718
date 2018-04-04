@@ -19,6 +19,8 @@ public class ReserveActivityState extends AdventureState {
 			Client client =  adventure.getClient();
 			reference = ActivityInterface.reserveActivity(adventure.getBegin(), adventure.getEnd(), client.getAge(), client.getNif(), client.getIban());
 			adventure.setActivityConfirmation(reference);
+
+			adventure.addAmount(ActivityInterface.getActivityReservationData(reference).getAmount());
 		} catch (ActivityException ae) {
 			adventure.setState(State.UNDO);
 			return;
@@ -29,15 +31,14 @@ public class ReserveActivityState extends AdventureState {
 			}
 			return;
 		}
-
+		
+	
 		if (adventure.getBegin().equals(adventure.getEnd())) {
 			if (adventure.needsCar()) {
 				
 				adventure.setState(State.RENT_VEHICLE);
-				System.out.println(adventure.getState());
 			} 
 			else {
-				adventure.addAmount((int)ActivityInterface.getActivityReservationData(reference).getAmount());
 				adventure.setState(State.PROCESS_PAYMENT);
 		
 			}

@@ -22,7 +22,7 @@ public class Adventure {
 	private boolean needsCar;
 	private final LocalDate begin;
 	private final LocalDate end;
-	private int amount = 0;
+	private double amount = 0;
 	private String paymentConfirmation;
 	private String paymentCancellation;
 	private String roomConfirmation;
@@ -94,11 +94,11 @@ public class Adventure {
 		return this.client;
 	}
 
-	public int getAmount() {
+	public double getAmount() {
 		return this.amount;
 	}
 	
-	public void addAmount(int amount) {
+	public void addAmount(double amount) {
 		checkAmount(amount);
 		this.amount += amount;
 	}
@@ -108,7 +108,7 @@ public class Adventure {
 		this.amount -= amount;
 	}
 	
-	public void checkAmount(int amount) {
+	public void checkAmount(double amount) {
 		if (amount < 0) throw new BrokerException();
 	}
 	
