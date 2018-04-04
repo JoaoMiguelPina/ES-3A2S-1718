@@ -13,9 +13,9 @@ import mockit.Mocked;
 import mockit.integration.junit4.JMockit;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
-import pt.ulisboa.tecnico.softeng.tax.interfaces.HotelInterface;
 
 @RunWith(JMockit.class)
 public class BookRoomStateMethodTest {

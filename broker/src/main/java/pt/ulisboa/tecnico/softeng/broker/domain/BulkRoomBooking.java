@@ -6,9 +6,9 @@ import java.util.Set;
 import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
 import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
-import pt.ulisboa.tecnico.softeng.tax.interfaces.HotelInterface;
 
 public class BulkRoomBooking {
 	public static final int MAX_HOTEL_EXCEPTIONS = 3;

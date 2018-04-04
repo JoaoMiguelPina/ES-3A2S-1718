@@ -20,8 +20,6 @@ public class RentACar {
 	private final Map<String, Vehicle> vehicles = new HashMap<>();
 	private final String NIF;
 	private final String IBAN;
-	
-	
 
 	public RentACar(String name, String nif, String iban) {
 		checkArguments(name);
@@ -32,8 +30,6 @@ public class RentACar {
 
 		rentACars.add(this);
 	}
-	
-	
 
 	private void checkArguments(String name) {
 		if (name == null || name.isEmpty()) {
