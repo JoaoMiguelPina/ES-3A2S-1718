@@ -61,6 +61,7 @@ public class IRS {
 
 		//temos que ir a hash invoices de taxpayer e remover a correspondente a reference
 		//mudei o vetor taxPayers para static
+		//disclaimer: nao sei se esta correto lolz
 		for (TaxPayer tp : taxPayers) {
 			for(Invoice invoice : tp.invoices) {
 				if(invoice.getReference() == invoiceReference)

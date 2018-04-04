@@ -16,10 +16,15 @@ public class RoomGetBookingMethodTest {
 	private Hotel hotel;
 	private Room room;
 	private Booking booking;
+	private static final String NIF = "224194217";
+	private static final String IBAN = "1234567890";
+	private static final double PRICES = 123;
+	private static final double PRICED = 124;
+
 
 	@Before
 	public void setUp() {
-		this.hotel = new Hotel("XPTO123", "Lisboa");
+		this.hotel = new Hotel("XPTO123", "Lisboa", NIF, IBAN, PRICES, PRICED);
 		this.room = new Room(this.hotel, "01", Type.SINGLE);
 		this.booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure);
 	}
