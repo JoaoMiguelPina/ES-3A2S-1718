@@ -7,7 +7,6 @@ import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 
 public class ReserveActivityState extends AdventureState {
 	public static final int MAX_REMOTE_ERRORS = 5;
-
 	@Override
 	public State getState() {
 		return State.RESERVE_ACTIVITY;
@@ -16,8 +15,9 @@ public class ReserveActivityState extends AdventureState {
 	@Override
 	public void process(Adventure adventure) {
 		try {
+			Client client =  adventure.getClient();
 			adventure.setActivityConfirmation(
-					ActivityInterface.reserveActivity(adventure.getBegin(), adventure.getEnd(), adventure.getAge()));
+					ActivityInterface.reserveActivity(adventure.getBegin(), adventure.getEnd(), client.getAge(), client.getNif(), client.getIban()));
 		} catch (ActivityException ae) {
 			adventure.setState(State.UNDO);
 			return;
