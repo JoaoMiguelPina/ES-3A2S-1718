@@ -13,6 +13,14 @@ public class RentACarGetAllAvailableVehiclesTest {
 
 	private static final String NAME1 = "eartz";
 	private static final String NAME2 = "eartz";
+	
+	private static final String NIF1 = "224194217";
+	private static final String IBAN1 = "1234567890";
+	private static final String NIF2 = "224194217";
+	private static final String IBAN2 = "1234567890";
+	private static final int PRICE1 = 12;
+	private static final int PRICE2 = 14;
+	
 	private static final String PLATE_CAR1 = "aa-00-11";
 	private static final String PLATE_CAR2 = "aa-00-22";
 	private static final String PLATE_MOTORCYCLE = "44-33-HZ";
@@ -26,16 +34,16 @@ public class RentACarGetAllAvailableVehiclesTest {
 
 	@Before
 	public void setUp() {
-		this.rentACar1 = new RentACar(NAME1);
-		this.rentACar2 = new RentACar(NAME2);
+		this.rentACar1 = new RentACar(NAME1, NIF1, IBAN1);
+		this.rentACar2 = new RentACar(NAME2, NIF2, IBAN2);
 	}
 
 	@Test
 	public void onlyCars() {
-		Vehicle car1 = new Car(PLATE_CAR1, 10, rentACar1);
+		Vehicle car1 = new Car(PLATE_CAR1, 10, PRICE1, rentACar1);
 		car1.rent(DRIVING_LICENSE, date1, date2);
-		Vehicle car2 = new Car(PLATE_CAR2, 10, rentACar2);
-		Vehicle motorcycle = new Motorcycle(PLATE_MOTORCYCLE, 10, rentACar1);
+		Vehicle car2 = new Car(PLATE_CAR2, 10, PRICE2, rentACar2);
+		Vehicle motorcycle = new Motorcycle(PLATE_MOTORCYCLE, 10, PRICE1, rentACar1);
 
 		Set<Vehicle> cars = RentACar.getAllAvailableCars(date3, date4);
 		assertTrue(cars.contains(car1));
@@ -45,8 +53,8 @@ public class RentACarGetAllAvailableVehiclesTest {
 
 	@Test
 	public void onlyAvailableCars() {
-		Vehicle car1 = new Car(PLATE_CAR1, 10, rentACar1);
-		Vehicle car2 = new Car(PLATE_CAR2, 10, rentACar2);
+		Vehicle car1 = new Car(PLATE_CAR1, 10, PRICE1, rentACar1);
+		Vehicle car2 = new Car(PLATE_CAR2, 10, PRICE2, rentACar2);
 
 		car1.rent(DRIVING_LICENSE, date1, date2);
 		Set<Vehicle> cars = RentACar.getAllAvailableCars(date1, date2);
@@ -57,8 +65,8 @@ public class RentACarGetAllAvailableVehiclesTest {
 	
 	@Test
 	public void onlyMotorcycles() {
-		Vehicle car = new Car(PLATE_CAR1, 10, rentACar1);
-		Vehicle motorcycle = new Motorcycle(PLATE_MOTORCYCLE, 10, rentACar1);
+		Vehicle car = new Car(PLATE_CAR1, 10, PRICE1, rentACar1);
+		Vehicle motorcycle = new Motorcycle(PLATE_MOTORCYCLE, 10, PRICE2, rentACar1);
 
 		Set<Vehicle> cars = RentACar.getAllAvailableMotorcycles(date3, date4);
 		assertTrue(cars.contains(motorcycle));
