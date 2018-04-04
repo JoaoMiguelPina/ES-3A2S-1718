@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 
 import mockit.Delegate;
 import mockit.Expectations;
-import mockit.Injectable;
+import mockit.FullVerifications;
 import mockit.Mocked;
 import mockit.integration.junit4.JMockit;
 import pt.ulisboa.tecnico.softeng.activity.interfaces.TaxInterface;
@@ -21,20 +21,16 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 @RunWith(JMockit.class)
 public class TaxPaymentStateProcessMethodTest {
 	private static final String INVOICE_SUBMITTED = "InvoiceSubmitted";
+	private Broker broker;
 	private final LocalDate begin = new LocalDate(2016, 12, 19);
 	private final LocalDate end = new LocalDate(2016, 12, 21);
 	private Adventure adventure;
 	private Client client;
 	private double marginOfProfit = 20;
 	private boolean needsCar = true;
-	private InvoiceData invoice;
-
-	@Injectable
-	private Broker broker;
 
 	@Before
 	public void setUp() {
-		
 		this.broker = new Broker("BR01", "eXtremeADVENTURE", "123456789", "987654321", "123");
 		this.client = new Client(this.broker, "BK011234567", "225031999", "IMT123", 20);
 		this.adventure = new Adventure(this.broker, this.begin, this.end, this.client, this.marginOfProfit, this.needsCar);
@@ -45,7 +41,7 @@ public class TaxPaymentStateProcessMethodTest {
 	public void success(@Mocked final TaxInterface taxInterface) {
 		new Expectations() {
 			{
-				TaxInterface.submitInvoice(invoice);
+				TaxInterface.submitInvoice((InvoiceData) this.withNotNull());
 				this.result = INVOICE_SUBMITTED;
 			}
 		};
@@ -53,6 +49,7 @@ public class TaxPaymentStateProcessMethodTest {
 		this.adventure.process();
 
 		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+		
 	}
 
 
@@ -60,7 +57,7 @@ public class TaxPaymentStateProcessMethodTest {
 	public void singleRemoteAccessException(@Mocked final TaxInterface taxInterface) {
 		new Expectations() {
 			{
-				TaxInterface.submitInvoice(invoice);
+				TaxInterface.submitInvoice((InvoiceData) this.withNotNull());
 				this.result = new RemoteAccessException();
 			}
 		};
@@ -74,7 +71,7 @@ public class TaxPaymentStateProcessMethodTest {
 	public void maxMinusOneRemoteAccessException(@Mocked final TaxInterface taxInterface) {
 		new Expectations() {
 			{
-				TaxInterface.submitInvoice(invoice);
+				TaxInterface.submitInvoice((InvoiceData) this.withNotNull());
 				this.result = new RemoteAccessException();
 			}
 		};
@@ -91,7 +88,7 @@ public class TaxPaymentStateProcessMethodTest {
 	public void maxRemoteAccessException(@Mocked final TaxInterface taxInterface) {
 		new Expectations() {
 			{
-				TaxInterface.submitInvoice(invoice);
+				TaxInterface.submitInvoice((InvoiceData) this.withNotNull());
 				this.result = new RemoteAccessException();
 			}
 		};
@@ -110,7 +107,7 @@ public class TaxPaymentStateProcessMethodTest {
 	public void twoRemoteAccessExceptionOneSuccess(@Mocked final TaxInterface taxInterface) {
 		new Expectations() {
 			{
-				TaxInterface.submitInvoice(invoice);
+				TaxInterface.submitInvoice((InvoiceData) this.withNotNull());
 				this.result = new Delegate() {
 					int i = 0;
 
@@ -141,7 +138,7 @@ public class TaxPaymentStateProcessMethodTest {
 	public void oneRemoteAccessExceptionOneBankException(@Mocked final TaxInterface taxInterface) {
 		new Expectations() {
 			{
-				TaxInterface.submitInvoice(invoice);
+				TaxInterface.submitInvoice((InvoiceData) this.withNotNull());
 				
 				this.result = new Delegate() {
 					int i = 0;

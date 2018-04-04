@@ -18,10 +18,19 @@ public class TaxPaymentState extends AdventureState {
 	@Override
 	public void process(Adventure adventure) {
 		try {
-			InvoiceData invoiceData1 = new InvoiceData(adventure.getBroker().getNifAsSeller(), adventure.getClient().getNif(), "ADVENTURE", adventure.getAmount() + adventure.getAmount()*adventure.getMarginOfProfit(), adventure.getBegin());
-			adventure.setInvoiceConfirmation(TaxInterface.submitInvoice(invoiceData1));
+			InvoiceData invoiceData = new InvoiceData(adventure.getBroker().getNifAsSeller(), 
+													   adventure.getClient().getNif(), 
+													   "ADVENTURE", 
+													   adventure.getAmount() + adventure.getAmount()*adventure.getMarginOfProfit(), 
+													   adventure.getBegin());
+			adventure.setInvoiceConfirmation(TaxInterface.submitInvoice(invoiceData));
 			
-		} catch (RemoteAccessException rae) {
+		} 
+		catch (TaxException te) {
+			adventure.setState(State.UNDO);
+			return;
+		}
+		catch (RemoteAccessException rae) {
 			incNumOfRemoteErrors();
 			if (getNumOfRemoteErrors() == MAX_REMOTE_ERRORS) {
 				adventure.setState(State.UNDO);
