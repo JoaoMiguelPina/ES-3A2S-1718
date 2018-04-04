@@ -22,7 +22,7 @@ public class RentACar {
 	private final String IBAN;
 
 	public RentACar(String name, String nif, String iban) {
-		checkArguments(name);
+		checkArguments(name, nif, name);
 		this.NIF = nif;
 		this.IBAN = iban;
 		this.name = name;
@@ -31,8 +31,8 @@ public class RentACar {
 		rentACars.add(this);
 	}
 
-	private void checkArguments(String name) {
-		if (name == null || name.isEmpty()) {
+	private void checkArguments(String name, String nif, String iBan) {
+		if (name == null || name.isEmpty() || nif == null || nif.isEmpty() || iBan == null || iBan.isEmpty()) {
 			throw new CarException();
 		}
 	}
