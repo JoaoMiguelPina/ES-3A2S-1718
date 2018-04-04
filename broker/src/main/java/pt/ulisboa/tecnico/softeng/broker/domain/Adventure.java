@@ -212,10 +212,12 @@ public class Adventure {
 			
 		// TODO: Create 	TaxPaymentState() and RentVehicleState() classes (see #226, #221).
 		// They are commented here so it is possible to run the tests.	
-		/*	
+		
 		case TAX_PAYMENT:
 			this.state = new TaxPaymentState();
 			break;
+			
+			/*
 		case RENT_VEHICLE:
 			this.state = new RentVehicleState();
 			break;	

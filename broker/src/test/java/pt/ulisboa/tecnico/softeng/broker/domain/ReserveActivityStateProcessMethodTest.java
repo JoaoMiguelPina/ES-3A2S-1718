@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import org.joda.time.LocalDate;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -277,5 +278,10 @@ public class ReserveActivityStateProcessMethodTest {
 		this.adventure.process();
 
 		Assert.assertEquals(State.PROCESS_PAYMENT, this.adventure.getState());
+	}
+	
+	@After
+	public void tearDown() {
+		Broker.brokers.clear();
 	}
 }
