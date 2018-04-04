@@ -2,6 +2,7 @@ package pt.ulisboa.tecnico.softeng.broker.interfaces;
 
 import pt.ulisboa.tecnico.softeng.bank.dataobjects.BankOperationData;
 import pt.ulisboa.tecnico.softeng.bank.domain.Bank;
+import pt.ulisboa.tecnico.softeng.car.domain.RentACar;
 
 import org.joda.time.LocalDate;
 
