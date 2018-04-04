@@ -14,7 +14,7 @@ import mockit.integration.junit4.JMockit;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
-import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
+import pt.ulisboa.tecnico.softeng.tax.interfaces.ActivityInterface;
 
 @RunWith(JMockit.class)
 public class ReserveActivityStateProcessMethodTest {
