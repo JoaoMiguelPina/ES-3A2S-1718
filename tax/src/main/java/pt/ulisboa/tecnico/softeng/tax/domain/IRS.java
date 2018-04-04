@@ -7,7 +7,7 @@ import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 
 public class IRS {
 	private final Set<TaxPayer> taxPayers = new HashSet<>();
-	private final Set<ItemType> itemTypes = new HashSet<>();
+	private final Set<ItemType> itemTypes = new HashSet<>(); 
 
 	private static IRS instance;
 
@@ -55,6 +55,11 @@ public class IRS {
 		Invoice invoice = new Invoice(invoiceData.getValue(), invoiceData.getDate(), itemType, seller, buyer);
 
 		return invoice.getReference();
+	}
+	
+	public static void cancelInvoice(String invoiceReference) {
+		IRS irs = IRS.getIRS();
+		
 	}
 
 	public void removeItemTypes() {

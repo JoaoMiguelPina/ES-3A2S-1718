@@ -5,7 +5,7 @@ import org.joda.time.LocalDate;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class Invoice {
-	private static int counter = 0;
+	private static int counter = 0; 
 
 	private final String reference;
 	private final double value;

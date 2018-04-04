@@ -9,7 +9,7 @@ public class InvoiceData {
 	private double value;
 	private LocalDate date;
 
-	public InvoiceData() {
+	public InvoiceData() { 
 	}
 
 	public InvoiceData(String sellerNIF, String buyerNIF, String itemType, double value, LocalDate date) {
