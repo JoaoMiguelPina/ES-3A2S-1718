@@ -202,6 +202,7 @@ public class Adventure {
 	}
 
 	public void setState(State state) {
+		
 		switch (state) {
 		case PROCESS_PAYMENT:
 			this.state = new ProcessPaymentState();
