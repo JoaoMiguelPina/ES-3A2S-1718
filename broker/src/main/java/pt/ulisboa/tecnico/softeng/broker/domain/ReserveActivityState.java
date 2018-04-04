@@ -32,7 +32,9 @@ public class ReserveActivityState extends AdventureState {
 
 		if (adventure.getBegin().equals(adventure.getEnd())) {
 			if (adventure.needsCar()) {
+				
 				adventure.setState(State.RENT_VEHICLE);
+				System.out.println(adventure.getState());
 			} 
 			else {
 				adventure.addAmount((int)ActivityInterface.getActivityReservationData(reference).getAmount());

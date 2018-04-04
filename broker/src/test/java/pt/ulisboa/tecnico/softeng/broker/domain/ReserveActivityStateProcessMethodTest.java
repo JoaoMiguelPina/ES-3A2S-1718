@@ -34,14 +34,15 @@ public class ReserveActivityStateProcessMethodTest {
 	private static final String brokerNIFSeller = "923456789";
 	private static final String brokerNIFBuyer = "823456789";
 	
-	private Adventure adventure;
+	
 	
 	
 	private Broker broker = new Broker(code, name, brokerNIFSeller, brokerNIFBuyer, brokerIBAN);
 
 	private Client client = new Client(this.broker, IBAN, NIF, driving_license, AGE); 
 	
-
+	private Adventure adventure = new Adventure(this.broker, begin, end, client, AMOUNT, true);
+	
 	@Test
 	public void successNoBookRoom(@Mocked final ActivityInterface activityInterface) {
 		
@@ -50,14 +51,14 @@ public class ReserveActivityStateProcessMethodTest {
 
 		new Expectations() {
 			{
-				ActivityInterface.reserveActivity(begin, begin, AGE, NIF, IBAN);
+				ActivityInterface.reserveActivity(begin, end, AGE, NIF, IBAN);
 				this.result = ACTIVITY_CONFIRMATION;
 			}
 		};
 
 		sameDayAdventure.process();
 
-		Assert.assertEquals(State.CONFIRMED, sameDayAdventure.getState());
+		Assert.assertEquals(State.BOOK_ROOM, sameDayAdventure.getState());
 	}
 
 	@Test
@@ -240,7 +241,7 @@ public class ReserveActivityStateProcessMethodTest {
 		};
 		
 		this.adventure.process();
-
+		
 		Assert.assertEquals(State.RENT_VEHICLE, this.adventure.getState());
 	}
 	
