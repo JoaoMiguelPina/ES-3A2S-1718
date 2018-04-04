@@ -9,21 +9,23 @@ import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public class RentACarConstructorTest {
 	private static final String NAME = "eartz";
+	private static final String NIF = "224194217";
+	private static final String IBAN = "1234567890";
 
 	@Test
 	public void success() {
-		RentACar rentACar = new RentACar(NAME);
+		RentACar rentACar = new RentACar(NAME, NIF, IBAN);
 		assertEquals(NAME, rentACar.getName());
 	}
 
 	@Test(expected = CarException.class)
 	public void nullName() {
-		new RentACar(null);
+		new RentACar(null, NIF, IBAN);
 	}
 
 	@Test(expected = CarException.class)
 	public void emptyName() {
-		new RentACar("");
+		new RentACar("", NIF, IBAN);
 	}
 
 	@After
