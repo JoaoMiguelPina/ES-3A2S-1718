@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import org.joda.time.LocalDate;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,19 +55,6 @@ public class TaxPaymentStateProcessMethodTest {
 		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
 	}
 
-	@Test
-	public void taxException(@Mocked final TaxInterface taxInterface) {
-		new Expectations() {
-			{
-				TaxInterface.submitInvoice(invoice);
-				this.result = new TaxException();
-			}
-		};
-
-		this.adventure.process();
-
-		Assert.assertEquals(State.UNDO, this.adventure.getState());
-	}
 
 	@Test
 	public void singleRemoteAccessException(@Mocked final TaxInterface taxInterface) {
@@ -176,5 +164,10 @@ public class TaxPaymentStateProcessMethodTest {
 		this.adventure.process();
 
 		Assert.assertEquals(State.UNDO, this.adventure.getState());
+	}
+	
+	@After
+	public void tearDown() {
+		Broker.brokers.clear();
 	}
 }

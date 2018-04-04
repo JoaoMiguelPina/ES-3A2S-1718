@@ -16,7 +16,7 @@ public class Invoice {
 	private final Buyer buyer;
 
 	Invoice(double value, LocalDate date, ItemType itemType, Seller seller, Buyer buyer) {
-		checkArguments(value, date, itemType, seller, buyer);
+		checkArguments(value, date, itemType, seller, buyer); 
 
 		this.reference = Integer.toString(++Invoice.counter);
 		this.value = value;

@@ -19,7 +19,7 @@ public abstract class TaxPayer {
 		this.name = name;
 		this.address = address;
 
-		irs.addTaxPayer(this);
+		irs.addTaxPayer(this); 
 	}
 
 	private void checkArguments(IRS irs, String NIF, String name, String address) {
@@ -43,6 +43,10 @@ public abstract class TaxPayer {
 
 	public void addInvoice(Invoice invoice) {
 		this.invoices.add(invoice);
+	}
+	
+	public void removeInvoice(Invoice invoice) {
+		this.invoices.remove(invoice);
 	}
 
 	public Invoice getInvoiceByReference(String invoiceReference) {
