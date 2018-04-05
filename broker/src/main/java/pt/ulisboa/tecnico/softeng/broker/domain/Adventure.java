@@ -103,7 +103,7 @@ public class Adventure {
 		this.amount += amount;
 	}
 	
-	public void subtractAmount(int amount) {
+	public void subtractAmount(double amount) {
 		checkAmount(amount);
 		this.amount -= amount;
 	}

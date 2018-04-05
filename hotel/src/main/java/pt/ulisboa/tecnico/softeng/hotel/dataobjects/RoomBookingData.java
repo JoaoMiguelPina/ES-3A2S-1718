@@ -103,4 +103,9 @@ public class RoomBookingData {
 		this.cancellationDate = cancellationDate;
 	}
 
+	public double getAmmount() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -112,4 +112,9 @@ public class RentingData {
 	public void setEnd(LocalDate end) {
 		this.end = end;
 	}
+
+	public double getAmmount() {
+		// TODO Auto-generated method stub
+		
+	}
 }

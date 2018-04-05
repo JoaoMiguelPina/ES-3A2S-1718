@@ -84,4 +84,9 @@ public class IRS {
 		removeTaxPayers();
 	}
 
+	public static InvoiceData getInvoiceData(String invoiceReference) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
