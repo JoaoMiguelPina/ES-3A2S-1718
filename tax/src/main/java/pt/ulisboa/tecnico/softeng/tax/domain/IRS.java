@@ -3,11 +3,15 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.joda.time.LocalDate;
+
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 
 public class IRS {
 	private final static Set<TaxPayer> taxPayers = new HashSet<>();
 	private final Set<ItemType> itemTypes = new HashSet<>(); 
+	private String cancellation;
+	private LocalDate cancellationDate;
 
 	private static IRS instance;
 
@@ -57,18 +61,22 @@ public class IRS {
 		return invoice.getReference();
 	}
 	
-	public static void cancelInvoice(String invoiceReference) {
+	public String cancelInvoice(String invoiceReference) {
 
-		//temos que ir a hash invoices de taxpayer e remover a correspondente a reference
-		//mudei o vetor taxPayers para static
-		//disclaimer: nao sei se esta correto lolz
 		for (TaxPayer tp : taxPayers) {
 			for(Invoice invoice : tp.invoices) {
 				if(invoice.getReference() == invoiceReference)
 					tp.removeInvoice(invoice);
 			}
 		}
+		this.cancellation = invoiceReference + "CANCEL";
+		this.setCancellationDate(new LocalDate());
+		return this.cancellation;
 		
+	}
+	
+	public boolean isCancelled() {
+		return this.cancellation != null;
 	}
 
 	public void removeItemTypes() {
@@ -82,6 +90,14 @@ public class IRS {
 	public void clearAll() {
 		removeItemTypes();
 		removeTaxPayers();
+	}
+
+	public LocalDate getCancellationDate() {
+		return cancellationDate;
+	}
+
+	public void setCancellationDate(LocalDate cancellationDate) {
+		this.cancellationDate = cancellationDate;
 	}
 
 }
