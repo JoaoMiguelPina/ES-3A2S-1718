@@ -36,7 +36,7 @@ public class Renting {
 
 	private void checkArguments(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle) {
 		if (drivingLicense == null || !drivingLicense.matches(drivingLicenseFormat) || begin == null || end == null || vehicle == null
-				|| end.isBefore(begin))
+				|| end.isBefore(begin)) 
 			throw new CarException();
 	}
 

@@ -23,19 +23,19 @@ public class ProcessorSubmitRentingMethodTest {
 	private static final String CANCEL_PAYMENT_REFERENCE = "CancelPaymentReference";
 	private static final String INVOICE_REFERENCE = "InvoiceReference";
 	private static final String PAYMENT_REFERENCE = "PaymentReference";
-	public String CAR_PLATE;
+	public String CAR_PLATE= "22-33-HZ";;
 	public String DRIVERS_LICENSE;
 	public LocalDate begin;
 	public LocalDate end;
 	private Renting renting;
-	private RentACar rentACar;
+	private RentACar rentACar = new RentACar("rentCar", "123456789", "555646465");
 	private Car car;
 
 	@Before
 	public void setUp() {
-		
+		this.car = new Car(CAR_PLATE, 10, 200, rentACar);
 		this.DRIVERS_LICENSE = "abc123456789";
-		this.CAR_PLATE = "FF-90-09";
+		
 		LocalDate begin = new LocalDate(2016, 12, 19);
 		LocalDate end = new LocalDate(2016, 12, 21);
 		this.renting = new Renting(DRIVERS_LICENSE, begin, end, car);
