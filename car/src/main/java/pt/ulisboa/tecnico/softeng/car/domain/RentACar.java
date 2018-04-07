@@ -20,6 +20,7 @@ public class RentACar {
 	private final Map<String, Vehicle> vehicles = new HashMap<>();
 	private final String NIF;
 	private final String IBAN;
+	private Processor processor;
 
 	public RentACar(String name, String nif, String iban) {
 		checkArguments(name);
@@ -126,12 +127,21 @@ public class RentACar {
 		return IBAN;
 	}
 	
-	public static String cancelReservation(String reference) {
-		return reference;
+	public Processor getProcessor() {
+		return this.processor;
 	}
 	
-	public static String reserveVehicle(LocalDate begin, LocalDate end, String drivingLicense , String nif, String iban) {
+	public static String cancelReservation(String reference) {
+		Renting renting = getRenting(reference);
+		if (renting != null) 
+			return renting.cancel();
+		throw new CarException();
+	}	
+	
+	public static String reserveVehicle(LocalDate begin, LocalDate end, String drivingLicense , String nif, String iban) throws CarException {
 		Set<Vehicle> availableSet = getAllAvailableVehicles(Car.class, begin, end);
+		if(availableSet.size() == 0)
+			throw new CarException();
 		Vehicle vehicle = availableSet.iterator().next();
 		Renting renting = new Renting(drivingLicense, begin, end, vehicle);
 		return renting.getReference();

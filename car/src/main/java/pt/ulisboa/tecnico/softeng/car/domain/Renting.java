@@ -15,6 +15,15 @@ public class Renting {
 	private int kilometers = -1;
 	private final Vehicle vehicle;
 	private double amount;
+	private String cancellation;
+	private LocalDate cancellationDate;
+	private String nif;
+	private String iban;
+	private String paymentReference;
+	private static final String Type = "vehicle";
+	private String invoiceReference;
+	private String cancelledPaymentReference = null;
+	private boolean cancelledInvoice = false;
 
 	public Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle) {
 		checkArguments(drivingLicense, begin, end, vehicle);
@@ -101,6 +110,79 @@ public class Renting {
 	public double getAmount() {
 		// TODO Auto-generated method stub
 		return this.amount;
+	}
+	
+	public String cancel() {
+		this.cancellation = "CANCEL" + this.reference;
+		this.setCancellationDate(new LocalDate());
+		
+		this.vehicle.getRentACar().getProcessor().submitRenting(this);
+		
+		return this.cancellation;
+	}
+	
+	public void setCancellationDate(LocalDate cancellationDate) {
+		this.cancellationDate = cancellationDate;
+	}
+	
+	public LocalDate getCancellationDate() {
+		return this.cancellationDate;
+	}
+	
+	public boolean isCancelled() {
+		return this.cancellation != null;
+	}
+
+	public String getNif() {
+		return nif;
+	}
+
+	public void setNif(String nif) {
+		this.nif = nif;
+	}
+
+	public String getIban() {
+		return iban;
+	}
+
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+
+	public String getPaymentReference() {
+		return paymentReference;
+	}
+
+	public void setPaymentReference(String paymentReference) {
+		this.paymentReference = paymentReference;
+	}
+
+	public static String getType() {
+		return Type;
+	}
+
+	public String getInvoiceReference() {
+		return invoiceReference;
+	}
+
+	public void setInvoiceReference(String invoiceReference) {
+		this.invoiceReference = invoiceReference;
+	}
+
+	public String getCancelledPaymentReference() {
+		return cancelledPaymentReference;
+	}
+
+	public void setCancelledPaymentReference(String cancelledPaymentReference) {
+		this.cancelledPaymentReference = cancelledPaymentReference;
+	}
+
+	public boolean isCancelledInvoice() {
+		return cancelledInvoice;
+	}
+
+	public void setCancelledInvoice(boolean cancelledInvoice) {
+		this.cancelledInvoice = cancelledInvoice;
 	}
 
 }
