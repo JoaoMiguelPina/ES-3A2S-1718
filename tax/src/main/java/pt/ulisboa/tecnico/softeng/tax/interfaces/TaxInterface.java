@@ -8,7 +8,7 @@ public class TaxInterface {
 		return IRS.submitInvoice(invoiceData);
 	}
 
-	public static void cancelInvoice(String invoiceReference) {
-		IRS.cancelInvoice(invoiceReference);
+	public String cancelInvoice(String invoiceReference) {
+		return IRS.cancelInvoice(invoiceReference);
 	}
 }

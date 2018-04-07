@@ -6,12 +6,12 @@ import java.util.Set;
 import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class IRS {
 	private final static Set<TaxPayer> taxPayers = new HashSet<>();
 	private final Set<ItemType> itemTypes = new HashSet<>(); 
-	private String cancellation;
-	private LocalDate cancellationDate;
+
 
 	private static IRS instance;
 
@@ -61,22 +61,18 @@ public class IRS {
 		return invoice.getReference();
 	}
 	
-	public String cancelInvoice(String invoiceReference) {
+	public static String cancelInvoice(String invoiceReference) {
 
 		for (TaxPayer tp : taxPayers) {
 			for(Invoice invoice : tp.invoices) {
-				if(invoice.getReference() == invoiceReference)
+				if(invoice.getReference() == invoiceReference) {
 					tp.removeInvoice(invoice);
-			}
+					
+				}
+			}	
 		}
-		this.cancellation = invoiceReference + "CANCEL";
-		this.setCancellationDate(new LocalDate());
-		return this.cancellation;
+		return invoiceReference + "CANCEL";
 		
-	}
-	
-	public boolean isCancelled() {
-		return this.cancellation != null;
 	}
 
 	public void removeItemTypes() {
@@ -90,14 +86,6 @@ public class IRS {
 	public void clearAll() {
 		removeItemTypes();
 		removeTaxPayers();
-	}
-
-	public LocalDate getCancellationDate() {
-		return cancellationDate;
-	}
-
-	public void setCancellationDate(LocalDate cancellationDate) {
-		this.cancellationDate = cancellationDate;
 	}
 
 }

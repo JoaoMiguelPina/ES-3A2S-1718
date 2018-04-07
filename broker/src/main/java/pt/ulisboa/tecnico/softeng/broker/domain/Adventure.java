@@ -33,7 +33,8 @@ public class Adventure {
 	private String vehicleConfirmation;
 	private String vehicleCancellation;
 	private String invoiceConfirmation;
-
+	private String invoiceCancellation;
+	
 	private AdventureState state;
 
 	public Adventure(Broker broker, LocalDate begin, LocalDate end, Client client, double marginOfProfit, boolean needsCar) {
@@ -189,6 +190,14 @@ public class Adventure {
 		this.invoiceConfirmation = invoiceConfirmation;
 	}
 	
+	public String getInvoiceCancellation() {
+		return this.invoiceCancellation;
+	}
+	
+	public void setInvoiceCancellation(String invoiceCancellation) {
+		this.invoiceCancellation = invoiceCancellation;
+	}
+	
 	public State getState() {
 		return this.state.getState();
 	}
@@ -258,5 +267,23 @@ public class Adventure {
 		this.isInvoiceCancelled = isInvoiceCancelled;
 	}
 
+	public boolean requiresCancelRoom() {
+		return cancelRoom();
+	}
+	
+	public boolean requiresCancelActivity() {
+		return cancelActivity();
+	}
 
+	public boolean requiresCancelPayment() {
+		return cancelPayment();
+	}
+	
+	public boolean requiresCancelInvoice() {
+		return cancelInvoice();
+	}
+	
+	public boolean requiresCancelVehicle() {
+		return cancelVehicle();
+	}
 }
