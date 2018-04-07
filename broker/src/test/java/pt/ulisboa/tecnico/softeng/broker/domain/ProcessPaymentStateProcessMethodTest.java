@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import org.joda.time.LocalDate;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class ProcessPaymentStateProcessMethodTest {
 	private static final LocalDate end = new LocalDate(2016, 12, 21);
 	private static final double MARGIN_OF_PROFIT = 0.5;
 	private static final boolean needsCar = true;
-	private static final int AMOUNT = 300;
+	private static final double AMOUNT = 300;
 	private static final String PAYMENT_CONFIRMATION = "PaymentConfirmation";
 	private Adventure adventure;
 	
@@ -49,6 +50,7 @@ public class ProcessPaymentStateProcessMethodTest {
 		
 		this.adventure = new Adventure(broker, begin, end, client, MARGIN_OF_PROFIT, needsCar);
 		this.adventure.setState(State.PROCESS_PAYMENT);
+		this.adventure.addAmount(AMOUNT);
 	}
 
 	@Test
@@ -78,64 +80,6 @@ public class ProcessPaymentStateProcessMethodTest {
 		
 		Assert.assertEquals(State.UNDO, this.adventure.getState());
 	}
-
-	
-	@Test
-	public void oneBankExceptionOneSuccess(@Mocked final BankInterface bankInterface) {
-		new Expectations() {
-			{
-				BankInterface.processPayment(IBAN_CLIENT, AMOUNT);
-
-				this.result = new Delegate() {
-					int i = 0;
-
-					public String delegate() {
-						if (this.i < 1) {
-							this.i++;
-							throw new BankException();
-						} else {
-							return PAYMENT_CONFIRMATION;
-						}
-					}
-				};
-				this.times = 2;
-			}
-		};
-
-		this.adventure.process();
-		this.adventure.process();
-		
-		Assert.assertEquals(State.TAX_PAYMENT, this.adventure.getState());
-	}
-	
-	@Test
-	public void twoBankExceptionOneSuccess(@Mocked final BankInterface bankInterface) {
-		new Expectations() {
-			{
-				BankInterface.processPayment(IBAN_CLIENT, AMOUNT);
-
-				this.result = new Delegate() {
-					int i = 0;
-
-					public String delegate() {
-						if (this.i < 2) {
-							this.i++;
-							throw new BankException();
-						} else {
-							return PAYMENT_CONFIRMATION;
-						}
-					}
-				};
-				this.times = 3;
-			}
-		};
-
-		this.adventure.process();
-		this.adventure.process();
-		this.adventure.process();
-		
-		Assert.assertEquals(State.TAX_PAYMENT, this.adventure.getState());
-	}
 	
 	@Test
 	public void singleRemoteAccessException(@Mocked final BankInterface bankInterface) {
@@ -148,7 +92,7 @@ public class ProcessPaymentStateProcessMethodTest {
 
 		this.adventure.process();
 
-		Assert.assertEquals(State.UNDO, this.adventure.getState());
+		Assert.assertEquals(State.PROCESS_PAYMENT, this.adventure.getState());
 	}
 
 	@Test
@@ -179,7 +123,7 @@ public class ProcessPaymentStateProcessMethodTest {
 		this.adventure.process();
 		this.adventure.process();
 
-		Assert.assertEquals(State.UNDO, this.adventure.getState());
+		Assert.assertEquals(State.PROCESS_PAYMENT, this.adventure.getState());
 	}
 
 	@Test
@@ -208,7 +152,7 @@ public class ProcessPaymentStateProcessMethodTest {
 		this.adventure.process();
 		this.adventure.process();
 
-		Assert.assertEquals(State.RESERVE_ACTIVITY, this.adventure.getState());
+		Assert.assertEquals(State.TAX_PAYMENT, this.adventure.getState());
 	}
 	
 	@Test
@@ -258,7 +202,7 @@ public class ProcessPaymentStateProcessMethodTest {
 						}
 					}
 				};
-				this.times = 2;
+				this.times = 3;
 
 			}
 		};
@@ -288,7 +232,7 @@ public class ProcessPaymentStateProcessMethodTest {
 						}
 					}
 				};
-				this.times = 2;
+				this.times = 1;
 
 			}
 		};
@@ -296,7 +240,7 @@ public class ProcessPaymentStateProcessMethodTest {
 		this.adventure.process();
 		this.adventure.process();
 
-		Assert.assertEquals(State.UNDO, this.adventure.getState());
+		Assert.assertEquals(State.CANCELLED, this.adventure.getState());
 	}
 
 	@Test
@@ -317,7 +261,7 @@ public class ProcessPaymentStateProcessMethodTest {
 						}
 					}
 				};
-				this.times = 2;
+				this.times = 1;
 
 			}
 		};
@@ -326,6 +270,11 @@ public class ProcessPaymentStateProcessMethodTest {
 		this.adventure.process();
 		this.adventure.process();
 		
-		Assert.assertEquals(State.UNDO, this.adventure.getState());
+		Assert.assertEquals(State.CANCELLED, this.adventure.getState());
+	}
+	
+	@After
+	public void tearDown(){
+		Broker.brokers.clear();
 	}
 }
