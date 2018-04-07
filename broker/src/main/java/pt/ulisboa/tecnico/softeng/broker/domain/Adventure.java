@@ -23,6 +23,7 @@ public class Adventure {
 	private final LocalDate begin;
 	private final LocalDate end;
 	private double amount = 0;
+	private boolean isInvoiceCancelled = false;
 	private String paymentConfirmation;
 	private String paymentCancellation;
 	private String roomConfirmation;
@@ -32,7 +33,6 @@ public class Adventure {
 	private String vehicleConfirmation;
 	private String vehicleCancellation;
 	private String invoiceConfirmation;
-	private String invoiceCancellation;
 
 	private AdventureState state;
 
@@ -189,14 +189,6 @@ public class Adventure {
 		this.invoiceConfirmation = invoiceConfirmation;
 	}
 	
-	public String getInvoiceCancellation() {
-		return this.invoiceCancellation;
-	}
-
-	public void setInvoiceCancellation(String invoiceCancellation) {
-		this.invoiceCancellation = invoiceCancellation;
-	}
-
 	public State getState() {
 		return this.state.getState();
 	}
@@ -209,21 +201,13 @@ public class Adventure {
 			break;
 		case RESERVE_ACTIVITY:
 			this.state = new ReserveActivityState();
-			break;
-			
-		// TODO: Create 	TaxPaymentState() and RentVehicleState() classes (see #226, #221).
-		// They are commented here so it is possible to run the tests.	
-		
+			break;			
 		case TAX_PAYMENT:
 			this.state = new TaxPaymentState();
 			break;
-			
-			/*
 		case RENT_VEHICLE:
 			this.state = new RentVehicleState();
-			break;	
-		*/
-			
+			break;				
 		case BOOK_ROOM:
 			this.state = new BookRoomState();
 			break;
@@ -263,7 +247,15 @@ public class Adventure {
 	}
 
 	public boolean cancelInvoice() {
-		return getInvoiceConfirmation() != null && getInvoiceCancellation() == null;
+		return getInvoiceConfirmation() != null && isInvoiceCancelled() == false;
+	}
+
+	public boolean isInvoiceCancelled() {
+		return isInvoiceCancelled;
+	}
+
+	public void setInvoiceCancelled(boolean isInvoiceCancelled) {
+		this.isInvoiceCancelled = isInvoiceCancelled;
 	}
 
 

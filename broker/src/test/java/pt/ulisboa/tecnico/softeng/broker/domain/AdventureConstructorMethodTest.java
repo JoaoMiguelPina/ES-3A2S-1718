@@ -151,7 +151,7 @@ public class AdventureConstructorMethodTest {
 		
 		adventure.addAmount(50);
 		
-		Assert.assertEquals(50, adventure.getAmount());
+		Assert.assertEquals(50, adventure.getAmount(), 0);
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.end, adventure.getEnd());
@@ -176,7 +176,7 @@ public class AdventureConstructorMethodTest {
 		adventure.addAmount(50);
 		adventure.resetAmount();
 		
-		Assert.assertEquals(0, adventure.getAmount());
+		Assert.assertEquals(0, adventure.getAmount(), 0);
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.end, adventure.getEnd());
@@ -202,7 +202,7 @@ public class AdventureConstructorMethodTest {
 		adventure.setVehicleConfirmation("CONFIRMED");
 		adventure.setInvoiceConfirmation("CONFIRMED");
 		
-		Assert.assertEquals(0, adventure.getAmount());
+		Assert.assertEquals(0, adventure.getAmount(), 0);
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.end, adventure.getEnd());
@@ -226,9 +226,9 @@ public class AdventureConstructorMethodTest {
 		adventure.setActivityCancellation("CANCELLED");
 		adventure.setRoomCancellation("CANCELLED");
 		adventure.setVehicleCancellation("CANCELLED");
-		adventure.setInvoiceCancellation("CANCELLED");
+		adventure.setInvoiceCancelled(true);
 		
-		Assert.assertEquals(0, adventure.getAmount());
+		Assert.assertEquals(0, adventure.getAmount(), 0);
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.end, adventure.getEnd());
@@ -241,7 +241,7 @@ public class AdventureConstructorMethodTest {
 		Assert.assertEquals("CANCELLED" ,adventure.getActivityCancellation());
 		Assert.assertEquals("CANCELLED", adventure.getRoomCancellation());
 		Assert.assertEquals("CANCELLED", adventure.getVehicleCancellation());
-		Assert.assertEquals("CANCELLED", adventure.getInvoiceCancellation());
+		Assert.assertEquals(true, adventure.isInvoiceCancelled());
 	}
 	
 	@Test
@@ -254,7 +254,7 @@ public class AdventureConstructorMethodTest {
 		adventure.setVehicleConfirmation("CONFIRMED");
 		adventure.setInvoiceConfirmation("CONFIRMED");
 		
-		Assert.assertEquals(0, adventure.getAmount());
+		Assert.assertEquals(0, adventure.getAmount(), 0);
 		Assert.assertEquals(this.broker, adventure.getBroker());
 		Assert.assertEquals(this.begin, adventure.getBegin());
 		Assert.assertEquals(this.end, adventure.getEnd());

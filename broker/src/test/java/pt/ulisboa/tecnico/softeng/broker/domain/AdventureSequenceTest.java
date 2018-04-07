@@ -61,7 +61,6 @@ public class AdventureSequenceTest {
 	private static final String RENT_CONFIRMATION = "RentConfirmation";
 	private static final String RENT_CANCELLATION = "RentCancellation";
 	private static final String INVOICE_CONFIRMATION = "InvoiceConfirmation";
-	private static final String INVOICE_CANCELLATION = "InvoiceCancellation";
 	private static final String PAYMENT_CONFIRMATION = "PaymentConfirmation";
 	private static final String PAYMENT_CANCELLATION = "PaymentCancellation";
 	
@@ -750,7 +749,6 @@ public class AdventureSequenceTest {
 				
 //				(10) Invoice UNDO
 				TaxInterface.cancelInvoice(INVOICE_CONFIRMATION);
-				this.result = INVOICE_CANCELLATION;
 				
 			}
 		};
@@ -781,7 +779,7 @@ public class AdventureSequenceTest {
 		assertNull(adventure.getVehicleConfirmation());
 		assertEquals(PAYMENT_CANCELLATION, adventure.getPaymentCancellation());
 		assertNull(adventure.getPaymentConfirmation());
-		assertEquals(INVOICE_CANCELLATION, adventure.getInvoiceCancellation());
+		assertEquals(true, adventure.isInvoiceCancelled());
 		assertNull(adventure.getInvoiceConfirmation());
 	}
 	
@@ -868,7 +866,6 @@ public class AdventureSequenceTest {
 				
 //				(10) Invoice UNDO
 				TaxInterface.cancelInvoice(INVOICE_CONFIRMATION);
-				this.result = INVOICE_CANCELLATION;
 				
 			}
 		};
@@ -899,7 +896,7 @@ public class AdventureSequenceTest {
 		assertNull(adventure.getVehicleConfirmation());
 		assertEquals(PAYMENT_CANCELLATION, adventure.getPaymentCancellation());
 		assertNull(adventure.getPaymentConfirmation());
-		assertEquals(INVOICE_CANCELLATION, adventure.getInvoiceCancellation());
+		assertEquals(true, adventure.isInvoiceCancelled());
 		assertNull(adventure.getInvoiceConfirmation());
 	}
 	
@@ -986,7 +983,6 @@ public class AdventureSequenceTest {
 				
 //				(10) Invoice UNDO
 				TaxInterface.cancelInvoice(INVOICE_CONFIRMATION);
-				this.result = INVOICE_CANCELLATION;
 				
 			}
 		};
@@ -1017,7 +1013,7 @@ public class AdventureSequenceTest {
 		assertNull(adventure.getVehicleConfirmation());
 		assertEquals(PAYMENT_CANCELLATION, adventure.getPaymentCancellation());
 		assertNull(adventure.getPaymentConfirmation());
-		assertEquals(INVOICE_CANCELLATION, adventure.getInvoiceCancellation());
+		assertEquals(true, adventure.isInvoiceCancelled());
 		assertNull(adventure.getInvoiceConfirmation());
 	}
 	
@@ -1097,7 +1093,6 @@ public class AdventureSequenceTest {
 				
 //				(11) Invoice UNDO
 				TaxInterface.cancelInvoice(INVOICE_CONFIRMATION);
-				this.result = INVOICE_CANCELLATION;
 				
 			}
 		};
@@ -1128,7 +1123,7 @@ public class AdventureSequenceTest {
 		assertNull(adventure.getVehicleConfirmation());
 		assertEquals(PAYMENT_CANCELLATION, adventure.getPaymentCancellation());
 		assertNull(adventure.getPaymentConfirmation());
-		assertEquals(INVOICE_CANCELLATION, adventure.getInvoiceCancellation());
+		assertEquals(true, adventure.isInvoiceCancelled());
 		assertNull(adventure.getInvoiceConfirmation());
 	}
 	
@@ -1189,30 +1184,25 @@ public class AdventureSequenceTest {
 //				(6) [CONFIRMED] getOperationData
 				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
 				this.result = bankOperationData;
-				
-//				(7) [CONFIRMED] getInvoiceData
-				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
-				this.result = new TaxException();
 					
-//				(8) Activity UNDO
+//				(7) Activity UNDO
 				ActivityInterface.cancelReservation(ACTIVITY_CONFIRMATION);
 				this.result = ACTIVITY_CANCELLATION;
 				
-//				(9) Booking UNDO
+//				(8) Booking UNDO
 				HotelInterface.cancelBooking(ROOM_CONFIRMATION);
 				this.result = ROOM_CANCELLATION;
 				
-//				(10) Rent UNDO
+//				(9) Rent UNDO
 				CarInterface.cancelReservation(RENT_CONFIRMATION);
 				this.result = RENT_CANCELLATION;
 				
-//				(11) Payment UNDO
+//				(10) Payment UNDO
 				BankInterface.cancelPayment(PAYMENT_CONFIRMATION);
 				this.result = PAYMENT_CANCELLATION;
 				
-//				(12) Invoice UNDO
+//				(11) Invoice UNDO
 				TaxInterface.cancelInvoice(INVOICE_CONFIRMATION);
-				this.result = INVOICE_CANCELLATION;
 				
 			}
 		};
@@ -1243,7 +1233,7 @@ public class AdventureSequenceTest {
 		assertNull(adventure.getVehicleConfirmation());
 		assertEquals(PAYMENT_CANCELLATION, adventure.getPaymentCancellation());
 		assertNull(adventure.getPaymentConfirmation());
-		assertEquals(INVOICE_CANCELLATION, adventure.getInvoiceCancellation());
+		assertEquals(true, adventure.isInvoiceCancelled());
 		assertNull(adventure.getInvoiceConfirmation());
 	}
 	

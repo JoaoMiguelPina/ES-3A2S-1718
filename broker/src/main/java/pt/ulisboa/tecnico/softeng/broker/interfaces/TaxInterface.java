@@ -12,7 +12,4 @@ public class TaxInterface {
 		IRS.cancelInvoice(invoiceReference);
 	}
 	
-	public static InvoiceData getInvoiceData(String invoiceReference){
-		IRS.getInvoiceData();
-	}
 }

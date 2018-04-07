@@ -185,6 +185,4 @@ public class Hotel {
 	public double getPriceSingle() {
 		return priceSingle;
 	}
-
-	
 }
