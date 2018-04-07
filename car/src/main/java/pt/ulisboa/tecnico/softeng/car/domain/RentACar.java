@@ -114,7 +114,7 @@ public class RentACar {
 			renting.getDrivingLicense(),
 			renting.getVehicle().getRentACar().getCode(),
 			renting.getBegin(),
-			renting.getEnd()
+			renting.getEnd(), renting.getAmount()
 		);
 	}
 
@@ -124,5 +124,16 @@ public class RentACar {
 
 	public String getIBAN() {
 		return IBAN;
+	}
+	
+	public static String cancelReservation(String reference) {
+		return reference;
+	}
+	
+	public static String reserveVehicle(LocalDate begin, LocalDate end, String drivingLicense , String nif, String iban) {
+		Set<Vehicle> availableSet = getAllAvailableVehicles(Car.class, begin, end);
+		Vehicle vehicle = availableSet.iterator().next();
+		Renting renting = new Renting(drivingLicense, begin, end, vehicle);
+		return renting.getReference();
 	}
 }

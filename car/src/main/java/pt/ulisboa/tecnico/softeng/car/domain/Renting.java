@@ -14,6 +14,7 @@ public class Renting {
 	private final LocalDate end;
 	private int kilometers = -1;
 	private final Vehicle vehicle;
+	private double amount;
 
 	public Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle) {
 		checkArguments(drivingLicense, begin, end, vehicle);
@@ -95,6 +96,11 @@ public class Renting {
 	public void checkout(int kilometers) {
 		this.kilometers = kilometers;
 		this.vehicle.addKilometers(this.kilometers);
+	}
+
+	public double getAmount() {
+		// TODO Auto-generated method stub
+		return this.amount;
 	}
 
 }

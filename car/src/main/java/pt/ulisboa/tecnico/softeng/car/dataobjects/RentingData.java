@@ -9,18 +9,20 @@ public class RentingData {
 	private String rentACarCode;
 	private LocalDate begin;
 	private LocalDate end;
+	private double amount;
 
 	public RentingData() {
 	}
 
 	public RentingData(String reference, String plate, String drivingLicense, String rentACarCode, LocalDate begin,
-			LocalDate end) {
+			LocalDate end, double amount) {
 		this.reference = reference;
 		this.plate = plate;
 		this.drivingLicense = drivingLicense;
 		this.rentACarCode = rentACarCode;
 		this.begin = begin;
 		this.end = end;
+		this.amount = amount;
 	}
 
 	/**
@@ -113,8 +115,8 @@ public class RentingData {
 		this.end = end;
 	}
 
-	public double getAmmount() {
-		// TODO Auto-generated method stub
+	public double getAmount() {
+		return this.amount;
 		
 	}
 }
