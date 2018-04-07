@@ -18,7 +18,10 @@ public class BookRoomState extends AdventureState {
 	public void process(Adventure adventure) {
 		try {
 			adventure.setRoomConfirmation(
-					HotelInterface.reserveRoom(Room.Type.SINGLE, adventure.getBegin(), adventure.getEnd()));
+					HotelInterface.reserveRoom(Room.Type.SINGLE, adventure.getBegin(), adventure.getEnd(), adventure.getClient().getNif(), adventure.getClient().getIban()));
+			String reference = adventure.getRoomConfirmation();
+			double amount = HotelInterface.getRoomBookingData(reference).getAmmount();
+			adventure.addAmount(amount);
 		} catch (HotelException he) {
 			adventure.setState(State.UNDO);
 			return;
@@ -30,7 +33,14 @@ public class BookRoomState extends AdventureState {
 			return;
 		}
 
-		adventure.setState(State.CONFIRMED);
+		if (adventure.needsCar()) {
+			adventure.setState(State.RENT_VEHICLE);
+		
+		}
+		
+		else {
+			adventure.setState(State.PROCESS_PAYMENT);
+		}
 	}
 
 }
