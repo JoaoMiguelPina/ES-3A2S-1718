@@ -51,11 +51,6 @@ public class InvoiceProcessorSubmitBookingMethodTest {
 		};
 
 		this.provider.getProcessor().submitBooking(this.booking);
-
-		new FullVerifications() {
-			{
-			}
-		};
 	}
 
 	@Test
@@ -68,18 +63,13 @@ public class InvoiceProcessorSubmitBookingMethodTest {
 				TaxInterface.submitInvoice((InvoiceData) this.any);
 				this.result = new TaxException();
 				this.result = INVOICE_REFERENCE;
+				this.times = 3;
 			}
 		};
 
 		this.provider.getProcessor().submitBooking(this.booking);
 		this.provider.getProcessor().submitBooking(new Booking(this.provider, this.offer, NIF, IBAN));
 
-		new FullVerifications(taxInterface) {
-			{
-				TaxInterface.submitInvoice((InvoiceData) this.any);
-				this.times = 3;
-			}
-		};
 	}
 
 	@Test
@@ -98,12 +88,6 @@ public class InvoiceProcessorSubmitBookingMethodTest {
 		this.provider.getProcessor().submitBooking(this.booking);
 		this.provider.getProcessor().submitBooking(new Booking(this.provider, this.offer, NIF, IBAN));
 
-		new FullVerifications(taxInterface) {
-			{
-				TaxInterface.submitInvoice((InvoiceData) this.any);
-				this.times = 3;
-			}
-		};
 	}
 
 	@Test
@@ -122,12 +106,6 @@ public class InvoiceProcessorSubmitBookingMethodTest {
 		this.provider.getProcessor().submitBooking(this.booking);
 		this.provider.getProcessor().submitBooking(new Booking(this.provider, this.offer, NIF, IBAN));
 
-		new FullVerifications(bankInterface) {
-			{
-				BankInterface.processPayment(this.anyString, this.anyDouble);
-				this.times = 3;
-			}
-		};
 	}
 
 	@Test
@@ -146,12 +124,6 @@ public class InvoiceProcessorSubmitBookingMethodTest {
 		this.provider.getProcessor().submitBooking(this.booking);
 		this.provider.getProcessor().submitBooking(new Booking(this.provider, this.offer, NIF, IBAN));
 
-		new FullVerifications(bankInterface) {
-			{
-				BankInterface.processPayment(this.anyString, this.anyDouble);
-				this.times = 3;
-			}
-		};
 	}
 
 	@Test
@@ -169,10 +141,7 @@ public class InvoiceProcessorSubmitBookingMethodTest {
 		this.provider.getProcessor().submitBooking(this.booking);
 		this.booking.cancel();
 
-		new FullVerifications() {
-			{
-			}
-		};
+		
 	}
 
 	@Test
@@ -194,12 +163,6 @@ public class InvoiceProcessorSubmitBookingMethodTest {
 		this.booking.cancel();
 		this.provider.getProcessor().submitBooking(new Booking(this.provider, this.offer, NIF, IBAN));
 
-		new FullVerifications(bankInterface) {
-			{
-				BankInterface.cancelPayment(this.anyString);
-				this.times = 2;
-			}
-		};
 	}
 
 	@Test
@@ -221,12 +184,6 @@ public class InvoiceProcessorSubmitBookingMethodTest {
 		this.booking.cancel();
 		this.provider.getProcessor().submitBooking(new Booking(this.provider, this.offer, NIF, IBAN));
 
-		new FullVerifications(bankInterface) {
-			{
-				BankInterface.cancelPayment(this.anyString);
-				this.times = 2;
-			}
-		};
 	}
 
 	@Test
@@ -248,20 +205,13 @@ public class InvoiceProcessorSubmitBookingMethodTest {
 							throw new TaxException();
 						}
 					}
-				};
+				}; this.times = 2;
 			}
 		};
 
 		this.provider.getProcessor().submitBooking(this.booking);
 		this.booking.cancel();
 		this.provider.getProcessor().submitBooking(new Booking(this.provider, this.offer, NIF, IBAN));
-
-		new FullVerifications(taxInterface) {
-			{
-				TaxInterface.cancelInvoice(this.anyString);
-				this.times = 2;
-			}
-		};
 	}
 
 	@Test
@@ -284,7 +234,7 @@ public class InvoiceProcessorSubmitBookingMethodTest {
 							throw new RemoteAccessException();
 						}
 					}
-				};
+				}; this.times = 2;
 			}
 		};
 
@@ -292,12 +242,6 @@ public class InvoiceProcessorSubmitBookingMethodTest {
 		this.booking.cancel();
 		this.provider.getProcessor().submitBooking(new Booking(this.provider, this.offer, NIF, IBAN));
 
-		new FullVerifications(taxInterface) {
-			{
-				TaxInterface.cancelInvoice(this.anyString);
-				this.times = 2;
-			}
-		};
 	}
 
 	@After
