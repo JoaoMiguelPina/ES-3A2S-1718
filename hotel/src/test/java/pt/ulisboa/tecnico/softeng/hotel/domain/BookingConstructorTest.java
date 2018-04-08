@@ -24,37 +24,73 @@ public class BookingConstructorTest {
 
 	@Test
 	public void success() {
-		Booking booking = new Booking(this.hotel, this.arrival, this.departure, this.NIF, this.IBAN, Room.Type.SINGLE);
+		//client and hotel have the same nifs and ibans
+		Booking booking = new Booking(this.hotel, this.arrival, this.departure, NIF, IBAN, Room.Type.SINGLE);
 
 		Assert.assertTrue(booking.getReference().startsWith(this.hotel.getCode()));
 		Assert.assertTrue(booking.getReference().length() > Hotel.CODE_SIZE);
 		Assert.assertEquals(this.arrival, booking.getArrival());
 		Assert.assertEquals(this.departure, booking.getDeparture());
+		Assert.assertEquals("HOTEL", booking.getType());
+		Assert.assertEquals(NIF, booking.getNif());
+		Assert.assertEquals(NIF, booking.getHotelNif());
+		Assert.assertEquals(IBAN, booking.getIban());
+		Assert.assertEquals(PRICES, booking.getAmount(), 0.001);
+		Assert.assertFalse(booking.getCancelledInvoice());
+		Assert.assertNull(booking.getCancelledPaymentReference());
+		Assert.assertNull(booking.getCancellationDate());
+	
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullHotel() {
-		new Booking(null, this.arrival, this.departure, this.NIF, this.IBAN, Room.Type.SINGLE);
+		Booking b = new Booking(null, this.arrival, this.departure, NIF, IBAN, Room.Type.DOUBLE);
+		Assert.assertEquals(PRICED, b.getAmount(), 0.001);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullArrival() {
-		new Booking(this.hotel, null, this.departure, this.NIF, this.IBAN, Room.Type.SINGLE);
+		new Booking(this.hotel, null, this.departure, NIF, IBAN, Room.Type.SINGLE);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullDeparture() {
-		new Booking(this.hotel, this.arrival, null, this.NIF, this.IBAN, Room.Type.SINGLE);
+		new Booking(this.hotel, this.arrival, null, NIF, IBAN, Room.Type.SINGLE);
 	}
 
 	@Test(expected = HotelException.class)
 	public void departureBeforeArrival() {
-		new Booking(this.hotel, this.arrival, this.arrival.minusDays(1), this.NIF, this.IBAN, Room.Type.SINGLE);
+		new Booking(this.hotel, this.arrival, this.arrival.minusDays(1), NIF, IBAN, Room.Type.SINGLE);
 	}
-
+	
+	@Test(expected = HotelException.class)
+	public void nullNif() {
+		new Booking(this.hotel, this.arrival, this.departure, null, IBAN, Room.Type.SINGLE);
+	}
+	
+	@Test(expected = HotelException.class)
+	public void emptyNif() {
+		new Booking(this.hotel, this.arrival, this.departure, "", IBAN, Room.Type.SINGLE);
+	}
+	
+	@Test(expected = HotelException.class)
+	public void nullIban() {
+		new Booking(this.hotel, this.arrival, this.departure, NIF, null, Room.Type.SINGLE);
+	}
+	
+	@Test(expected = HotelException.class)
+	public void emptyIban() {
+		new Booking(this.hotel, this.arrival, this.departure, NIF, "", Room.Type.SINGLE);
+	}
+	
+	@Test(expected = HotelException.class)
+	public void nullType() {
+		new Booking(this.hotel, this.arrival, this.departure, NIF, IBAN, null);
+	}
+		
 	@Test
 	public void arrivalEqualDeparture() {
-		new Booking(this.hotel, this.arrival, this.arrival, this.NIF, this.IBAN, Room.Type.SINGLE);
+		new Booking(this.hotel, this.arrival, this.arrival, NIF, IBAN, Room.Type.SINGLE);
 	}
 
 	@After

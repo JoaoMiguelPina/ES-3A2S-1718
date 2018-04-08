@@ -26,7 +26,7 @@ public class Booking {
 	private String cancelledPaymentReference = null;
 
 	Booking(Hotel hotel, LocalDate arrival, LocalDate departure, String nif, String iban, Type type) {
-		checkArguments(hotel, arrival, departure, nif, iban);
+		checkArguments(hotel, arrival, departure, nif, iban, type);
 
 		this.reference = hotel.getCode() + Integer.toString(++Booking.counter);
 		if (type == Type.SINGLE) {
@@ -42,9 +42,9 @@ public class Booking {
 		this.iban = iban;
 	}
 
-	private void checkArguments(Hotel hotel, LocalDate arrival, LocalDate departure, String nif, String iban) {
+	private void checkArguments(Hotel hotel, LocalDate arrival, LocalDate departure, String nif, String iban, Type type) {
 		if (hotel == null || arrival == null || departure == null || nif == null || nif.trim().length() == 0 || iban == null
-				|| iban.trim().length() == 0) {
+				|| iban.trim().length() == 0 || type == null) {
 			throw new HotelException();
 		}
 
@@ -101,16 +101,16 @@ public class Booking {
 		return this.paymentReference;
 	}
 	
-	public void setCancelledInvoice(Boolean cancelledInvoice) {
-		this.cancelledInvoice = cancelledInvoice;
-	}
-	
 	public boolean getCancelledInvoice() {
 		return this.cancelledInvoice;
 	}
 	
 	public String getCancelledPaymentReference() {
 		return this.cancelledPaymentReference;
+	}
+
+	public void setCancelledInvoice(Boolean cancelledInvoice) {
+		this.cancelledInvoice = cancelledInvoice;
 	}
 	
 	public void setCancelledPaymentReference(String cancelledPaymentReference) {
