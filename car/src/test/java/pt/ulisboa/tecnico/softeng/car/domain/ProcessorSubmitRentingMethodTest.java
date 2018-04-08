@@ -52,10 +52,6 @@ public class ProcessorSubmitRentingMethodTest {
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
 
-		new FullVerifications() {
-			{
-			}
-		};
 	}
 
 	@Test
@@ -69,19 +65,13 @@ public class ProcessorSubmitRentingMethodTest {
 				TaxInterface.submitInvoice((InvoiceData) this.any);
 				this.result = new TaxException();
 				this.result = INVOICE_REFERENCE;
-			}
+				this.times = 3;} 
 		};
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
 		
 		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
-		new FullVerifications(taxInterface) {
-			{
-				TaxInterface.submitInvoice((InvoiceData) this.any);
-				this.times = 3;
-			}
-		};
 	}
 
 	@Test
@@ -94,17 +84,13 @@ public class ProcessorSubmitRentingMethodTest {
 				TaxInterface.submitInvoice((InvoiceData) this.any);
 				this.result = new RemoteAccessException();
 				this.result = INVOICE_REFERENCE;
+				this.times = 3;
 			}
 		};
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
 		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
-		new FullVerifications(taxInterface) {
-			{
-				TaxInterface.submitInvoice((InvoiceData) this.any);
-				this.times = 3;
-			}
-		};
+		
 	}
 
 	@Test
@@ -123,12 +109,7 @@ public class ProcessorSubmitRentingMethodTest {
 		this.rentACar.getProcessor().submitRenting(this.renting);
 		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
-		new FullVerifications(bankInterface) {
-			{
-				BankInterface.processPayment(this.anyString, this.anyDouble);
-				this.times = 3;
-			}
-		};
+		
 	}
 
 	@Test
@@ -147,12 +128,7 @@ public class ProcessorSubmitRentingMethodTest {
 		this.rentACar.getProcessor().submitRenting(this.renting);
 		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
-		new FullVerifications(bankInterface) {
-			{
-				BankInterface.processPayment(this.anyString, this.anyDouble);
-				this.times = 3;
-			}
-		};
+		
 	}
 
 	@Test
@@ -170,10 +146,6 @@ public class ProcessorSubmitRentingMethodTest {
 		this.rentACar.getProcessor().submitRenting(this.renting);
 		this.renting.cancel();
 
-		new FullVerifications() {
-			{
-			}
-		};
 	}
 
 	@Test
@@ -195,12 +167,6 @@ public class ProcessorSubmitRentingMethodTest {
 		this.renting.cancel();
 		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
-		new FullVerifications(bankInterface) {
-			{
-				BankInterface.cancelPayment(this.anyString);
-				this.times = 2;
-			}
-		};
 	}
 
 	@Test
@@ -222,12 +188,7 @@ public class ProcessorSubmitRentingMethodTest {
 		this.renting.cancel();
 		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
-		new FullVerifications(bankInterface) {
-			{
-				BankInterface.cancelPayment(this.anyString);
-				this.times = 2;
-			}
-		};
+		
 	}
 
 	@Test
@@ -249,7 +210,7 @@ public class ProcessorSubmitRentingMethodTest {
 							throw new TaxException();
 						}
 					}
-				};
+				}; this.times = 2;
 			}
 		};
 
@@ -257,12 +218,7 @@ public class ProcessorSubmitRentingMethodTest {
 		this.renting.cancel();
 		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
-		new FullVerifications(taxInterface) {
-			{
-				TaxInterface.cancelInvoice(this.anyString);
-				this.times = 2;
-			}
-		};
+		
 	}
 
 	@Test
@@ -286,19 +242,13 @@ public class ProcessorSubmitRentingMethodTest {
 						}
 					}
 				};
+				this.times = 2;
 			}
 		};
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
 		this.renting.cancel();
 		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
-
-		new FullVerifications(taxInterface) {
-			{
-				TaxInterface.cancelInvoice(this.anyString);
-				this.times = 2;
-			}
-		};
 	}
 
 	@After

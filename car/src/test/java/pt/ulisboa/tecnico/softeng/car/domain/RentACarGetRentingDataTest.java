@@ -31,6 +31,8 @@ public class RentACarGetRentingDataTest {
 	@Test
 	public void success() {
 		Renting renting = car.rent(DRIVING_LICENSE, date1, date2);
+		renting.setPaymentReference("12345670888");
+		renting.setInvoiceReference("12341670888");
 		RentingData rentingData = RentACar.getRentingData(renting.getReference());
 		assertEquals(renting.getReference(), rentingData.getReference());
 		assertEquals(DRIVING_LICENSE, rentingData.getDrivingLicense());
