@@ -196,12 +196,10 @@ public class ConfirmedStateProcessMethodTest {
 				this.result = new RemoteAccessException();
 			}
 		};
+		
+		this.adventure.process();
 
-		for (int i = 0; i < ConfirmedState.MAX_REMOTE_ERRORS; i++) {
-			this.adventure.process();
-		}
-
-		Assert.assertEquals(State.UNDO, this.adventure.getState());
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
 	}
 
 	@Test
@@ -217,10 +215,8 @@ public class ConfirmedStateProcessMethodTest {
 				this.result = new RemoteAccessException();
 			}
 		};
-
-		for (int i = 0; i < ConfirmedState.MAX_REMOTE_ERRORS - 1; i++) {
-			this.adventure.process();
-		}
+		
+		this.adventure.process();
 
 		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
 	}
@@ -275,12 +271,10 @@ public class ConfirmedStateProcessMethodTest {
 				this.result = new RemoteAccessException();
 			}
 		};
-
-		for (int i = 0; i < ConfirmedState.MAX_REMOTE_ERRORS; i++) {
-			this.adventure.process();
-		}
-
-		Assert.assertEquals(State.UNDO, this.adventure.getState());
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
 	}
 
 	@Test
@@ -311,17 +305,15 @@ public class ConfirmedStateProcessMethodTest {
 				this.result = new RemoteAccessException();
 			}
 		};
-
-		for (int i = 0; i < ConfirmedState.MAX_REMOTE_ERRORS - 1; i++) {
-			this.adventure.process();
-		}
-
+		
+		this.adventure.process();
+		
 		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
 	}
 
 	@Test
-	public void oneRemoteAccessExceptionStartingInRoom(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+	public void oneRemoteAccessExceptionStartingInRoom(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -348,8 +340,8 @@ public class ConfirmedStateProcessMethodTest {
 	}
 
 	@Test
-	public void maxRemoteAccessExceptionStartingInRoom(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+	public void maxRemoteAccessExceptionStartingInRoom(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -377,17 +369,15 @@ public class ConfirmedStateProcessMethodTest {
 				this.result = new RemoteAccessException();
 			}
 		};
-
-		for (int i = 0; i < ConfirmedState.MAX_REMOTE_ERRORS; i++) {
-			this.adventure.process();
-		}
-
-		Assert.assertEquals(State.UNDO, this.adventure.getState());
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
 	}
 
 	@Test
-	public void maxMinusOneRemoteAccessExceptionStartingInRoom(@Mocked final BankInterface bankInterface,
-			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface roomInterface) {
+	public void maxMinusOneRemoteAccessExceptionStartingInRoom(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
 		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
 		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
 		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
@@ -415,11 +405,522 @@ public class ConfirmedStateProcessMethodTest {
 				this.result = new RemoteAccessException();
 			}
 		};
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+	
+	@Test
+	public void oneRemoteAccessExceptionStartingInCar(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
 
-		for (int i = 0; i < ConfirmedState.MAX_REMOTE_ERRORS - 1; i++) {
-			this.adventure.process();
-		}
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				CarInterface.getRentingData(RENT_CONFIRMATION);
+				
+				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
 
+		this.adventure.process();
+
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
+	public void maxRemoteAccessExceptionStartingInCar(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new Delegate() {
+					int i = 0;
+
+					void delegate() {
+						this.i++;
+						if (this.i == 1) {
+							// return value is irrelevant
+						} else {
+							throw new RemoteAccessException();
+						}
+					}
+				};
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+
+				CarInterface.getRentingData(RENT_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
+	public void maxMinusOneRemoteAccessExceptionStartingInCar(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new Delegate() {
+					int i = 0;
+
+					void delegate() {
+						this.i++;
+						if (this.i == 1) {
+							// return value is irrelevant
+						} else {
+							throw new RemoteAccessException();
+						}
+					}
+				};
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+
+				CarInterface.getRentingData(RENT_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+	
+	@Test
+	public void oneRemoteAccessExceptionStartingInRoomWithCar(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+				
+				CarInterface.getRentingData(RENT_CONFIRMATION);
+				
+				this.result = new RemoteAccessException();
+			}
+		};
+
+		this.adventure.process();
+
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
+	public void maxRemoteAccessExceptionStartingInRoomWithCar(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new Delegate() {
+					int i = 0;
+
+					void delegate() {
+						this.i++;
+						if (this.i == 1) {
+							// return value is irrelevant
+						} else {
+							throw new RemoteAccessException();
+						}
+					}
+				};
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+
+				CarInterface.getRentingData(RENT_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
+	public void maxMinusOneRemoteAccessExceptionStartingInRoomWithCar(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new Delegate() {
+					int i = 0;
+
+					void delegate() {
+						this.i++;
+						if (this.i == 1) {
+							// return value is irrelevant
+						} else {
+							throw new RemoteAccessException();
+						}
+					}
+				};
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+
+				CarInterface.getRentingData(RENT_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+	
+	@Test
+	public void oneRemoteAccessExceptionStartingInTax(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+				
+				CarInterface.getRentingData(RENT_CONFIRMATION);
+				
+				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
+				
+				this.result = new RemoteAccessException();
+			}
+		};
+
+		this.adventure.process();
+
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
+	public void maxRemoteAccessExceptionStartingInTax(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new Delegate() {
+					int i = 0;
+
+					void delegate() {
+						this.i++;
+						if (this.i == 1) {
+							// return value is irrelevant
+						} else {
+							throw new RemoteAccessException();
+						}
+					}
+				};
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+
+				CarInterface.getRentingData(RENT_CONFIRMATION);
+				
+				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
+				
+				this.result = new RemoteAccessException();
+			}
+		};
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
+	public void maxMinusOneRemoteAccessExceptionStartingInTax(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new Delegate() {
+					int i = 0;
+
+					void delegate() {
+						this.i++;
+						if (this.i == 1) {
+							// return value is irrelevant
+						} else {
+							throw new RemoteAccessException();
+						}
+					}
+				};
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+
+				CarInterface.getRentingData(RENT_CONFIRMATION);
+				
+				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+	
+	@Test
+	public void oneRemoteAccessExceptionStartingInTaxWithoutCar(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+				
+				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
+				
+				this.result = new RemoteAccessException();
+			}
+		};
+
+		this.adventure.process();
+
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
+	public void maxRemoteAccessExceptionStartingInTaxWithoutCar(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new Delegate() {
+					int i = 0;
+
+					void delegate() {
+						this.i++;
+						if (this.i == 1) {
+							// return value is irrelevant
+						} else {
+							throw new RemoteAccessException();
+						}
+					}
+				};
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+				
+				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
+				
+				this.result = new RemoteAccessException();
+			}
+		};
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
+	public void maxMinusOneRemoteAccessExceptionStartingInTaxWithoutCar(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new Delegate() {
+					int i = 0;
+
+					void delegate() {
+						this.i++;
+						if (this.i == 1) {
+							// return value is irrelevant
+						} else {
+							throw new RemoteAccessException();
+						}
+					}
+				};
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
+				
+				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+	
+	@Test
+	public void oneRemoteAccessExceptionStartingInTaxWithoutCarAndRoom(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
+				
+				this.result = new RemoteAccessException();
+			}
+		};
+
+		this.adventure.process();
+
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
+	public void maxRemoteAccessExceptionStartingInTaxWithoutCarAndRoom(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new Delegate() {
+					int i = 0;
+
+					void delegate() {
+						this.i++;
+						if (this.i == 1) {
+							// return value is irrelevant
+						} else {
+							throw new RemoteAccessException();
+						}
+					}
+				};
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
+				
+				this.result = new RemoteAccessException();
+			}
+		};
+		
+		this.adventure.process();
+		
+		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
+	}
+
+	@Test
+	public void maxMinusOneRemoteAccessExceptionStartingInTaxWithoutCarAndRoom(@Mocked final BankInterface bankInterface, @Mocked final ActivityInterface activityInterface,
+			@Mocked final HotelInterface roomInterface, @Mocked final TaxInterface taxInterface, @Mocked final CarInterface carInterface) {
+		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
+		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
+		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
+		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
+		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+				this.result = new Delegate() {
+					int i = 0;
+
+					void delegate() {
+						this.i++;
+						if (this.i == 1) {
+							// return value is irrelevant
+						} else {
+							throw new RemoteAccessException();
+						}
+					}
+				};
+
+				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION);
+				
+				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+		
+		this.adventure.process();
+		
 		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
 	}
 
@@ -461,10 +962,6 @@ public class ConfirmedStateProcessMethodTest {
 
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 				
-				CarInterface.getRentingData(RENT_CONFIRMATION);
-				
-				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
-				
 				this.result = new HotelException();
 			}
 		};
@@ -492,7 +989,6 @@ public class ConfirmedStateProcessMethodTest {
 				
 				CarInterface.getRentingData(RENT_CONFIRMATION);
 				
-				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
 				this.result = new CarException();
 			}
 		};
