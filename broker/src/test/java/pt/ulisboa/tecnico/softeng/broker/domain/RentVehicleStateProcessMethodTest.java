@@ -8,10 +8,11 @@ import org.junit.Test;
 import mockit.Delegate;
 import mockit.Expectations;
 import mockit.Mocked;
-import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.CarInterface;
 
 public class RentVehicleStateProcessMethodTest {
 	private static final String IBAN = "BK01987654321";
@@ -20,7 +21,7 @@ public class RentVehicleStateProcessMethodTest {
 	private static final LocalDate begin = new LocalDate(2016, 12, 19);
 	private static final LocalDate end = new LocalDate(2016, 12, 21);
 	private static final String NIF = "123456789";
-	private static final String driving_license = "aAZ12";
+	private static final String driving_license = "AZ12";
 	
 	private static final String code = "911";
 	private static final String name = "broker";
@@ -39,11 +40,11 @@ public class RentVehicleStateProcessMethodTest {
 
 	
 	@Test
-	public void successRentVehicle(@Mocked final ActivityInterface activityInterface) {
+	public void successRentVehicle(@Mocked final CarInterface carInterface) {
 		this.adventure.setState(State.RENT_VEHICLE);
 		new Expectations() {
 			{
-				ActivityInterface.reserveActivity(begin, begin, AGE, NIF, IBAN);
+				CarInterface.reserveVehicle(begin, begin, driving_license, brokerNIFBuyer, brokerIBAN);
 				this.result = ACTIVITY_CONFIRMATION;
 			}
 		};
@@ -55,12 +56,12 @@ public class RentVehicleStateProcessMethodTest {
 	
 
 	@Test
-	public void activityException(@Mocked final ActivityInterface activityInterface) {
+	public void CarException(@Mocked final CarInterface carInterface) {
 		this.adventure.setState(State.RENT_VEHICLE);
 		new Expectations() {
 			{
-				ActivityInterface.reserveActivity(begin, begin, AGE,  NIF, IBAN);
-				this.result = new ActivityException();
+				CarInterface.reserveVehicle(begin, begin, driving_license,  brokerNIFBuyer, brokerIBAN);
+				this.result = new CarException();
 			}
 		};
 
@@ -70,26 +71,26 @@ public class RentVehicleStateProcessMethodTest {
 	}
 
 	@Test 
-	public void singleRemoteAccessException(@Mocked final ActivityInterface activityInterface) {
+	public void singleRemoteAccessException(@Mocked final CarInterface carInterface) {
 		this.adventure.setState(State.RENT_VEHICLE);
 		new Expectations() {
 			{
-				ActivityInterface.reserveActivity(begin, begin, AGE,  NIF, IBAN);
+				CarInterface.reserveVehicle(begin, begin, driving_license,  brokerNIFBuyer, brokerIBAN);
 				this.result = new RemoteAccessException();
 			}
 		};
 
 		this.adventure.process();
 
-		Assert.assertEquals(State.RESERVE_ACTIVITY, this.adventure.getState());
+		Assert.assertEquals(State.RENT_VEHICLE, this.adventure.getState());
 	}
 
 	@Test
-	public void maxRemoteAccessException(@Mocked final ActivityInterface activityInterface) {
+	public void maxRemoteAccessException(@Mocked final CarInterface carInterface) {
 		this.adventure.setState(State.RENT_VEHICLE);
 		new Expectations() {
 			{
-				ActivityInterface.reserveActivity(begin, begin, AGE,  NIF, IBAN);
+				CarInterface.reserveVehicle(begin, begin, driving_license,  brokerNIFBuyer, brokerIBAN);
 				this.result = new RemoteAccessException();
 			}
 		};
@@ -104,31 +105,44 @@ public class RentVehicleStateProcessMethodTest {
 	}
 
 	@Test
-	public void maxMinusOneRemoteAccessException(@Mocked final ActivityInterface activityInterface) {
+	public void maxMinusOneRemoteAccessException(@Mocked final CarInterface carInterface) {
 		this.adventure.setState(State.RENT_VEHICLE);
 		new Expectations() {
 			{
-				ActivityInterface.reserveActivity(begin, begin, AGE,  NIF, IBAN);
-				this.result = new RemoteAccessException();
+				CarInterface.reserveVehicle(begin, begin, driving_license,  brokerNIFBuyer, brokerIBAN);
+				this.result = new Delegate() {
+					int i = 0;
+
+					public String delegate() {
+						if (this.i < 4) {
+							this.i++;
+							throw new RemoteAccessException();
+						} else {
+							return ACTIVITY_CONFIRMATION;
+						}
+					}
+				};
+				this.times = 5;
 			}
 		};
-
+		
+		this.adventure.process();
 		this.adventure.process();
 		this.adventure.process();
 		this.adventure.process();
 		this.adventure.process();
 		
-		Assert.assertEquals(State.UNDO, this.adventure.getState());
+		Assert.assertEquals(State.PROCESS_PAYMENT, this.adventure.getState());
 	}
 
 	@Test
-	public void twoRemoteAccessExceptionOneSuccess(@Mocked final ActivityInterface activityInterface) {
+	public void twoRemoteAccessExceptionOneSuccess(@Mocked final CarInterface carInterface) {
 		
-		this.adventure.setState(State.RESERVE_ACTIVITY);
+		this.adventure.setState(State.RENT_VEHICLE);
 		
 		new Expectations() {
 			{
-				ActivityInterface.reserveActivity(begin, begin, AGE,  NIF, IBAN);
+				CarInterface.reserveVehicle(begin, begin, driving_license,  brokerNIFBuyer, brokerIBAN);
 				this.result = new Delegate() {
 					int i = 0;
 
@@ -150,18 +164,18 @@ public class RentVehicleStateProcessMethodTest {
 		this.adventure.process();
 		this.adventure.process();
 
-		Assert.assertEquals(State.UNDO, this.adventure.getState());
+		Assert.assertEquals(State.PROCESS_PAYMENT, this.adventure.getState());
 	}
 
 	@Test
-	public void oneRemoteAccessExceptionOneActivityException(@Mocked final ActivityInterface activityInterface) {
+	public void oneRemoteAccessExceptionOneCarException(@Mocked final CarInterface carInterface) {
 		
 		this.adventure = new Adventure(this.broker, begin, end, client, AMOUNT, true);
-		this.adventure.setState(State.RESERVE_ACTIVITY);
+		this.adventure.setState(State.RENT_VEHICLE);
 		
 		new Expectations() {
 			{
-				ActivityInterface.reserveActivity(begin, end, AGE,  NIF, IBAN);
+				CarInterface.reserveVehicle(begin, end, driving_license,  brokerNIFBuyer, brokerIBAN);
 				this.result = new Delegate() {
 					int i = 0;
 
@@ -170,7 +184,7 @@ public class RentVehicleStateProcessMethodTest {
 							this.i++;
 							throw new RemoteAccessException();
 						} else {
-							throw new ActivityException();
+							throw new CarException();
 						}
 					}
 				};

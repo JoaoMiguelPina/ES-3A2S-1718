@@ -119,49 +119,7 @@ public class ConfirmedStateProcessMethodTest {
 
 		this.adventure.process();
 
-		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
-	}
-
-	@Test
-	public void maxBankException(@Mocked final BankInterface bankInterface) {
-		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
-		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
-		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
-		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
-		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
-		new Expectations() {
-			{
-				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
-				this.result = new BankException();
-			}
-		};
-
-		for (int i = 0; i < ConfirmedState.MAX_BANK_EXCEPTIONS; i++) {
-			this.adventure.process();
-		}
-
 		Assert.assertEquals(State.UNDO, this.adventure.getState());
-	}
-
-	@Test
-	public void maxMinusOneBankException(@Mocked final BankInterface bankInterface) {
-		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
-		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
-		this.adventure.setRoomConfirmation(ROOM_CONFIRMATION);
-		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
-		this.adventure.setVehicleConfirmation(RENT_CONFIRMATION);
-		new Expectations() {
-			{
-				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
-				this.result = new BankException();
-			}
-		};
-
-		for (int i = 0; i < ConfirmedState.MAX_BANK_EXCEPTIONS - 1; i++) {
-			this.adventure.process();
-		}
-
-		Assert.assertEquals(State.CONFIRMED, this.adventure.getState());
 	}
 
 	@Test

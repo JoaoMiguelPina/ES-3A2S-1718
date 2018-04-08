@@ -8,11 +8,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import mockit.Expectations;
-import mockit.Injectable;
 import mockit.Mocked;
 import mockit.integration.junit4.JMockit;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
-import pt.ulisboa.tecnico.softeng.activity.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
@@ -20,6 +18,7 @@ import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.CarInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.HotelInterface;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
@@ -341,7 +340,7 @@ public class UndoStateProcessMethodTest {
 
 		this.adventure.process();
 
-		Assert.assertEquals(State.CANCELLED, this.adventure.getState());
+		Assert.assertEquals(State.UNDO, this.adventure.getState());
 	}
 	
 	@Test
@@ -491,7 +490,7 @@ public class UndoStateProcessMethodTest {
 
 		this.adventure.process();
 
-		Assert.assertEquals(State.UNDO, this.adventure.getState());
+		Assert.assertEquals(State.CANCELLED, this.adventure.getState());
 	}
 	
 	@Test
@@ -523,33 +522,7 @@ public class UndoStateProcessMethodTest {
 
 		this.adventure.process();
 
-		Assert.assertEquals(State.CANCELLED, this.adventure.getState());
-	}
-
-	@Test
-	public void successTaxReturnRevertPaymentAndActivity(@Mocked final BankInterface bankInterface,
-			@Mocked final TaxInterface activityInterface) {
-		this.adventure.setInvoiceConfirmation(INVOICE_CONFIRMATION);
-		this.adventure.setPaymentConfirmation(PAYMENT_CONFIRMATION);
-		this.adventure.setActivityConfirmation(ACTIVITY_CONFIRMATION);
-		
-		new Expectations() {
-			{
-				TaxInterface.cancelInvoice(INVOICE_CONFIRMATION);
-				this.result = INVOICE_CANCELLATION;
-
-				BankInterface.cancelPayment(PAYMENT_CONFIRMATION);
-				this.result = PAYMENT_CANCELLATION;
-				
-				ActivityInterface.cancelReservation(ACTIVITY_CONFIRMATION);
-				this.result = ACTIVITY_CANCELLATION;
-
-			}
-		};
-
-		this.adventure.process();
-
-		Assert.assertEquals(State.CANCELLED, this.adventure.getState());
+		Assert.assertEquals(State.UNDO, this.adventure.getState());
 	}
 	
 //	Car, Activity, Tax and Payment
