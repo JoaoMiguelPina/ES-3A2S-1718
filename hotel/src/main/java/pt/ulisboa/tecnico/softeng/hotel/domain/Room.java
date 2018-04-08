@@ -15,14 +15,21 @@ public class Room {
 	private final Hotel hotel;
 	private final String number;
 	private final Type type;
+	private double price;
 	private final Set<Booking> bookings = new HashSet<>();
 
 	public Room(Hotel hotel, String number, Type type) {
 		checkArguments(hotel, number, type);
-
+		
 		this.hotel = hotel;
 		this.number = number;
 		this.type = type;
+		if (type == Type.SINGLE) {
+			this.price = hotel.getPriceSingle();
+		}
+		else {
+			this.price = hotel.getPriceDouble();
+		}
 
 		this.hotel.addRoom(this);
 	}
@@ -39,6 +46,10 @@ public class Room {
 
 	public Hotel getHotel() {
 		return this.hotel;
+	}
+	
+	public double getPrice() {
+		return this.getPrice();
 	}
 
 	public String getNumber() {
@@ -67,7 +78,7 @@ public class Room {
 		return true;
 	}
 
-	public Booking reserve(Type type, LocalDate arrival, LocalDate departure) {
+	public Booking reserve(Type type, LocalDate arrival, LocalDate departure,String nif, String iban) {
 		if (type == null || arrival == null || departure == null) {
 			throw new HotelException();
 		}
@@ -76,7 +87,7 @@ public class Room {
 			throw new HotelException();
 		}
 
-		Booking booking = new Booking(this.hotel, arrival, departure);
+		Booking booking = new Booking(this.hotel, arrival, departure, nif, iban, this.type);
 		this.bookings.add(booking);
 
 		return booking;
