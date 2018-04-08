@@ -20,7 +20,7 @@ public class RentACar {
 	private final Map<String, Vehicle> vehicles = new HashMap<>();
 	private final String NIF;
 	private final String IBAN;
-	private Processor processor;
+	private Processor processor = new Processor();
 
 	public RentACar(String name, String nif, String iban) {
 		checkArguments(name);
@@ -145,5 +145,9 @@ public class RentACar {
 		Vehicle vehicle = availableSet.iterator().next();
 		Renting renting = new Renting(drivingLicense, begin, end, vehicle);
 		return renting.getReference();
+	}
+	
+	public Set<RentACar> getRentACars() {
+		return RentACar.rentACars;
 	}
 }

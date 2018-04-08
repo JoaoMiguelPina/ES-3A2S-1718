@@ -28,12 +28,13 @@ public class ProcessorSubmitRentingMethodTest {
 	public LocalDate begin;
 	public LocalDate end;
 	private Renting renting;
-	private RentACar rentACar = new RentACar("rentCar", "123456789", "555646465");
+	private RentACar rentACar;
 	private Car car;
 
 	@Before
 	public void setUp() {
 		this.car = new Car(CAR_PLATE, 10, 200, rentACar);
+		this.rentACar = new RentACar("rentCar", "123456789", "555646465");
 		this.DRIVERS_LICENSE = "abc123456789";
 		
 		LocalDate begin = new LocalDate(2016, 12, 19);

@@ -17,6 +17,9 @@ public class VehicleConstructorTest {
 	private static final String IBAN = "1234567890";
 	private static final int PRICE = 123;
 	private RentACar rentACar;
+	private Motorcycle motorcycle;
+	private Car car;
+	
 
 	@Before
 	public void setUp() {
@@ -25,9 +28,8 @@ public class VehicleConstructorTest {
 
 	@Test
 	public void success() {
-		Vehicle car = new Car(PLATE_CAR, 10, PRICE, this.rentACar);
-		Vehicle motorcycle = new Motorcycle(PLATE_MOTORCYCLE, 10, PRICE, this.rentACar);
-
+		this.car = new Car(PLATE_CAR, 10, PRICE, this.rentACar);
+		this.motorcycle = new Motorcycle(PLATE_MOTORCYCLE, 10, PRICE, this.rentACar);
 		assertEquals(PLATE_CAR, car.getPlate());
 		assertTrue(this.rentACar.hasVehicle(PLATE_CAR));
 		assertEquals(PLATE_MOTORCYCLE, motorcycle.getPlate());
@@ -56,8 +58,8 @@ public class VehicleConstructorTest {
 
 	@Test(expected = CarException.class)
 	public void duplicatedPlate() {
-		new Car(PLATE_CAR, 0, PRICE, this.rentACar);
-		new Car(PLATE_CAR, 0, PRICE, this.rentACar);
+		new Car("55-33-CJ", 0, PRICE, this.rentACar);
+		new Car("55-33-CJ", 0, PRICE, this.rentACar);
 	}
 
 	@Test(expected = CarException.class)
