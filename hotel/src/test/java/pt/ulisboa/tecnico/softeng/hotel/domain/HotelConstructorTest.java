@@ -28,6 +28,16 @@ public class HotelConstructorTest {
 	public void nullCode() {
 		new Hotel(null, HOTEL_NAME, NIF, IBAN, PRICES, PRICED);
 	}
+	
+	@Test(expected = HotelException.class)
+	public void negativeSinglePrice() {
+		new Hotel(HOTEL_CODE, HOTEL_NAME, NIF, IBAN, -20, PRICED);
+	}
+	
+	@Test(expected = HotelException.class)
+	public void negativeDoublePrice() {
+		new Hotel(HOTEL_CODE, HOTEL_NAME, NIF, IBAN, PRICES, -20);
+	}
 
 	@Test(expected = HotelException.class)
 	public void blankCode() {

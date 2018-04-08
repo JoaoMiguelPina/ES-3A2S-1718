@@ -86,6 +86,26 @@ public class HotelBulkBookingMethodTest {
 
 		assertEquals(8, references.size());
 	}
+	
+	@Test(expected = HotelException.class)
+	public void nullNif() {
+		Hotel.bulkBooking(2, this.arrival, this.departure, null, IBANC);
+	}
+	
+	@Test(expected = HotelException.class)
+	public void emptyNif() {
+		Hotel.bulkBooking(2, this.arrival, this.departure, "", IBANC);
+	}
+	
+	@Test(expected = HotelException.class)
+	public void nullIban() {
+		Hotel.bulkBooking(2, this.arrival, this.departure, NIFC, null);
+	}
+	
+	@Test(expected = HotelException.class)
+	public void emptyIban() {
+		Hotel.bulkBooking(2, this.arrival, this.departure, NIFC, "");
+	}
 
 	@Test
 	public void reserveAllPlusOne() {

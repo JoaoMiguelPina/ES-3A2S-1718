@@ -30,7 +30,7 @@ public class Hotel {
 	
 
 	public Hotel(String code, String name, String nif, String iban, double priceS, double priceD) {
-		checkArguments(code, name);
+		checkArguments(code, name, priceS, priceD);
 
 		this.code = code;
 		this.name = name;
@@ -41,8 +41,8 @@ public class Hotel {
 		Hotel.hotels.add(this);
 	}
 
-	private void checkArguments(String code, String name) {
-		if (code == null || name == null || code.trim().length() == 0 || name.trim().length() == 0) {
+	private void checkArguments(String code, String name, Double priceS, Double priceD) {
+		if (code == null || name == null || code.trim().length() == 0 || name.trim().length() == 0|| priceS < 0 || priceD < 0) {
 			throw new HotelException();
 		}
 
@@ -180,7 +180,7 @@ public class Hotel {
 	}
 
 	public static Set<String> bulkBooking(int number, LocalDate arrival, LocalDate departure, String nif, String iban) {
-		if (number < 1) {
+		if (number < 1 || nif == null || iban == null || nif == "" || iban == "") {
 			throw new HotelException();
 		}
 
