@@ -256,15 +256,7 @@ public class Adventure {
 	}
 
 	public boolean cancelInvoice() {
-		return getInvoiceConfirmation() != null && isInvoiceCancelled() == false;
-	}
-
-	public boolean isInvoiceCancelled() {
-		return isInvoiceCancelled;
-	}
-
-	public void setInvoiceCancelled(boolean isInvoiceCancelled) {
-		this.isInvoiceCancelled = isInvoiceCancelled;
+		return getInvoiceConfirmation() != null && getInvoiceCancellation() == null;
 	}
 
 	public boolean requiresCancelRoom() {
