@@ -25,6 +25,8 @@ public class HotelBulkBookingMethodTest {
 	private static final String IBAN2 = "1234567290";
 	private static final double PRICES2 = 113;
 	private static final double PRICED2 = 114;
+	private static final String NIFC = "224194213";
+	private static final String IBANC = "1234567893";
 
 	@Before
 	public void setUp() {
@@ -43,14 +45,14 @@ public class HotelBulkBookingMethodTest {
 
 	@Test
 	public void success() {
-		Set<String> references = Hotel.bulkBooking(2, this.arrival, this.departure);
+		Set<String> references = Hotel.bulkBooking(2, this.arrival, this.departure, NIFC, IBANC);
 
 		assertEquals(2, references.size());
 	}
 
 	@Test(expected = HotelException.class)
 	public void zeroNumber() {
-		Hotel.bulkBooking(0, this.arrival, this.departure);
+		Hotel.bulkBooking(0, this.arrival, this.departure, NIFC, IBANC);
 	}
 
 	@Test(expected = HotelException.class)
@@ -58,29 +60,29 @@ public class HotelBulkBookingMethodTest {
 		Hotel.hotels.clear();
 		this.hotel = new Hotel("XPTO124", "Paris", NIF2, IBAN2, PRICES2, PRICED2);
 
-		Hotel.bulkBooking(3, this.arrival, this.departure);
+		Hotel.bulkBooking(3, this.arrival, this.departure, NIFC, IBANC);
 	}
 
 	@Test
 	public void OneNumber() {
-		Set<String> references = Hotel.bulkBooking(1, this.arrival, this.departure);
+		Set<String> references = Hotel.bulkBooking(1, this.arrival, this.departure, NIFC, IBANC);
 
 		assertEquals(1, references.size());
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullArrival() {
-		Hotel.bulkBooking(2, null, this.departure);
+		Hotel.bulkBooking(2, null, this.departure, NIFC, IBANC);
 	}
 
 	@Test(expected = HotelException.class)
 	public void nullDeparture() {
-		Hotel.bulkBooking(2, this.arrival, null);
+		Hotel.bulkBooking(2, this.arrival, null, NIFC, IBANC);
 	}
 
 	@Test
 	public void reserveAll() {
-		Set<String> references = Hotel.bulkBooking(8, this.arrival, this.departure);
+		Set<String> references = Hotel.bulkBooking(8, this.arrival, this.departure, NIFC, IBANC);
 
 		assertEquals(8, references.size());
 	}
@@ -88,7 +90,7 @@ public class HotelBulkBookingMethodTest {
 	@Test
 	public void reserveAllPlusOne() {
 		try {
-			Hotel.bulkBooking(9, this.arrival, this.departure);
+			Hotel.bulkBooking(9, this.arrival, this.departure, NIFC, IBANC);
 			fail();
 		} catch (HotelException he) {
 			assertEquals(8, Hotel.getAvailableRooms(8, this.arrival, this.departure).size());

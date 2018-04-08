@@ -28,7 +28,7 @@ public class HotelGetRoomBookingDataMethodTest {
 	public void setUp() {
 		this.hotel = new Hotel("XPTO123", "Lisboa", NIF, IBAN, PRICES, PRICED);
 		this.room = new Room(this.hotel, "01", Type.SINGLE);
-		this.booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure);
+		this.booking = this.room.reserve(Type.SINGLE, this.arrival, this.departure, NIF, IBAN);
 	}
 
 	@Test
