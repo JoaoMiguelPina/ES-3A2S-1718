@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
+import pt.ulisboa.tecnico.softeng.hotel.domain.*;
 
 public class BookingConflictMethodTest {
 	private final LocalDate arrival = new LocalDate(2016, 12, 19);
@@ -21,7 +22,7 @@ public class BookingConflictMethodTest {
 	public void setUp() {
 		Hotel hotel = new Hotel("XPTO123", "Londres", NIF, IBAN, PRICES, PRICED);
 
-		this.booking = new Booking(hotel, this.arrival, this.departure);
+		this.booking = new Booking(hotel, this.arrival, this.departure, this.NIF, this.IBAN, Room.Type.SINGLE);
 	}
 
 	@Test
