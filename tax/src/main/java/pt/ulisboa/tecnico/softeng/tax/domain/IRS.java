@@ -83,8 +83,11 @@ public class IRS {
 		Invoice invoice = null;
 		for(TaxPayer taxpayer : IRS.taxPayers) {
 			invoice = taxpayer.getInvoiceByReference(invoiceReference);
+			if(invoice != null){
+				return invoice;
+			}
 		}
-		return invoice;
+		return null;
 	}
 	
 	public static InvoiceData getInvoiceData(String invoiceReference) {
