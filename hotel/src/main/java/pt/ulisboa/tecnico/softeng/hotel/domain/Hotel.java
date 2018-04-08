@@ -8,6 +8,8 @@ import org.joda.time.LocalDate;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Processor;
 import pt.ulisboa.tecnico.softeng.hotel.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.hotel.interfaces.TaxInterface;
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
+import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
@@ -155,12 +157,19 @@ public class Hotel {
 				Booking booking = room.getBooking(reference);
 				if (booking != null) {
 					
-					if(BankInterface.getOperationData(reference) == null) {
-						throw new HotelException();
+					if (!booking.isCancelled()) {
+						try {
+							BankInterface.getOperationData(booking.getPaymentReference());
+							TaxInterface.getInvoiceData(booking.getInvoiceReference());
+						}
+						catch(BankException | TaxException e) {throw new HotelException();}
 					}
-					
-					if(TaxInterface.getInvoiceData(reference) == null) {
-						throw new HotelException();
+					else {
+						try {
+							BankInterface.getOperationData(booking.getCancelledPaymentReference());
+							TaxInterface.getInvoiceData(booking.getCancellation());
+						}
+						catch(BankException | TaxException e) {throw new HotelException();}
 					}
 					
 					return new RoomBookingData(room, booking);

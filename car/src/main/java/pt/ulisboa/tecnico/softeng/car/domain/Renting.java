@@ -184,5 +184,9 @@ public class Renting {
 	public void setCancelledInvoice(boolean cancelledInvoice) {
 		this.cancelledInvoice = cancelledInvoice;
 	}
+	
+	public String getCancellation() {
+		return cancellation;
+	}
 
 }

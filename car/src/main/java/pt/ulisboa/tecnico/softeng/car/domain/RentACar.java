@@ -7,10 +7,12 @@ import java.util.Set;
 
 import org.joda.time.LocalDate;
 
+import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import pt.ulisboa.tecnico.softeng.car.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.car.interfaces.TaxInterface;
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class RentACar {
 	public static final Set<RentACar> rentACars = new HashSet<>();
@@ -111,11 +113,19 @@ public class RentACar {
 		if (renting == null) {
 			throw new CarException();
 		}
-		if(BankInterface.getOperationData(reference) == null) {
-			throw new CarException();
+		if (!renting.isCancelled()) {
+			try {
+				BankInterface.getOperationData(renting.getPaymentReference());
+				TaxInterface.getInvoiceData(renting.getInvoiceReference());
+			}
+			catch(BankException | TaxException e) {throw new CarException();}
 		}
-		if(TaxInterface.getInvoiceData(reference) == null) {
-			throw new CarException();
+		else {
+			try {
+				BankInterface.getOperationData(renting.getCancelledPaymentReference());
+				TaxInterface.getInvoiceData(renting.getCancellation());
+			}
+			catch(BankException | TaxException e) {throw new CarException();}
 		}
 		
 		return new RentingData(
