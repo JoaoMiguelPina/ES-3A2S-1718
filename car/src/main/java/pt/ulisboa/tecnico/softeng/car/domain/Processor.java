@@ -26,7 +26,7 @@ public class Processor {
 				if (renting.getPaymentReference() == null) {
 					try {
 						renting.setPaymentReference(
-								BankInterface.processPayment(renting.getNif(), renting.getAmount()));
+								BankInterface.processPayment(renting.getIban(), renting.getAmount()));
 					} catch (BankException | RemoteAccessException ex) {
 						failedToProcess.add(renting);
 						continue;
