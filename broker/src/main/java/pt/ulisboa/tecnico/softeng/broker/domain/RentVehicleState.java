@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.ActivityInterface;
 import pt.ulisboa.tecnico.softeng.broker.interfaces.CarInterface;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
@@ -24,6 +25,7 @@ public class RentVehicleState extends AdventureState {
 			
 			adventure.setVehicleConfirmation(reference);
 			
+			adventure.addAmount(CarInterface.getRentingData(reference).getAmount());
 		} 
 		catch (CarException ce) {
 			adventure.setState(State.UNDO);

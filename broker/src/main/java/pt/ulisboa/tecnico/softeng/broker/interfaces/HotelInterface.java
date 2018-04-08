@@ -21,7 +21,7 @@ public class HotelInterface {
 		return Hotel.getRoomBookingData(reference);
 	}
 
-	public static Set<String> bulkBooking(int number, LocalDate arrival, LocalDate departure) {
-		return Hotel.bulkBooking(number, arrival, departure);
+	public static Set<String> bulkBooking(int number, LocalDate arrival, LocalDate departure, String nif, String iban) {
+		return Hotel.bulkBooking(number, arrival, departure, nif, iban);
 	}
 }

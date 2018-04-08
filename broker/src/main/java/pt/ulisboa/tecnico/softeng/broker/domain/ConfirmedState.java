@@ -1,7 +1,5 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
-import java.rmi.RemoteException;
-
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
@@ -18,7 +16,6 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 public class ConfirmedState extends AdventureState {
 	public static int MAX_BANK_EXCEPTIONS = 5;
 
-	private int numberOfBankExceptions = 0;
 
 	@Override
 	public State getState() {
@@ -30,25 +27,18 @@ public class ConfirmedState extends AdventureState {
 		try {
 			BankInterface.getOperationData(adventure.getPaymentConfirmation());
 		} catch (BankException be) {
-			this.numberOfBankExceptions++;
-			if (this.numberOfBankExceptions == MAX_BANK_EXCEPTIONS) {
-				adventure.setState(State.UNDO);
-			}
+			adventure.setState(State.UNDO);
 			return;
 		} catch (RemoteAccessException rae) {
-			adventure.setState(State.CONFIRMED);
 			return;
 		}
 		
-		this.numberOfBankExceptions = 0;
-
 		try {
 			ActivityInterface.getActivityReservationData(adventure.getActivityConfirmation());
 		} catch (ActivityException ae) {
 			adventure.setState(State.UNDO);
 			return;
 		} catch (RemoteAccessException rae) {
-			adventure.setState(State.CONFIRMED);
 			return;
 		}
 
@@ -59,7 +49,6 @@ public class ConfirmedState extends AdventureState {
 				adventure.setState(State.UNDO);
 				return;
 			} catch (RemoteAccessException rae) {
-				adventure.setState(State.CONFIRMED);
 				return;
 			}
 		}
@@ -71,7 +60,6 @@ public class ConfirmedState extends AdventureState {
 				adventure.setState(State.UNDO);
 				return;
 			} catch (RemoteAccessException rae) {
-				adventure.setState(State.CONFIRMED);
 				return;
 			}
 		}
@@ -83,7 +71,6 @@ public class ConfirmedState extends AdventureState {
 				adventure.setState(State.UNDO);
 				return;
 			} catch (RemoteAccessException rae) {
-				adventure.setState(State.CONFIRMED);
 				return;
 			}
 		}

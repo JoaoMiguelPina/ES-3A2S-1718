@@ -145,8 +145,8 @@ public class Broker {
 		return this.adventures.contains(adventure);
 	}
 
-	public void bulkBooking(int number, LocalDate arrival, LocalDate departure) {
-		BulkRoomBooking bulkBooking = new BulkRoomBooking(number, arrival, departure);
+	public void bulkBooking(int number, LocalDate arrival, LocalDate departure, String nif, String iban) {
+		BulkRoomBooking bulkBooking = new BulkRoomBooking(number, arrival, departure, nif, iban);
 		this.bulkBookings.add(bulkBooking);
 		bulkBooking.processBooking();
 	}
