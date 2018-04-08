@@ -30,7 +30,7 @@ public class RentACarGetRentingDataTest {
 
 	@Test
 	public void success() {
-		Renting renting = car.rent(DRIVING_LICENSE, date1, date2);
+		Renting renting = car.rent(DRIVING_LICENSE, date1, date2, NIF1, IBAN1);
 		renting.setPaymentReference("12345670888");
 		renting.setInvoiceReference("12341670888");
 		RentingData rentingData = RentACar.getRentingData(renting.getReference());
