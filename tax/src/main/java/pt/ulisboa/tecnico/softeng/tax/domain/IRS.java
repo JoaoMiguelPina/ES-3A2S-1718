@@ -61,18 +61,9 @@ public class IRS {
 		return invoice.getReference();
 	}
 	
-	public static String cancelInvoice(String invoiceReference) {
-
-		for (TaxPayer tp : taxPayers) {
-			for(Invoice invoice : tp.invoices) {
-				if(invoice.getReference() == invoiceReference) {
-					tp.removeInvoice(invoice);
-					
-				}
-			}	
-		}
-		return invoiceReference + "CANCEL";
-		
+	public static String cancelInvoice(String invoiceReference) {	
+		Invoice invoice = IRS.getInvoiceByReference(invoiceReference);
+		return invoice.cancel();		
 	}
 
 	public void removeItemTypes() {
@@ -86,6 +77,53 @@ public class IRS {
 	public void clearAll() {
 		removeItemTypes();
 		removeTaxPayers();
+	}
+	
+	public static Invoice getInvoiceByReference(String invoiceReference) {
+		Invoice invoice = null;
+		for(TaxPayer taxpayer : IRS.taxPayers) {
+			invoice = taxpayer.getInvoiceByReference(invoiceReference);
+		}
+		return invoice;
+	}
+	
+	public InvoiceData getInvoiceData(String invoiceReference) {
+		
+		Invoice invoice = IRS.getInvoiceByReference(invoiceReference);
+		
+		if(invoice == null) {
+			throw new TaxException();
+		}
+				
+		String sellerNif = invoice.getSeller().getNIF();
+		String buyerNif = invoice.getBuyer().getNIF();
+		String itemType = invoice.getItemType().getName();
+		double value = invoice.getValue();
+		LocalDate date = invoice.getDate();
+		
+		if (value <= 0.0d) {
+			throw new TaxException();
+		}
+
+		if (date == null || date.getYear() < 1970) {
+			throw new TaxException();
+		}
+
+		if (itemType == null) {
+			throw new TaxException();
+		}
+
+		if (sellerNif == null) {
+			throw new TaxException();
+		}
+
+		if (buyerNif == null) {
+			throw new TaxException();
+		}
+		
+		InvoiceData invoicedata = new InvoiceData(sellerNif, buyerNif, itemType, value, date);
+		
+		return invoicedata;
 	}
 
 }
