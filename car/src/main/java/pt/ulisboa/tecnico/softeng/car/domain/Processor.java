@@ -33,7 +33,7 @@ public class Processor {
 						continue;
 					}
 				}
-				InvoiceData invoiceData = new InvoiceData(renting.getNif(), renting.getNif(), Renting.getType(),
+				InvoiceData invoiceData = new InvoiceData(renting.getVehicle().getRentACar().getNIF(), renting.getNif(), Renting.getType(),
 						renting.getAmount(), renting.getEnd());
 				try {
 					String invoice = TaxInterface.submitInvoice(invoiceData);

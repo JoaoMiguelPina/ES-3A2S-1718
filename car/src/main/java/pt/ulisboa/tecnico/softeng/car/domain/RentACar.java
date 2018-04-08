@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.joda.time.LocalDate;
 
+import mockit.internal.reflection.GenericTypeReflection;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
@@ -158,11 +159,12 @@ public class RentACar {
 	}	
 	
 	public static String reserveVehicle(LocalDate begin, LocalDate end, String drivingLicense , String nif, String iban) throws CarException {
-		Set<Vehicle> availableSet = getAllAvailableVehicles(Car.class, begin, end);
-		if(availableSet.size() == 0)
-			throw new CarException();
-		Vehicle vehicle = availableSet.iterator().next();
-		Renting renting = new Renting(drivingLicense, begin, end, vehicle);
+		Set<Vehicle> availableVehicles = getAllAvailableVehicles(Car.class, begin, end);
+
+		Vehicle vehicle = availableVehicles.iterator().next();
+		Renting renting = vehicle.rent(drivingLicense, begin, end, nif, iban);
+
+		vehicle.getRentACar().getProcessor().submitRenting(renting);
 		return renting.getReference();
 	}
 	

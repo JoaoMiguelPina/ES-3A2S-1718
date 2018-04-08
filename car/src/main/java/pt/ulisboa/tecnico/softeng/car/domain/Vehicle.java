@@ -18,7 +18,7 @@ public abstract class Vehicle {
 
 	private final String plate;
 	private int kilometers;
-	private int price;
+	private int price = 10;
 	private final RentACar rentACar;
 	public final Map<String, Renting> rentings = new HashMap<>();
 
@@ -118,12 +118,14 @@ public abstract class Vehicle {
 	 * @param end
 	 * @return
 	 */
-	public Renting rent(String drivingLicense, LocalDate begin, LocalDate end) {
+	public Renting rent(String drivingLicense, LocalDate begin, LocalDate end, String nif, String iban) {
 		if (!isFree(begin, end)) {
 			throw new CarException();
 		}
 
 		Renting renting = new Renting(drivingLicense, begin, end, this);
+		renting.setNif(nif);
+		renting.setIban(iban);
 		this.addRenting(renting);
 
 		return renting;

@@ -33,7 +33,7 @@ public class Renting {
 		this.end = end;
 		this.vehicle = vehicle;
 		
-		int numberOfDays = begin.getDayOfYear() - end.getDayOfYear();
+		int numberOfDays =  end.getDayOfYear() - begin.getDayOfYear();
 		this.amount = vehicle.getPrice() * numberOfDays;
 	}
 
