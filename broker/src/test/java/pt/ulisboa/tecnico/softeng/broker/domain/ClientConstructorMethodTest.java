@@ -52,6 +52,12 @@ public class ClientConstructorMethodTest {
 		new Client(BROKER, IBAN, null, DRIVING_LICENSE, AGE);
 	}
 	
+	@Test
+	public void nullDrivingLicense(){
+		Client client = new Client(BROKER, IBAN, NIF, null, AGE);
+		assertNull(client.getDrivingLicense());
+	}
+	
 	/*Blank and empty arguments*/
 	@Test(expected = BrokerException.class)
 	public void emptyIBAN(){
@@ -71,6 +77,16 @@ public class ClientConstructorMethodTest {
 	@Test(expected = BrokerException.class)
 	public void blankNIF(){
 		new Client(BROKER, IBAN, "    ", DRIVING_LICENSE, AGE);
+	}
+	
+	@Test(expected = BrokerException.class)
+	public void emptyDrivingLicense(){
+		new Client(BROKER, IBAN, NIF, "", AGE);
+	}
+	
+	@Test(expected = BrokerException.class)
+	public void blankDrivingLicense(){
+		new Client(BROKER, IBAN, NIF, "    ", AGE);
 	}
 	
 	/*Boundary limits tests for age*/

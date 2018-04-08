@@ -37,6 +37,7 @@ public class AdventureConstructorMethodTest {
 		Assert.assertEquals(true, adventure.needsCar());
 		Assert.assertTrue(this.broker.hasAdventure(adventure));
 
+		Assert.assertNotNull(adventure.getID());
 		Assert.assertNull(adventure.getPaymentConfirmation());
 		Assert.assertNull(adventure.getActivityConfirmation());
 		Assert.assertNull(adventure.getRoomConfirmation());

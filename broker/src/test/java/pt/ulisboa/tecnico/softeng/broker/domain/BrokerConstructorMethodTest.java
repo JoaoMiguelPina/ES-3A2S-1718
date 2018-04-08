@@ -218,7 +218,7 @@ public class BrokerConstructorMethodTest {
 	@Test
 	public void wrongNifSeller() {
 		try {
-			new Broker(CODE, NAME, "WrongNif", NIF_AS_BUYER, IBAN);
+			new Broker(CODE, NAME, "WrongNifs", NIF_AS_BUYER, IBAN);
 			Assert.fail();
 		} catch (BrokerException be) {
 			Assert.assertEquals(0, Broker.brokers.size());
@@ -228,7 +228,7 @@ public class BrokerConstructorMethodTest {
 	@Test
 	public void wrongNifBuyer() {
 		try {
-			new Broker(CODE, NAME, NIF_AS_SELLER, "WrongNif", IBAN);
+			new Broker(CODE, NAME, NIF_AS_SELLER, "WrongNifs", IBAN);
 			Assert.fail();
 		} catch (BrokerException be) {
 			Assert.assertEquals(0, Broker.brokers.size());
