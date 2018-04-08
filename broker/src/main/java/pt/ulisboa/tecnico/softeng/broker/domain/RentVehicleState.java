@@ -20,8 +20,7 @@ public class RentVehicleState extends AdventureState {
 	public void process(Adventure adventure) {
 		try {
 			Client client = adventure.getClient();
-			String reference = CarInterface.reserveVehicle(adventure.getBegin(), adventure.getEnd(), client.getDrivingLicense(), client.getNif(), client.getIban());
-			 
+			String reference = CarInterface.reserveVehicle(adventure.getBegin(), adventure.getEnd(), client.getDrivingLicense(), adventure.getBroker().getNifAsBuyer(), adventure.getBroker().getIban());
 			
 			adventure.setVehicleConfirmation(reference);
 			
@@ -38,7 +37,7 @@ public class RentVehicleState extends AdventureState {
 			return;
 		}
 
-		adventure.setState(State.CONFIRMED);
+		adventure.setState(State.PROCESS_PAYMENT);
 
 	}
 }

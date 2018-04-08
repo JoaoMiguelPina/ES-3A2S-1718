@@ -1,7 +1,7 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
-import pt.ulisboa.tecnico.softeng.activity.interfaces.TaxInterface;
+import pt.ulisboa.tecnico.softeng.broker.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.broker.domain.Adventure.State;
 import pt.ulisboa.tecnico.softeng.broker.exception.RemoteAccessException;
@@ -49,7 +49,7 @@ public class UndoState extends AdventureState {
 		
 		if (requiresCancelInvoice(adventure)) {
 			try {
-				adventure.setInvoiceCancellation(""/*TaxInterface.cancelInvoice(adventure.getInvoiceConfirmation())*/);
+				adventure.setInvoiceCancellation(TaxInterface.cancelInvoice(adventure.getInvoiceConfirmation()));
 			} catch (TaxException | RemoteAccessException ex) {
 				// does not change state
 			}

@@ -18,7 +18,7 @@ public class BookRoomState extends AdventureState {
 	public void process(Adventure adventure) {
 		try {
 			adventure.setRoomConfirmation(
-					HotelInterface.reserveRoom(Room.Type.SINGLE, adventure.getBegin(), adventure.getEnd(), adventure.getClient().getNif(), adventure.getClient().getIban()));
+					HotelInterface.reserveRoom(Room.Type.SINGLE, adventure.getBegin(), adventure.getEnd(), adventure.getBroker().getNifAsBuyer(), adventure.getBroker().getIban()));
 			String reference = adventure.getRoomConfirmation();
 			double amount = HotelInterface.getRoomBookingData(reference).getAmmount();
 			adventure.addAmount(amount);

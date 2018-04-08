@@ -17,7 +17,7 @@ public class ReserveActivityState extends AdventureState {
 		String reference;
 		try {
 			Client client =  adventure.getClient();
-			reference = ActivityInterface.reserveActivity(adventure.getBegin(), adventure.getEnd(), client.getAge(), client.getNif(), client.getIban());
+			reference = ActivityInterface.reserveActivity(adventure.getBegin(), adventure.getEnd(), client.getAge(), adventure.getBroker().getNifAsBuyer(), adventure.getBroker().getIban());
 			adventure.setActivityConfirmation(reference);
 
 			adventure.addAmount(ActivityInterface.getActivityReservationData(reference).getAmount());

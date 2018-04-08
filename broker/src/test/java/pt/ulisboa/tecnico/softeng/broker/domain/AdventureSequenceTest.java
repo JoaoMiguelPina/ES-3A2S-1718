@@ -447,9 +447,6 @@ public class AdventureSequenceTest {
 				
 //				(3) Rent Vehicle
 				CarInterface.reserveVehicle(begin, end, DRIVING_LICENSE, BROKER_NIF_BUYER, IBAN_BROKER);
-				this.result = RENT_CONFIRMATION;
-				
-				CarInterface.getRentingData(RENT_CONFIRMATION);
 				this.result = new CarException();
 				
 //				(4) Activity UNDO
