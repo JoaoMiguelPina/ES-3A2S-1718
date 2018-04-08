@@ -1,5 +1,8 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
+import java.time.Period;
+
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
@@ -30,10 +33,10 @@ public class Booking {
 
 		this.reference = hotel.getCode() + Integer.toString(++Booking.counter);
 		if (type == Type.SINGLE) {
-			this.amount = hotel.getPriceSingle();
+			this.amount = hotel.getPriceSingle() * (Days.daysBetween(arrival, departure).getDays() + 1);
 		}
 		else {
-			this.amount = hotel.getPriceDouble();
+			this.amount = hotel.getPriceDouble() * (Days.daysBetween(arrival, departure).getDays() + 1);
 		}
 		this.arrival = arrival;
 		this.departure = departure;
