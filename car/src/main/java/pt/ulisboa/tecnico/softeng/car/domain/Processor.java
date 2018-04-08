@@ -25,8 +25,9 @@ public class Processor {
 			if (!renting.isCancelled()) {
 				if (renting.getPaymentReference() == null) {
 					try {
-						renting.setPaymentReference(
-								BankInterface.processPayment(renting.getIban(), renting.getAmount()));
+						String ref = BankInterface.processPayment(renting.getNif(), renting.getAmount());
+						renting.setPaymentReference(ref);
+						BankInterface.getOperationData(ref);
 					} catch (BankException | RemoteAccessException ex) {
 						failedToProcess.add(renting);
 						continue;
@@ -35,7 +36,9 @@ public class Processor {
 				InvoiceData invoiceData = new InvoiceData(renting.getNif(), renting.getNif(), Renting.getType(),
 						renting.getAmount(), renting.getEnd());
 				try {
-					renting.setInvoiceReference(TaxInterface.submitInvoice(invoiceData));
+					String invoice = TaxInterface.submitInvoice(invoiceData);
+					renting.setInvoiceReference(invoice);
+					TaxInterface.getInvoiceData(invoice);
 				} catch (TaxException | RemoteAccessException ex) {
 					failedToProcess.add(renting);
 				}
@@ -44,9 +47,11 @@ public class Processor {
 					if (renting.getCancelledPaymentReference() == null) {
 						renting.setCancelledPaymentReference(
 								BankInterface.cancelPayment(renting.getPaymentReference()));
+						BankInterface.getOperationData(renting.getReference());
 					}
-					TaxInterface.cancelInvoice(renting.getInvoiceReference());
+					String ref = TaxInterface.cancelInvoice(renting.getInvoiceReference());
 					renting.setCancelledInvoice(true);
+					TaxInterface.getInvoiceData(ref);
 				} catch (BankException | TaxException | RemoteAccessException ex) {
 					failedToProcess.add(renting);
 				}
