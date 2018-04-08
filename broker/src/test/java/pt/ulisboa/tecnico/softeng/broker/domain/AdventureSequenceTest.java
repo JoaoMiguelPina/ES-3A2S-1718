@@ -105,7 +105,7 @@ public class AdventureSequenceTest {
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 				this.result = roomBookingData;
 				
-				roomBookingData.getAmmount();
+				roomBookingData.getAmount();
 				this.result = PRICE_HOTEL;
 				
 //				(3) Rent Vehicle
@@ -241,7 +241,7 @@ public class AdventureSequenceTest {
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 				this.result = roomBookingData;
 				
-				roomBookingData.getAmmount();
+				roomBookingData.getAmount();
 				this.result = PRICE_HOTEL;
 				
 //				(3) Process Payment
@@ -439,7 +439,7 @@ public class AdventureSequenceTest {
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 				this.result = roomBookingData;
 				
-				roomBookingData.getAmmount();
+				roomBookingData.getAmount();
 				this.result = PRICE_HOTEL;
 				
 //				(3) Rent Vehicle
@@ -502,7 +502,7 @@ public class AdventureSequenceTest {
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 				this.result = roomBookingData;
 				
-				roomBookingData.getAmmount();
+				roomBookingData.getAmount();
 				this.result = PRICE_HOTEL;
 				
 //				(3) Rent Vehicle
@@ -582,7 +582,7 @@ public class AdventureSequenceTest {
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 				this.result = roomBookingData;
 				
-				roomBookingData.getAmmount();
+				roomBookingData.getAmount();
 				this.result = PRICE_HOTEL;
 				
 //				(3) Rent Vehicle
@@ -685,7 +685,7 @@ public class AdventureSequenceTest {
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 				this.result = roomBookingData;
 				
-				roomBookingData.getAmmount();
+				roomBookingData.getAmount();
 				this.result = PRICE_HOTEL;
 				
 //				(3) Rent Vehicle
@@ -795,7 +795,7 @@ public class AdventureSequenceTest {
 				};
 				this.times = 2;
 				
-				roomBookingData.getAmmount();
+				roomBookingData.getAmount();
 				this.result = PRICE_HOTEL;
 				
 //				(3) Rent Vehicle
@@ -894,7 +894,7 @@ public class AdventureSequenceTest {
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 				this.result = roomBookingData;
 				
-				roomBookingData.getAmmount();
+				roomBookingData.getAmount();
 				this.result = PRICE_HOTEL;
 				this.times = 1;
 				
@@ -1006,7 +1006,7 @@ public class AdventureSequenceTest {
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 				this.result = roomBookingData; 
 				
-				roomBookingData.getAmmount();
+				roomBookingData.getAmount();
 				this.result = PRICE_HOTEL;
 				
 //				(3) Rent Vehicle
@@ -1110,7 +1110,7 @@ public class AdventureSequenceTest {
 				this.result = roomBookingData;
 				this.times = 2; 
 				
-				roomBookingData.getAmmount();
+				roomBookingData.getAmount();
 				this.result = PRICE_HOTEL;
 				
 //				(3) Rent Vehicle
