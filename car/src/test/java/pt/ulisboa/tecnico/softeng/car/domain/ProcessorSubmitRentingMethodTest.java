@@ -23,8 +23,9 @@ public class ProcessorSubmitRentingMethodTest {
 	private static final String CANCEL_PAYMENT_REFERENCE = "CancelPaymentReference";
 	private static final String INVOICE_REFERENCE = "InvoiceReference";
 	private static final String PAYMENT_REFERENCE = "PaymentReference";
-	public String CAR_PLATE= "22-33-HZ";;
-	public String DRIVERS_LICENSE;
+	private static final String IBAN = "12345678901234";
+	private static final String NIF = "123456789";
+	public String DRIVERS_LICENSE= "abc1234123";
 	public LocalDate begin;
 	public LocalDate end;
 	private Renting renting;
@@ -33,13 +34,11 @@ public class ProcessorSubmitRentingMethodTest {
 
 	@Before
 	public void setUp() {
-		this.car = new Car(CAR_PLATE, 10, 200, rentACar);
-		this.rentACar = new RentACar("rentCar", "123456789", "555646465");
-		this.DRIVERS_LICENSE = "abc123456789";
-		
-		LocalDate begin = new LocalDate(2016, 12, 19);
-		LocalDate end = new LocalDate(2016, 12, 21);
-		this.renting = new Renting(DRIVERS_LICENSE, begin, end, car);
+		this.rentACar = new RentACar("Rent$", NIF, IBAN);
+		this.car = new Car("22-33-HZ", 0, 123, this.rentACar);
+		this.begin = new LocalDate(2016, 12, 19);
+		this.end = new LocalDate(2017, 12, 21);
+		this.renting = new Renting(DRIVERS_LICENSE, begin, end, this.car);
 	}
 
 	@Test
@@ -62,6 +61,7 @@ public class ProcessorSubmitRentingMethodTest {
 	@Test
 	public void oneTaxFailureOnSubmitInvoice(@Mocked final TaxInterface taxInterface,
 			@Mocked final BankInterface bankInterface) {
+		
 		new Expectations() {
 			{
 				BankInterface.processPayment(this.anyString, this.anyDouble);
@@ -73,7 +73,8 @@ public class ProcessorSubmitRentingMethodTest {
 		};
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
-		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, car));
+		
+		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
 		new FullVerifications(taxInterface) {
 			{
@@ -97,8 +98,7 @@ public class ProcessorSubmitRentingMethodTest {
 		};
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
-		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, car));
-
+		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 		new FullVerifications(taxInterface) {
 			{
 				TaxInterface.submitInvoice((InvoiceData) this.any);
@@ -121,7 +121,7 @@ public class ProcessorSubmitRentingMethodTest {
 		};
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
-		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, car));
+		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
 		new FullVerifications(bankInterface) {
 			{
@@ -145,7 +145,7 @@ public class ProcessorSubmitRentingMethodTest {
 		};
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
-		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, car));
+		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
 		new FullVerifications(bankInterface) {
 			{
@@ -193,7 +193,7 @@ public class ProcessorSubmitRentingMethodTest {
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
 		this.renting.cancel();
-		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, car));
+		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
 		new FullVerifications(bankInterface) {
 			{
@@ -220,7 +220,7 @@ public class ProcessorSubmitRentingMethodTest {
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
 		this.renting.cancel();
-		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, car));
+		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
 		new FullVerifications(bankInterface) {
 			{
@@ -255,7 +255,7 @@ public class ProcessorSubmitRentingMethodTest {
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
 		this.renting.cancel();
-		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, car));
+		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
 		new FullVerifications(taxInterface) {
 			{
@@ -291,7 +291,7 @@ public class ProcessorSubmitRentingMethodTest {
 
 		this.rentACar.getProcessor().submitRenting(this.renting);
 		this.renting.cancel();
-		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, car));
+		this.rentACar.getProcessor().submitRenting(new Renting(DRIVERS_LICENSE, begin, end, this.car));
 
 		new FullVerifications(taxInterface) {
 			{
@@ -303,7 +303,10 @@ public class ProcessorSubmitRentingMethodTest {
 
 	@After
 	public void tearDown() {
+		car.rentings.clear();
+		Vehicle.plates.clear();
 		RentACar.rentACars.clear();
+		
 	}
 
 }
