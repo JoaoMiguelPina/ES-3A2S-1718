@@ -32,6 +32,9 @@ public class Renting {
 		this.begin = begin;
 		this.end = end;
 		this.vehicle = vehicle;
+		
+		int numberOfDays = begin.getDayOfYear() - end.getDayOfYear();
+		this.amount = vehicle.getPrice() * numberOfDays;
 	}
 
 	private void checkArguments(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle) {
