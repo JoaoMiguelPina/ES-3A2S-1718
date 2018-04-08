@@ -8,6 +8,9 @@ public class InvoiceData {
 	private String itemType;
 	private double value;
 	private LocalDate date;
+	private String reference;
+	private String cancel;
+	private LocalDate cancellationDate;
 
 	public InvoiceData() { 
 	}
@@ -58,6 +61,30 @@ public class InvoiceData {
 
 	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+	
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	public String getCancel() {
+		return cancel;
+	}
+
+	public void setCancel(String cancel) {
+		this.cancel = cancel;
+	}
+
+	public LocalDate getCancellationDate() {
+		return cancellationDate;
+	}
+
+	public void setCancellationDate(LocalDate cancellationDate) {
+		this.cancellationDate = cancellationDate;
 	}
 
 }
