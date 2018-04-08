@@ -38,6 +38,11 @@ public class SellerToPayTest {
 
 		assertEquals(25.0f, value, 0.00f);
 	}
+	
+	@Test(expected = TaxException.class)
+	public void before1970() {
+		this.seller.toPay(1969);
+	}
 
 	@Test
 	public void yearWithoutInvoices() {
@@ -55,10 +60,7 @@ public class SellerToPayTest {
 		assertEquals(0.0d, value, 0.00d);
 	}
 
-	@Test(expected = TaxException.class)
-	public void before1970() {
-		this.seller.toPay(1969);
-	}
+	
 
 	public void equal1970() {
 		double value = this.seller.toPay(1969);
