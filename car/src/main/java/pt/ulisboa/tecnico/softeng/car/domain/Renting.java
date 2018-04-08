@@ -20,7 +20,7 @@ public class Renting {
 	private String nif;
 	private String iban;
 	private String paymentReference;
-	private static final String Type = "vehicle";
+	private static final String Type = "RENTAL";
 	private String invoiceReference;
 	private String cancelledPaymentReference = null;
 	private boolean cancelledInvoice = false;

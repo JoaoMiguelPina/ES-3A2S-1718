@@ -11,7 +11,7 @@ import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 public class Booking {
 	private static int counter = 0;
 	
-	private static final String type = "HOTEL";
+	private static final String type = "HOUSING";
 
 	private final String reference;
 	private String paymentReference;
