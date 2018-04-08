@@ -69,6 +69,6 @@ public class RentingConflictTest {
 	@After
 	public void tearDown() {
 		RentACar.rentACars.clear();
-		car.getPlates().clear();
+		Vehicle.plates.clear();
 	}
 }

@@ -15,7 +15,7 @@ public abstract class Vehicle {
 	private static Logger logger = LoggerFactory.getLogger(Vehicle.class);
 
 	private static String plateFormat = "..-..-..";
-	public final static Set<String> plates = new HashSet<>();
+	static Set<String> plates = new HashSet<>();
 
 	private final String plate;
 	private int kilometers;
@@ -37,8 +37,6 @@ public abstract class Vehicle {
 	}
 
 	private void checkArguments(String plate, int kilometers, RentACar rentACar) {
-		//if (getPlates().contains(plate.toUpperCase()) ) logger.debug("Merda: {}", plate);
-		
 		if (plate == null || !plate.matches(plateFormat) || rentACar == null || rentACar.hasVehicle(plate)) {
 			throw new CarException();
 		} 
@@ -142,7 +140,7 @@ public abstract class Vehicle {
 	}
 	
 	public void clean() {
-		this.getPlates().clear();
+		plates.clear();
 	}
 
 	public Set<String> getPlates() {

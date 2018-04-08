@@ -50,7 +50,7 @@ public class BookRoomStateMethodTest {
 	public void hotelException(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
-				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, NIF, IBAN);
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, brokerNIFBuyer, brokerIBAN);
 				this.result = new HotelException();
 			}
 		};
@@ -64,7 +64,7 @@ public class BookRoomStateMethodTest {
 	public void singleRemoteAccessException(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
-				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, NIF, IBAN);
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, brokerNIFBuyer, brokerIBAN);
 				this.result = new RemoteAccessException();
 			}
 		};
@@ -78,7 +78,7 @@ public class BookRoomStateMethodTest {
 	public void maxRemoteAccessException(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
-				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, NIF, IBAN);
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, brokerNIFBuyer, brokerIBAN);
 				this.result = new RemoteAccessException();
 				this.times = BookRoomState.MAX_REMOTE_ERRORS;
 			}
@@ -95,7 +95,7 @@ public class BookRoomStateMethodTest {
 	public void maxMinusOneRemoteAccessException(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
-				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, NIF, IBAN);
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, brokerNIFBuyer, brokerIBAN);
 				this.result = new RemoteAccessException();
 				this.times = BookRoomState.MAX_REMOTE_ERRORS - 1;
 			}
@@ -112,7 +112,7 @@ public class BookRoomStateMethodTest {
 	public void fiveRemoteAccessExceptionOneSuccess(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
-				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, NIF, IBAN);
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, brokerNIFBuyer, brokerIBAN);
 				this.result = new Delegate() {
 					int i = 0;
 
@@ -143,7 +143,7 @@ public class BookRoomStateMethodTest {
 	public void oneRemoteAccessExceptionOneActivityException(@Mocked final HotelInterface hotelInterface) {
 		new Expectations() {
 			{
-				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, NIF, IBAN);
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, brokerNIFBuyer, brokerIBAN);
 				this.result = new Delegate() {
 					int i = 0;
 
@@ -174,7 +174,7 @@ public class BookRoomStateMethodTest {
 		
 		new Expectations() {
 			{
-				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, NIF, IBAN);
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, brokerNIFBuyer, brokerIBAN);
 				this.result = "teste";
 				
 			}
@@ -192,7 +192,7 @@ public class BookRoomStateMethodTest {
 		
 		new Expectations() {
 			{
-				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, NIF, IBAN);
+				HotelInterface.reserveRoom(Type.SINGLE, arrival, departure, brokerNIFBuyer, brokerIBAN);
 				this.result = "teste";
 				
 			}

@@ -358,7 +358,6 @@ public class AdventureSequenceTest {
 		assertEquals(State.CANCELLED, adventure.getState());
 		
 		assertEquals(ACTIVITY_CANCELLATION, adventure.getActivityCancellation());
-		assertNull(adventure.getActivityConfirmation());
 	}
 	
 	@Test
@@ -410,9 +409,7 @@ public class AdventureSequenceTest {
 		assertEquals(State.CANCELLED, adventure.getState());
 		
 		assertEquals(ACTIVITY_CANCELLATION, adventure.getActivityCancellation());
-		assertNull(adventure.getActivityConfirmation());
 		assertEquals(ROOM_CANCELLATION, adventure.getRoomCancellation());
-		assertNull(adventure.getRoomConfirmation());
 	}
 	
 	@Test
@@ -457,10 +454,6 @@ public class AdventureSequenceTest {
 				HotelInterface.cancelBooking(ROOM_CONFIRMATION);
 				this.result = ROOM_CANCELLATION;
 				
-//				(6) Rent UNDO
-				CarInterface.cancelReservation(RENT_CONFIRMATION);
-				this.result = RENT_CANCELLATION;
-				
 			}
 		};
 
@@ -477,11 +470,7 @@ public class AdventureSequenceTest {
 		assertEquals(State.CANCELLED, adventure.getState());
 		
 		assertEquals(ACTIVITY_CANCELLATION, adventure.getActivityCancellation());
-		assertNull(adventure.getActivityConfirmation());
 		assertEquals(ROOM_CANCELLATION, adventure.getRoomCancellation());
-		assertNull(adventure.getRoomConfirmation());
-		assertEquals(RENT_CANCELLATION, adventure.getVehicleCancellation());
-		assertNull(adventure.getVehicleConfirmation());
 	}
 	
 	@Test
@@ -560,12 +549,8 @@ public class AdventureSequenceTest {
 		assertEquals(State.CANCELLED, adventure.getState());
 		
 		assertEquals(ACTIVITY_CANCELLATION, adventure.getActivityCancellation());
-		assertNull(adventure.getActivityConfirmation());
 		assertEquals(ROOM_CANCELLATION, adventure.getRoomCancellation());
-		assertNull(adventure.getRoomConfirmation());
 		assertEquals(RENT_CANCELLATION, adventure.getVehicleCancellation());
-		assertNull(adventure.getVehicleConfirmation());
-		assertNull(adventure.getPaymentConfirmation());
 	}
 	
 	@Test
@@ -655,13 +640,8 @@ public class AdventureSequenceTest {
 		assertEquals(State.CANCELLED, adventure.getState());
 		
 		assertEquals(ACTIVITY_CANCELLATION, adventure.getActivityCancellation());
-		assertNull(adventure.getActivityConfirmation());
 		assertEquals(ROOM_CANCELLATION, adventure.getRoomCancellation());
-		assertNull(adventure.getRoomConfirmation());
 		assertEquals(RENT_CANCELLATION, adventure.getVehicleCancellation());
-		assertNull(adventure.getVehicleConfirmation());
-		assertNull(adventure.getPaymentConfirmation());
-		assertNull(adventure.getInvoiceConfirmation());
 	}
 
 	@Test
@@ -704,7 +684,6 @@ public class AdventureSequenceTest {
 				
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 				this.result = roomBookingData;
-				this.times = 2;
 				
 				roomBookingData.getAmmount();
 				this.result = PRICE_HOTEL;
@@ -715,7 +694,6 @@ public class AdventureSequenceTest {
 				
 				CarInterface.getRentingData(RENT_CONFIRMATION);
 				this.result = rentingData;
-				this.times = 2;
 				
 				rentingData.getAmount();
 				this.result = PRICE_RENT;
@@ -770,15 +748,10 @@ public class AdventureSequenceTest {
 		assertEquals(State.CANCELLED, adventure.getState());
 		
 		assertEquals(ACTIVITY_CANCELLATION, adventure.getActivityCancellation());
-		assertNull(adventure.getActivityConfirmation());
 		assertEquals(ROOM_CANCELLATION, adventure.getRoomCancellation());
-		assertNull(adventure.getRoomConfirmation());
 		assertEquals(RENT_CANCELLATION, adventure.getVehicleCancellation());
-		assertNull(adventure.getVehicleConfirmation());
 		assertEquals(PAYMENT_CANCELLATION, adventure.getPaymentCancellation());
-		assertNull(adventure.getPaymentConfirmation());
 		assertEquals(INVOICE_CANCELLATION, adventure.getInvoiceCancellation());
-		assertNull(adventure.getInvoiceConfirmation());
 	}
 	
 	@Test
@@ -799,7 +772,6 @@ public class AdventureSequenceTest {
 				
 				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION); 
 				this.result = activityReservationData;
-				this.times = 2;
 						
 				activityReservationData.getAmount();
 				this.result = PRICE_ACTIVITY;
@@ -832,7 +804,6 @@ public class AdventureSequenceTest {
 				
 				CarInterface.getRentingData(RENT_CONFIRMATION);
 				this.result = rentingData;
-				this.times = 2;
 				
 				rentingData.getAmount();
 				this.result = PRICE_RENT;
@@ -887,15 +858,10 @@ public class AdventureSequenceTest {
 		assertEquals(State.CANCELLED, adventure.getState());
 		
 		assertEquals(ACTIVITY_CANCELLATION, adventure.getActivityCancellation());
-		assertNull(adventure.getActivityConfirmation());
 		assertEquals(ROOM_CANCELLATION, adventure.getRoomCancellation());
-		assertNull(adventure.getRoomConfirmation());
 		assertEquals(RENT_CANCELLATION, adventure.getVehicleCancellation());
-		assertNull(adventure.getVehicleConfirmation());
 		assertEquals(PAYMENT_CANCELLATION, adventure.getPaymentCancellation());
-		assertNull(adventure.getPaymentConfirmation());
 		assertEquals(INVOICE_CANCELLATION, adventure.getInvoiceCancellation());
-		assertNull(adventure.getInvoiceConfirmation());
 	}
 	
 	@Test
@@ -916,10 +882,10 @@ public class AdventureSequenceTest {
 				
 				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION); 
 				this.result = activityReservationData;
-				this.times = 2;
 						
 				activityReservationData.getAmount();
 				this.result = PRICE_ACTIVITY;
+				this.times = 1;
 				
 //				(2) Hotel Room Reservation
 				HotelInterface.reserveRoom(Type.SINGLE, begin, end, BROKER_NIF_BUYER, IBAN_BROKER);
@@ -927,10 +893,10 @@ public class AdventureSequenceTest {
 				
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
 				this.result = roomBookingData;
-				this.times = 2; 
 				
 				roomBookingData.getAmmount();
 				this.result = PRICE_HOTEL;
+				this.times = 1;
 				
 //				(3) Rent Vehicle
 				CarInterface.reserveVehicle(begin, end, DRIVING_LICENSE, BROKER_NIF_BUYER, IBAN_BROKER);
@@ -953,6 +919,7 @@ public class AdventureSequenceTest {
 				
 				rentingData.getAmount();
 				this.result = PRICE_RENT;
+				this.times = 1;
 				
 //				(4) Process Payment
 				BankInterface.processPayment(IBAN_CLIENT, ammountToCharge);
@@ -1004,15 +971,10 @@ public class AdventureSequenceTest {
 		assertEquals(State.CANCELLED, adventure.getState());
 		
 		assertEquals(ACTIVITY_CANCELLATION, adventure.getActivityCancellation());
-		assertNull(adventure.getActivityConfirmation());
 		assertEquals(ROOM_CANCELLATION, adventure.getRoomCancellation());
-		assertNull(adventure.getRoomConfirmation());
 		assertEquals(RENT_CANCELLATION, adventure.getVehicleCancellation());
-		assertNull(adventure.getVehicleConfirmation());
 		assertEquals(PAYMENT_CANCELLATION, adventure.getPaymentCancellation());
-		assertNull(adventure.getPaymentConfirmation());
 		assertEquals(INVOICE_CANCELLATION, adventure.getInvoiceCancellation());
-		assertNull(adventure.getInvoiceConfirmation());
 	}
 	
 	@Test
@@ -1033,7 +995,6 @@ public class AdventureSequenceTest {
 				
 				ActivityInterface.getActivityReservationData(ACTIVITY_CONFIRMATION); 
 				this.result = activityReservationData;
-				this.times = 2;
 						
 				activityReservationData.getAmount();
 				this.result = PRICE_ACTIVITY;
@@ -1043,8 +1004,7 @@ public class AdventureSequenceTest {
 				this.result = ROOM_CONFIRMATION;
 				
 				HotelInterface.getRoomBookingData(ROOM_CONFIRMATION);
-				this.result = roomBookingData;
-				this.times = 2; 
+				this.result = roomBookingData; 
 				
 				roomBookingData.getAmmount();
 				this.result = PRICE_HOTEL;
@@ -1055,7 +1015,6 @@ public class AdventureSequenceTest {
 				
 				CarInterface.getRentingData(RENT_CONFIRMATION);
 				this.result = rentingData;
-				this.times = 2;
 				
 				rentingData.getAmount();
 				this.result = PRICE_RENT;
@@ -1114,15 +1073,10 @@ public class AdventureSequenceTest {
 		assertEquals(State.CANCELLED, adventure.getState());
 		
 		assertEquals(ACTIVITY_CANCELLATION, adventure.getActivityCancellation());
-		assertNull(adventure.getActivityConfirmation());
 		assertEquals(ROOM_CANCELLATION, adventure.getRoomCancellation());
-		assertNull(adventure.getRoomConfirmation());
 		assertEquals(RENT_CANCELLATION, adventure.getVehicleCancellation());
-		assertNull(adventure.getVehicleConfirmation());
 		assertEquals(PAYMENT_CANCELLATION, adventure.getPaymentCancellation());
-		assertNull(adventure.getPaymentConfirmation());
 		assertEquals(INVOICE_CANCELLATION, adventure.getInvoiceCancellation());
-		assertNull(adventure.getInvoiceConfirmation());
 	}
 	
 	@Test
@@ -1180,8 +1134,8 @@ public class AdventureSequenceTest {
 				this.result = INVOICE_CONFIRMATION;
 								
 //				(6) [CONFIRMED] getOperationData
-				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
-				this.result = bankOperationData;
+				TaxInterface.getInvoiceData(INVOICE_CONFIRMATION);
+				this.result = new TaxException();
 					
 //				(7) Activity UNDO
 				ActivityInterface.cancelReservation(ACTIVITY_CONFIRMATION);
@@ -1224,15 +1178,10 @@ public class AdventureSequenceTest {
 		assertEquals(State.CANCELLED, adventure.getState());
 		
 		assertEquals(ACTIVITY_CANCELLATION, adventure.getActivityCancellation());
-		assertNull(adventure.getActivityConfirmation());
 		assertEquals(ROOM_CANCELLATION, adventure.getRoomCancellation());
-		assertNull(adventure.getRoomConfirmation());
 		assertEquals(RENT_CANCELLATION, adventure.getVehicleCancellation());
-		assertNull(adventure.getVehicleConfirmation());
 		assertEquals(PAYMENT_CANCELLATION, adventure.getPaymentCancellation());
-		assertNull(adventure.getPaymentConfirmation());
 		assertEquals(INVOICE_CANCELLATION, adventure.getInvoiceCancellation());
-		assertNull(adventure.getInvoiceConfirmation());
 	}
 	
 	@After
