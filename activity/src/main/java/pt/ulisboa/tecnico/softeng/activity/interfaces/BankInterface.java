@@ -1,6 +1,9 @@
 package pt.ulisboa.tecnico.softeng.activity.interfaces;
 
+import pt.ulisboa.tecnico.softeng.bank.dataobjects.BankOperationData;
 import pt.ulisboa.tecnico.softeng.bank.domain.Bank;
+import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
+import pt.ulisboa.tecnico.softeng.tax.domain.IRS;
 
 public class BankInterface {
 	public static String processPayment(String IBAN, double amount) {
@@ -9,5 +12,9 @@ public class BankInterface {
 
 	public static String cancelPayment(String reference) {
 		return Bank.cancelPayment(reference);
+	}
+	
+	public static BankOperationData getOperationData(String reference) {
+		return Bank.getOperationData(reference);
 	}
 }
