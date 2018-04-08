@@ -91,10 +91,7 @@ public class Invoice {
 	}
 	
 	public boolean isCancelled() {
-		if(this.cancel != null) {
-			return true;
-		}
-		return false;
+		return this.cancel != null;
 	}
 	
 	public String getCancellation() {
