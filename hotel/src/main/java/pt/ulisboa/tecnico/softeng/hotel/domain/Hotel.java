@@ -6,6 +6,8 @@ import java.util.Set;
 import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.hotel.domain.Processor;
+import pt.ulisboa.tecnico.softeng.hotel.interfaces.BankInterface;
+import pt.ulisboa.tecnico.softeng.hotel.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.hotel.dataobjects.RoomBookingData;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
@@ -152,6 +154,15 @@ public class Hotel {
 			for (Room room : hotel.rooms) {
 				Booking booking = room.getBooking(reference);
 				if (booking != null) {
+					
+					if(BankInterface.getOperationData(reference) == null) {
+						throw new HotelException();
+					}
+					
+					if(TaxInterface.getInvoiceData(reference) == null) {
+						throw new HotelException();
+					}
+					
 					return new RoomBookingData(room, booking);
 				}
 			}

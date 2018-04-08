@@ -9,6 +9,8 @@ import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
+import pt.ulisboa.tecnico.softeng.car.interfaces.BankInterface;
+import pt.ulisboa.tecnico.softeng.car.interfaces.TaxInterface;
 
 public class RentACar {
 	public static final Set<RentACar> rentACars = new HashSet<>();
@@ -109,6 +111,13 @@ public class RentACar {
 		if (renting == null) {
 			throw new CarException();
 		}
+		if(BankInterface.getOperationData(reference) == null) {
+			throw new CarException();
+		}
+		if(TaxInterface.getInvoiceData(reference) == null) {
+			throw new CarException();
+		}
+		
 		return new RentingData(
 			renting.getReference(),
 			renting.getVehicle().getPlate(),
