@@ -1,5 +1,6 @@
 package pt.ulisboa.tecnico.softeng.hotel.interfaces;
 
+import pt.ulisboa.tecnico.softeng.bank.dataobjects.BankOperationData;
 import pt.ulisboa.tecnico.softeng.bank.domain.Bank;
 
 public class BankInterface {
@@ -10,4 +11,9 @@ public class BankInterface {
 	public static String cancelPayment(String reference) {
 		return Bank.cancelPayment(reference);
 	}
+	
+	public static BankOperationData getOperationData(String reference) {
+		return Bank.getOperationData(reference);
+	}
+
 }

@@ -26,8 +26,9 @@ public class Processor {
 			if (!booking.isCancelled()) {
 				if (booking.getPaymentReference() == null) {
 					try {
-						booking.setPaymentReference(
-								BankInterface.processPayment(booking.getNif(), booking.getAmount()));
+						String ref = BankInterface.processPayment(booking.getNif(), booking.getAmount());
+						booking.setPaymentReference(ref);
+						BankInterface.getOperationData(ref);
 					} catch (BankException | RemoteAccessException ex) {
 						failedToProcess.add(booking);
 						continue;
@@ -36,18 +37,25 @@ public class Processor {
 				InvoiceData invoiceData = new InvoiceData(booking.getHotelNif(), booking.getNif(), booking.getType(),
 						booking.getAmount(), booking.getArrival());
 				try {
-					booking.setInvoiceReference(TaxInterface.submitInvoice(invoiceData));
+					String invoice = TaxInterface.submitInvoice(invoiceData);
+					booking.setInvoiceReference(invoice);
+					TaxInterface.getInvoiceData(invoice);
 				} catch (TaxException | RemoteAccessException ex) {
 					failedToProcess.add(booking);
 				}
+				
+				
 			} else {
 				try {
 					if (booking.getCancelledPaymentReference() == null) {
 						booking.setCancelledPaymentReference(
 								BankInterface.cancelPayment(booking.getPaymentReference()));
+								BankInterface.getOperationData(booking.getReference());
 					}
-					TaxInterface.cancelInvoice(booking.getInvoiceReference());
+					String ref = TaxInterface.cancelInvoice(booking.getInvoiceReference());
 					booking.setCancelledInvoice(true);
+					TaxInterface.getInvoiceData(ref);
+					
 				} catch (BankException | TaxException | RemoteAccessException ex) {
 					failedToProcess.add(booking);
 				}
