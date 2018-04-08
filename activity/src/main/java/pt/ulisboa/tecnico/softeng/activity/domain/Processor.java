@@ -26,7 +26,7 @@ public class Processor {
 			if (!booking.isCancelled()) {
 				if (booking.getPaymentReference() == null) {
 					try {
-						String ref = BankInterface.processPayment(booking.getNif(), booking.getAmount());
+						String ref = BankInterface.processPayment(booking.getIban(), booking.getAmount());
 						booking.setPaymentReference(ref);
 						BankInterface.getOperationData(ref);
 					} catch (BankException | RemoteAccessException ex) {
