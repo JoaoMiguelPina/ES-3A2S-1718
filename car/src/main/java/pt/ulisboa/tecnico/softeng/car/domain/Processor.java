@@ -25,7 +25,7 @@ public class Processor {
 			if (!renting.isCancelled()) {
 				if (renting.getPaymentReference() == null) {
 					try {
-						String ref = BankInterface.processPayment(renting.getNif(), renting.getAmount());
+						String ref = BankInterface.processPayment(renting.getIban(), renting.getAmount());
 						renting.setPaymentReference(ref);
 						BankInterface.getOperationData(ref);
 					} catch (BankException | RemoteAccessException ex) {
