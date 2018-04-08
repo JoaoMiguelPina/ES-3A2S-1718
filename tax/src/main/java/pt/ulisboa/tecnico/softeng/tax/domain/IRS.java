@@ -104,8 +104,8 @@ public class IRS {
 		
 		InvoiceData invoicedata = new InvoiceData(sellerNif, buyerNif, itemType, value, date);
 		
-		invoicedata.setCancel(null);
-		invoicedata.setCancellationDate(null);
+		invoicedata.setCancel(invoice.getCancellation());
+		invoicedata.setCancellationDate(invoice.getCancellationDate());
 		invoicedata.setReference(invoiceReference);
 		
 		return invoicedata;
