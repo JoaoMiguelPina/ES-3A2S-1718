@@ -16,6 +16,9 @@ public class RoomBookingData {
 	private LocalDate arrival;
 	private LocalDate departure;
 	private LocalDate cancellationDate;
+	private double amount;
+
+
 
 	public RoomBookingData() {
 	}
@@ -30,6 +33,7 @@ public class RoomBookingData {
 		this.arrival = booking.getArrival();
 		this.departure = booking.getDeparture();
 		this.cancellationDate = booking.getCancellationDate();
+		this.amount = booking.getAmount();
 	}
 
 	public String getReference() {
@@ -103,15 +107,13 @@ public class RoomBookingData {
 	public void setCancellationDate(LocalDate cancellationDate) {
 		this.cancellationDate = cancellationDate;
 	}
+	
+	public double getAmount() {
+		return amount;
+	}
 
-	public double getAmmount() {
-		Hotel hotel = Hotel.getHotel(this.hotelName);
-		if(this.roomType == "SINGLE") {
-			return hotel.getPriceSingle();
-		}
-		else {
-			return hotel.getPriceDouble();
-		}
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 
 }
