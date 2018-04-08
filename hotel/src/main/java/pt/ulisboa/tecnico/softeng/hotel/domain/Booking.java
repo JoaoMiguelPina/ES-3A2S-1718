@@ -2,27 +2,49 @@ package pt.ulisboa.tecnico.softeng.hotel.domain;
 
 import org.joda.time.LocalDate;
 
+import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type;
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException;
 
 public class Booking {
 	private static int counter = 0;
+	
+	private static final String type = "HOTEL";
 
 	private final String reference;
+	private String paymentReference;
+	private String invoiceReference;
 	private String cancellation;
 	private LocalDate cancellationDate;
 	private final LocalDate arrival;
 	private final LocalDate departure;
+	private final String hotelNif;
+	private final String nif;
+	private final String iban;
+	private final double amount;
+	private String cancel;
+	private boolean cancelledInvoice = false;
+	private String cancelledPaymentReference = null;
 
-	Booking(Hotel hotel, LocalDate arrival, LocalDate departure) {
-		checkArguments(hotel, arrival, departure);
+	Booking(Hotel hotel, LocalDate arrival, LocalDate departure, String nif, String iban, Type type) {
+		checkArguments(hotel, arrival, departure, nif, iban);
 
 		this.reference = hotel.getCode() + Integer.toString(++Booking.counter);
+		if (type == Type.SINGLE) {
+			this.amount = hotel.getPriceSingle();
+		}
+		else {
+			this.amount = hotel.getPriceDouble();
+		}
 		this.arrival = arrival;
 		this.departure = departure;
+		this.hotelNif = hotel.getNIF();
+		this.nif = nif;
+		this.iban = iban;
 	}
 
-	private void checkArguments(Hotel hotel, LocalDate arrival, LocalDate departure) {
-		if (hotel == null || arrival == null || departure == null) {
+	private void checkArguments(Hotel hotel, LocalDate arrival, LocalDate departure, String nif, String iban) {
+		if (hotel == null || arrival == null || departure == null || nif == null || nif.trim().length() == 0 || iban == null
+				|| iban.trim().length() == 0) {
 			throw new HotelException();
 		}
 
@@ -33,6 +55,30 @@ public class Booking {
 
 	public String getReference() {
 		return this.reference;
+	}
+	
+	public String getNif() {
+		return this.nif;
+	}
+	
+	public String getHotelNif() {
+		return this.hotelNif;
+	}
+	
+	public String getType() {
+		return Booking.type;
+	}
+	
+	public String getCancel() {
+		return this.cancel;
+	}
+	
+	public double getAmount() {
+		return this.amount;
+	}
+
+	public String getIban() {
+		return this.iban;
 	}
 
 	public String getCancellation() {
@@ -51,6 +97,38 @@ public class Booking {
 		return this.cancellationDate;
 	}
 
+	public String getPaymentReference() {
+		return this.paymentReference;
+	}
+	
+	public void setCancelledInvoice(Boolean cancelledInvoice) {
+		this.cancelledInvoice = cancelledInvoice;
+	}
+	
+	public boolean getCancelledInvoice() {
+		return this.cancelledInvoice;
+	}
+	
+	public String getCancelledPaymentReference() {
+		return this.cancelledPaymentReference;
+	}
+	
+	public void setCancelledPaymentReference(String cancelledPaymentReference) {
+		this.cancelledPaymentReference = cancelledPaymentReference;
+	}
+
+	public void setPaymentReference(String paymentReference) {
+		this.paymentReference = paymentReference;
+	}
+	
+	public String getInvoiceReference() {
+		return this.invoiceReference;
+	}
+
+	public void setInvoiceReference(String invoiceReference) {
+		this.invoiceReference = invoiceReference;
+	}
+	
 	boolean conflict(LocalDate arrival, LocalDate departure) {
 		if (isCancelled()) {
 			return false;
