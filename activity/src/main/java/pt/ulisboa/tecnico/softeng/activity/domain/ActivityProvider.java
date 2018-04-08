@@ -11,6 +11,8 @@ import pt.ulisboa.tecnico.softeng.activity.dataobjects.ActivityReservationData;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 import pt.ulisboa.tecnico.softeng.activity.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.activity.interfaces.TaxInterface;
+import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class ActivityProvider {
 	public static Set<ActivityProvider> providers = new HashSet<>();
@@ -143,12 +145,19 @@ public class ActivityProvider {
 					Booking booking = offer.getBooking(reference);
 					if (booking != null) {
 						
-						if(BankInterface.getOperationData(reference) == null) {
-							throw new ActivityException();
+						if (!booking.isCancelled()) {
+							try {
+								BankInterface.getOperationData(booking.getPaymentReference());
+								TaxInterface.getInvoiceData(booking.getInvoiceReference());
+							}
+							catch(BankException | TaxException e) {throw new ActivityException();}
 						}
-						
-						if(TaxInterface.getInvoiceData(reference) == null) {
-							throw new ActivityException();
+						else {
+							try {
+								BankInterface.getOperationData(booking.getCancelledPaymentReference());
+								TaxInterface.getInvoiceData(booking.getCancellation());
+							}
+							catch(BankException | TaxException e) {throw new ActivityException();}
 						}
 						
 						return new ActivityReservationData(provider, offer, booking);
