@@ -9,6 +9,8 @@ import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.activity.dataobjects.ActivityReservationData;
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
+import pt.ulisboa.tecnico.softeng.activity.interfaces.BankInterface;
+import pt.ulisboa.tecnico.softeng.activity.interfaces.TaxInterface;
 
 public class ActivityProvider {
 	public static Set<ActivityProvider> providers = new HashSet<>();
@@ -140,6 +142,15 @@ public class ActivityProvider {
 				for (ActivityOffer offer : activity.getOffers()) {
 					Booking booking = offer.getBooking(reference);
 					if (booking != null) {
+						
+						if(BankInterface.getOperationData(reference) == null) {
+							throw new ActivityException();
+						}
+						
+						if(TaxInterface.getInvoiceData(reference) == null) {
+							throw new ActivityException();
+						}
+						
 						return new ActivityReservationData(provider, offer, booking);
 					}
 				}

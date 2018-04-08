@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
 public abstract class Vehicle {
-	private static Logger logger = LoggerFactory.getLogger(Vehicle.class);
 
 	private static String plateFormat = "..-..-..";
 	static Set<String> plates = new HashSet<>();
@@ -24,7 +23,6 @@ public abstract class Vehicle {
 	public final Map<String, Renting> rentings = new HashMap<>();
 
 	public Vehicle(String plate, int kilometers, int price, RentACar rentACar) {
-		logger.debug("Vehicle plate: {}", plate);
 		checkArguments(plate, kilometers, rentACar);
 
 		this.plate = plate;
