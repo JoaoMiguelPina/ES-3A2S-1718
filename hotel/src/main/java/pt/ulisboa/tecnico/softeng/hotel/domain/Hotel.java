@@ -133,7 +133,7 @@ public class Hotel {
 		for (Hotel hotel : Hotel.hotels) {
 			Room room = hotel.hasVacancy(type, arrival, departure);
 			if (room != null) {
-				Booking booking = new Booking(hotel, arrival, departure, nif, iban, type);
+				Booking booking = room.reserve(type, arrival, departure, nif, iban);
 				hotel.getProcessor().submitBooking(booking);
 				return booking.getReference();
 			}
