@@ -3,6 +3,7 @@ package pt.ulisboa.tecnico.softeng.hotel.dataobjects;
 import org.joda.time.LocalDate;
 
 import pt.ulisboa.tecnico.softeng.hotel.domain.Booking;
+import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel;
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room;
 
 public class RoomBookingData {
@@ -104,8 +105,13 @@ public class RoomBookingData {
 	}
 
 	public double getAmmount() {
-		// TODO Auto-generated method stub
-		
+		Hotel hotel = Hotel.getHotel(this.hotelName);
+		if(this.roomType == "SINGLE") {
+			return hotel.getPriceSingle();
+		}
+		else {
+			return hotel.getPriceDouble();
+		}
 	}
 
 }

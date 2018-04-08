@@ -189,6 +189,15 @@ public class Hotel {
 		}
 		return rooms;
 	}
+	
+	public static Hotel getHotel(String name) {
+		for( Hotel hotel: hotels) {
+			if(hotel.getName() == name) {
+				return hotel;
+			}
+		}
+		return null;
+	}
 
     public void removeRooms() {
         rooms.clear();
