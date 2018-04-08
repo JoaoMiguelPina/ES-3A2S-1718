@@ -101,27 +101,12 @@ public class IRS {
 		double value = invoice.getValue();
 		LocalDate date = invoice.getDate();
 		
-		if (value <= 0.0d) {
-			throw new TaxException();
-		}
-
-		if (date == null || date.getYear() < 1970) {
-			throw new TaxException();
-		}
-
-		if (itemType == null) {
-			throw new TaxException();
-		}
-
-		if (sellerNif == null) {
-			throw new TaxException();
-		}
-
-		if (buyerNif == null) {
-			throw new TaxException();
-		}
 		
 		InvoiceData invoicedata = new InvoiceData(sellerNif, buyerNif, itemType, value, date);
+		
+		invoicedata.setCancel(null);
+		invoicedata.setCancellationDate(null);
+		invoicedata.setReference(invoiceReference);
 		
 		return invoicedata;
 	}
