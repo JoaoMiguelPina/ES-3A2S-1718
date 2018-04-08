@@ -53,8 +53,8 @@ public class RentACarGetAllAvailableVehiclesTest {
 
 	@Test
 	public void onlyAvailableCars() {
-		Vehicle car1 = new Car(PLATE_CAR1, 10, PRICE1, rentACar1);
-		Vehicle car2 = new Car(PLATE_CAR2, 10, PRICE2, rentACar2);
+		Vehicle car1 = new Car("DD-GG-45", 10, PRICE1, rentACar1);
+		Vehicle car2 = new Car("FF-OI-90", 10, PRICE2, rentACar2);
 
 		car1.rent(DRIVING_LICENSE, date1, date2);
 		Set<Vehicle> cars = RentACar.getAllAvailableCars(date1, date2);
@@ -65,8 +65,8 @@ public class RentACarGetAllAvailableVehiclesTest {
 	
 	@Test
 	public void onlyMotorcycles() {
-		Vehicle car = new Car(PLATE_CAR1, 10, PRICE1, rentACar1);
-		Vehicle motorcycle = new Motorcycle(PLATE_MOTORCYCLE, 10, PRICE2, rentACar1);
+		Vehicle car = new Car("PO-PO-12", 10, PRICE1, rentACar1);
+		Vehicle motorcycle = new Motorcycle("OL-LO-09", 10, PRICE2, rentACar1);
 
 		Set<Vehicle> cars = RentACar.getAllAvailableMotorcycles(date3, date4);
 		assertTrue(cars.contains(motorcycle));
@@ -75,6 +75,6 @@ public class RentACarGetAllAvailableVehiclesTest {
 
 	@After
 	public void tearDown() {
-		RentACar.rentACars.clear();
+		Vehicle.plates.clear();
 	}
 }

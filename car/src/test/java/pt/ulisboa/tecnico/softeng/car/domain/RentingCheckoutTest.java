@@ -42,6 +42,6 @@ public class RentingCheckoutTest {
 	@After
 	public void tearDown() {
 		RentACar.rentACars.clear();
-		car.getPlates().clear();
+		Vehicle.plates.clear();
 	}
 }
