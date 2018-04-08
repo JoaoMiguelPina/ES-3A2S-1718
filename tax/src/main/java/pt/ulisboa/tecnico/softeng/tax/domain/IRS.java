@@ -87,7 +87,7 @@ public class IRS {
 		return invoice;
 	}
 	
-	public InvoiceData getInvoiceData(String invoiceReference) {
+	public static InvoiceData getInvoiceData(String invoiceReference) {
 		
 		Invoice invoice = IRS.getInvoiceByReference(invoiceReference);
 		
