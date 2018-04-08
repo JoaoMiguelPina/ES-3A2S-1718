@@ -45,6 +45,7 @@ public class CancelledStateProcessMethodTest {
 
 	@Injectable
 	private Broker broker;
+	@Injectable
 	private Client client;
 	
 	@Before
@@ -58,7 +59,7 @@ public class CancelledStateProcessMethodTest {
 			@Mocked final ActivityInterface activityInterface, @Mocked final HotelInterface hotelInterface,
 			@Mocked final CarInterface carInterface, @Mocked final TaxInterface taxInterface) {
 
-		setCancel(true, true, true, true, true);
+		setCancel(false, false, false, false, false);
 		
 		this.adventure.process();
 
@@ -90,6 +91,7 @@ public class CancelledStateProcessMethodTest {
 			@Mocked final CarInterface carInterface, @Mocked final TaxInterface taxInterface) {
 
 		setCancel(true, true, true, true, true);
+		setConfirm(true, true, true, true, true);
 		
 		this.adventure.process();
 
@@ -107,15 +109,15 @@ public class CancelledStateProcessMethodTest {
 				
 				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
 				
-				TaxInterface.cancelInvoice(INVOICE_CANCELLATION);
+				TaxInterface.getInvoiceData(INVOICE_CANCELLATION);
 			}
 		};
 	}
 	
 	@Test
-	public void notCancelledActivity(@Mocked final BankInterface bankInterface,
+	public void cancelledActivity(@Mocked final BankInterface bankInterface,
 			@Mocked final ActivityInterface activityInterface) {
-		setCancel(false, true, true, true, true);
+		setCancel(true, false, false, false, false);
 		
 
 		new Expectations() {
@@ -132,7 +134,7 @@ public class CancelledStateProcessMethodTest {
 	
 	@Test
 	public void cancellActivityActivityException(@Mocked final ActivityInterface activityInterface) {
-		setCancel(false, true, true, true, true);
+		setCancel(true, false, false, false, false);
 		
 
 		new Expectations() {
@@ -149,13 +151,13 @@ public class CancelledStateProcessMethodTest {
 	
 	@Test
 	public void cancellActivityRemoteException(@Mocked final ActivityInterface activityInterface) {
-		setCancel(false, true, true, true, true);
+		setCancel(true, false, false, false, false);
 		
 
 		new Expectations() {
 			{
 				ActivityInterface.getActivityReservationData(ACTIVITY_CANCELLATION);
-				this.result = new RemoteException();
+				this.result = new RemoteAccessException();
 			}
 		};
 
@@ -167,7 +169,7 @@ public class CancelledStateProcessMethodTest {
 	
 	@Test
 	public void notCancelledRoom(@Mocked final HotelInterface hotelInterface) {
-		setCancel(true, false, true, true, true);
+		setCancel(false, true, false, false, false);
 		
 
 		new Expectations() {
@@ -184,7 +186,7 @@ public class CancelledStateProcessMethodTest {
 	
 	@Test
 	public void cancellRoomHotelException(@Mocked final HotelInterface hotelInterface) {
-		setCancel(true, false, true, true, true);
+		setCancel(false, true, false, false, false);
 		
 
 		new Expectations() {
@@ -201,13 +203,13 @@ public class CancelledStateProcessMethodTest {
 	
 	@Test
 	public void cancellRoomRemoteException(@Mocked final HotelInterface hotelInterface) {
-		setCancel(true, false, true, true, true);
+		setCancel(false, true, false, false, false);
 		
 
 		new Expectations() {
 			{
 				HotelInterface.getRoomBookingData(ROOM_CANCELLATION);
-				this.result = new RemoteException();
+				this.result = new RemoteAccessException();
 			}
 		};
 
@@ -217,8 +219,8 @@ public class CancelledStateProcessMethodTest {
 	}
 	
 	@Test
-	public void notCancelledRent(@Mocked final CarInterface carInterface) {
-		setCancel(true, true, false, true, true);
+	public void cancelledRent(@Mocked final CarInterface carInterface) {
+		setCancel(false, false, true, false, false);
 		
 
 		new Expectations() {
@@ -235,7 +237,7 @@ public class CancelledStateProcessMethodTest {
 	
 	@Test
 	public void cancellRentCarException(@Mocked final CarInterface carInterface) {
-		setCancel(true, true, false, true, true);
+		setCancel(false, false, true, false, false);
 		
 
 		new Expectations() {
@@ -252,13 +254,13 @@ public class CancelledStateProcessMethodTest {
 	
 	@Test
 	public void cancellRentRemoteException(@Mocked final CarInterface carInterface) {
-		setCancel(true, true, false, true, true);
+		setCancel(false, false, true, false, false);
 		
 
 		new Expectations() {
 			{
 				CarInterface.getRentingData(RENT_CANCELLATION);
-				this.result = new RemoteException();
+				this.result = new RemoteAccessException();
 			}
 		};
 
@@ -354,10 +356,48 @@ public class CancelledStateProcessMethodTest {
 
 		Assert.assertEquals(Adventure.State.CANCELLED, this.adventure.getState());
 	}
+	
+	@Test
+	public void cancelledPaymentThirdBankException(@Mocked final BankInterface bankInterface) {
+		setConfirm(false, false, false, true, false);
+		setCancel(false, false, false, true, false);
+
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+
+				BankInterface.getOperationData(PAYMENT_CANCELLATION);
+				this.result = new BankException();
+			}
+		};
+
+		this.adventure.process();
+
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventure.getState());
+	}
+	
+	@Test
+	public void cancelledPaymentThirdRemoteException(@Mocked final BankInterface bankInterface) {
+		setConfirm(false, false, false, true, false);
+		setCancel(false, false, false, true, false);
+
+		new Expectations() {
+			{
+				BankInterface.getOperationData(PAYMENT_CONFIRMATION);
+
+				BankInterface.getOperationData(PAYMENT_CANCELLATION);
+				this.result = new RemoteAccessException();
+			}
+		};
+
+		this.adventure.process();
+
+		Assert.assertEquals(Adventure.State.CANCELLED, this.adventure.getState());
+	}
 
 	@Test
-	public void notCancelledInvoice(@Mocked final TaxInterface taxInterface) {
-		setCancel(true, true, true, true, false);
+	public void cancelledInvoice(@Mocked final TaxInterface taxInterface) {
+		setCancel(false, false, false, false, true);
 		
 
 		new Expectations() {
@@ -374,7 +414,7 @@ public class CancelledStateProcessMethodTest {
 	
 	@Test
 	public void cancellInvoiceTaxException(@Mocked final TaxInterface taxInterface) {
-		setCancel(true, true, true, true, false);
+		setCancel(false, false, false, false, true);
 		
 
 		new Expectations() {
@@ -391,13 +431,13 @@ public class CancelledStateProcessMethodTest {
 	
 	@Test
 	public void cancellInvoiceRemoteException(@Mocked final TaxInterface taxInterface) {
-		setCancel(true, true, true, true, false);
+		setCancel(false, false, false, false, true);
 		
 
 		new Expectations() {
 			{
 				TaxInterface.getInvoiceData(INVOICE_CANCELLATION);
-				this.result = new RemoteException();
+				this.result = new RemoteAccessException();
 			}
 		};
 
