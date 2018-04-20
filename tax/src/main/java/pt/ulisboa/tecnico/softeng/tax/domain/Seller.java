@@ -4,7 +4,7 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class Seller extends Seller_Base {
 	public Seller(IRS irs, String NIF, String name, String address) {
-		//TODO super(irs, NIF, name, address);
+		init(irs, NIF, name, address);
 	}
 
 	public double toPay(int year) {
@@ -13,7 +13,7 @@ public class Seller extends Seller_Base {
 		}
 
 		double result = 0;
-		for (Invoice invoice : this.invoices) {
+		for (Invoice invoice : getInvoicesSet()) {
 			if (!invoice.isCancelled() && invoice.getDate().getYear() == year) {
 				result = result + invoice.getIva();
 			}
