@@ -3,32 +3,44 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.print.attribute.SetOfIntegerSyntax;
+
+import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class IRS extends IRS_Base {
-	private final Set<TaxPayer> taxPayers = new HashSet<>();
-	private final Set<ItemType> itemTypes = new HashSet<>();
-
-	private static IRS instance;
-
 	public static IRS getIRS() {
-		if (instance == null) {
-			instance = new IRS();
+		if (FenixFramework.getDomainRoot().getIrs() == null) {
+			FenixFramework.getDomainRoot().setIrs(new IRS());
 		}
-		return instance;
+		return FenixFramework.getDomainRoot().getIrs();
 	}
 
 	private IRS() {
 	}
+	
+	public delete(){
+		FenixFramework.getDomainRoot().setIrs(null);
+		
+		for(TaxPayer taxPayer : getTaxPayersSet()){
+			taxPayer.delete();
+		}
+		
+		for(ItemType itemType : getItemTypesSet()){
+			itemType.delete();
+		}
+		
+		deleteDomainObject();
+	}
 
 	void addTaxPayer(TaxPayer taxPayer) {
-		this.taxPayers.add(taxPayer);
+		this.addTaxPayer(taxPayer);
 	}
 
 	public TaxPayer getTaxPayerByNIF(String NIF) {
-		for (TaxPayer taxPayer : this.taxPayers) {
-			if (taxPayer.getNIF().equals(NIF)) {
+		for (TaxPayer taxPayer : getTaxPayersSet()) {
+			if (taxPayer.getNif().equals(NIF)) {
 				return taxPayer;
 			}
 		}
@@ -36,11 +48,11 @@ public class IRS extends IRS_Base {
 	}
 
 	void addItemType(ItemType itemType) {
-		this.itemTypes.add(itemType);
+		this.addItemType(itemType);
 	}
 
 	public ItemType getItemTypeByName(String name) {
-		for (ItemType itemType : this.itemTypes) {
+		for (ItemType itemType : getItemTypesSet()) {
 			if (itemType.getName().equals(name)) {
 				return itemType;
 			}
@@ -59,11 +71,15 @@ public class IRS extends IRS_Base {
 	}
 
 	public void removeItemTypes() {
-		this.itemTypes.clear();
+		for(ItemType itemType : getItemTypesSet()){
+			removeItemTypes(itemType);
+		}
 	}
 
 	public void removeTaxPayers() {
-		this.taxPayers.clear();
+		for(TaxPayer taxPayer: getTaxPayersSet()){
+			removeTaxPayers(taxPayer);
+		}
 	}
 
 	public void clearAll() {
@@ -86,7 +102,7 @@ public class IRS extends IRS_Base {
 	}
 
 	private Invoice getInvoiceByReference(String reference) {
-		for (TaxPayer taxPayer : this.taxPayers) {
+		for (TaxPayer taxPayer : getTaxPayersSet()) {
 			Invoice invoice = taxPayer.getInvoiceByReference(reference);
 			if (invoice != null) {
 				return invoice;

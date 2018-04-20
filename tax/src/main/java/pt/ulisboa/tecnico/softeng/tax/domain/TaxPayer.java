@@ -14,6 +14,16 @@ public abstract class TaxPayer extends TaxPayer_Base {
 		
 		getIrs().addTaxPayer(this);
 	}
+	
+	public void delete() {
+		setIrs(null);
+		
+		for(Invoice invoice : getInvoicesSet()){
+			invoice.delete();
+		}
+		
+		deleteDomainObject();
+	}
 
 	private void checkArguments(IRS irs, String NIF, String name, String address) {
 		if (NIF == null || NIF.length() != 9) {
