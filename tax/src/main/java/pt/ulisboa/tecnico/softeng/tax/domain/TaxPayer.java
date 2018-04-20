@@ -3,9 +3,7 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public abstract class TaxPayer extends TaxPayer_Base {
-	public TaxPayer() {
-		
-	}
+	public TaxPayer() {}
 	
 	public void init(IRS irs, String NIF, String name, String address){
 		checkArguments(irs, NIF, name, address);
