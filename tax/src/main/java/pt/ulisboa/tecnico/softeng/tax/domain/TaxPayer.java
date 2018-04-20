@@ -5,13 +5,15 @@ import java.util.Set;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
-public abstract class TaxPayer {
+public abstract class TaxPayer extends TaxPayer_Base {
 	protected final Set<Invoice> invoices = new HashSet<>();
 
 	private final String NIF;
 	private final String name;
 	private final String address;
 
+
+	
 	public TaxPayer(IRS irs, String NIF, String name, String address) {
 		checkArguments(irs, NIF, name, address);
 
@@ -20,6 +22,10 @@ public abstract class TaxPayer {
 		this.address = address;
 
 		irs.addTaxPayer(this);
+	}
+
+	public TaxPayer() {
+
 	}
 
 	private void checkArguments(IRS irs, String NIF, String name, String address) {
