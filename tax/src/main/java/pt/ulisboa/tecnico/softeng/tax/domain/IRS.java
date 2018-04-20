@@ -20,7 +20,7 @@ public class IRS extends IRS_Base {
 	private IRS() {
 	}
 	
-	public delete(){
+	public void delete(){
 		FenixFramework.getDomainRoot().setIrs(null);
 		
 		for(TaxPayer taxPayer : getTaxPayersSet()){
