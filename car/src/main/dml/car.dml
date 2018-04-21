@@ -52,7 +52,7 @@ relation RentACarHasVehicles {
 		multiplicity 1..1;
 	}
 	
-	Vehicles playsRole vehicles {
+	Vehicle playsRole vehicles {
 		multiplicity 0..*;
 	}
 }
