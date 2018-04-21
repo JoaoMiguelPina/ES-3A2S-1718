@@ -73,7 +73,7 @@ relation VehicleHasRentings {
 	}
 	
 	Renting playsRole rentings {
-		multiplicity 1..*;
+		multiplicity 0..*;
 	}
 }
 
