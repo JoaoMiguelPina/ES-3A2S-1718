@@ -8,18 +8,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class IRSGetTaxPayerByNIFTest {
+public class IRSGetTaxPayerByNIFTest extends RollbackTestAbstractClass {
 	private static final String SELLER_NIF = "123456789";
 	private static final String BUYER_NIF = "987654321";
 
 	private IRS irs;
 
-	@Before
-	public void setUp() {
-		this.irs = IRS.getIRS();
-		new Seller(this.irs, SELLER_NIF, "José Vendido", "Somewhere");
-		new Buyer(this.irs, BUYER_NIF, "Manuel Comprado", "Anywhere");
-	}
 
 	@Test
 	public void successBuyer() {
@@ -58,8 +52,11 @@ public class IRSGetTaxPayerByNIFTest {
 		assertNull(taxPayer);
 	}
 
-	@After
-	public void tearDown() {
-		this.irs.clearAll();
+	@Override
+	public void populate4Test() {
+		this.irs = IRS.getIRS();
+		new Seller(this.irs, SELLER_NIF, "José Vendido", "Somewhere");
+		new Buyer(this.irs, BUYER_NIF, "Manuel Comprado", "Anywhere");
+		
 	}
 }
