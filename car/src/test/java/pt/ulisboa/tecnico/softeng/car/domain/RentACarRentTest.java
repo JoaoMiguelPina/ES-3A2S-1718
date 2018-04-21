@@ -33,6 +33,7 @@ public class RentACarRentTest extends RollbackTestAbstractClass {
 	@Mocked
 	private TaxInterface taxInterface;
 
+	@Override
 	public void populate4Test() {
 		rentACar = new RentACar(RENT_A_CAR_NAME, NIF, IBAN);
 		car = new Car(PLATE_CAR, 10, 10, rentACar);

@@ -15,7 +15,7 @@ public abstract class Vehicle extends Vehicle_Base{
 
 	private static String plateFormat = "..-..-..";
 
-	public Vehicle(String plate, int kilometers, double price, RentACar rentACar) {
+	public void init(String plate, int kilometers, double price, RentACar rentACar) {
 		logger.debug("Vehicle plate: {}", plate);
 		checkArguments(plate, kilometers, rentACar);
 

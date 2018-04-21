@@ -31,7 +31,10 @@ public class RentingCheckoutTest extends RollbackTestAbstractClass{
     @Mocked
     private TaxInterface taxInterface;
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> e7093f22992e6c35dcc2114b2c882ba61eca32b1
     @Override
 	public void populate4Test() {
 		RentACar rentACar1 = new RentACar(NAME1, NIF, IBAN);
