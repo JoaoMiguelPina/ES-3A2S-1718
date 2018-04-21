@@ -39,7 +39,7 @@ public class RentACarGetAllAvailableVehiclesTest extends RollbackTestAbstractCla
 	@Mocked
 	private TaxInterface taxInterface;
 
-	@Before
+	@Override
 	public void populate4Test() {
 		this.rentACar1 = new RentACar(NAME1, NIF, IBAN);
 		this.rentACar2 = new RentACar(NAME2, NIF + "1", IBAN);
