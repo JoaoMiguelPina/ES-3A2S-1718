@@ -15,7 +15,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(JMockit.class)
-public class RentACarRentTest extends RollbackAbstractClass{
+public class RentACarRentTest extends RollbackTestAbstractClass {
 
 	private static final String PLATE_CAR = "22-33-HZ";
 	private static final String RENT_A_CAR_NAME = "Eartz";
