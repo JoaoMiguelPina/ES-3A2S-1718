@@ -1,9 +1,33 @@
 package pt.ulisboa.tecnico.softeng.activity.domain;
 
+class Processor;
+
+relation ProcessorHasBookings{
+	Processor playsRole processor {
+		multiplicity 1..1;
+	}
+	
+	Booking playsRole booking{
+		multiplicity 0..*;
+	}
+	
+}
+
+relation ActivityProviderHasProcessor{
+	ActivityProvider playsRole activityProvider {
+		multiplicity 1..1;
+	}
+	Processor playsRole processor {
+		multiplicity 1..1;
+	}
+}
+
 class ActivityProvider {
 	String name;
 	String code;
 	int counter;
+	String nif;
+	String iban;
 } 
 
 relation DomainRootHasActivityProviders {
@@ -36,6 +60,7 @@ class ActivityOffer {
 	LocalDate begin;
 	LocalDate end;
 	int capacity;
+	int amount;
 }
 
 relation ActivityHasActivityOffers {
@@ -51,6 +76,16 @@ class Booking {
 	String reference;
 	String cancel;
 	LocalDate cancellationDate;
+	int counter;
+	String providerNif;
+	String nif;
+	String iban;
+	double amount;
+	LocalDate date;
+	String paymentReference;
+	String invoiceReference;
+	boolean cancelledInvoice;
+	String cancelledPaymentReference;
 }
 
 relation ActivityOfferHasBookings {
