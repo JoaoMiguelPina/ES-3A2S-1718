@@ -3,7 +3,7 @@ package pt.ulisboa.tecnico.softeng.tax.domain;
 class IRS;
 
 class TaxPayer {
-	String nif;
+	String NIF;
 	String name;
 	String address;
 }
