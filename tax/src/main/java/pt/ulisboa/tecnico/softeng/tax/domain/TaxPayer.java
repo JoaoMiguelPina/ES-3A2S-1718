@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
+import java.util.Set;
+
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public abstract class TaxPayer extends TaxPayer_Base {
@@ -15,15 +17,16 @@ public abstract class TaxPayer extends TaxPayer_Base {
 		getIrs().addTaxPayer(this);
 	}
 	
-	public void delete() {
+	public void delete()  {
 		setIrs(null);
 		
-		for(Invoice invoice : getInvoicesSet()){
+		for(Invoice invoice : getSetofInvoices()){
 			invoice.delete();
 		}
 		
 		deleteDomainObject();
 	}
+
 
 	private void checkArguments(IRS irs, String NIF, String name, String address) {
 		if (NIF == null || NIF.length() != 9) {
@@ -44,16 +47,14 @@ public abstract class TaxPayer extends TaxPayer_Base {
 
 	}
 	
-	public void addInvoice(Invoice invoice) {
-		this.addInvoice(invoice);
-	}
+	public abstract Set<Invoice> getSetofInvoices();
 
 	public Invoice getInvoiceByReference(String invoiceReference) {
 		if (invoiceReference == null || invoiceReference.isEmpty()) {
 			throw new TaxException();
 		}
 
-		for (Invoice invoice : getInvoicesSet()) {
+		for (Invoice invoice : getSetofInvoices()) {
 			if (invoice.getReference().equals(invoiceReference)) {
 				return invoice;
 			}

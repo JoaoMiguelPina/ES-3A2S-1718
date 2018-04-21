@@ -1,10 +1,5 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.print.attribute.SetOfIntegerSyntax;
-
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
@@ -12,30 +7,31 @@ import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 public class IRS extends IRS_Base {
 	public static IRS getIRS() {
 		if (FenixFramework.getDomainRoot().getIrs() == null) {
-			FenixFramework.getDomainRoot().setIrs(new IRS());
+			new IRS();
 		}
 		return FenixFramework.getDomainRoot().getIrs();
 	}
 
 	private IRS() {
+		FenixFramework.getDomainRoot().setIrs(this);
 	}
 	
 	public void delete(){
 		FenixFramework.getDomainRoot().setIrs(null);
 		
-		for(TaxPayer taxPayer : getTaxPayersSet()){
-			taxPayer.delete();
-		}
-		
 		for(ItemType itemType : getItemTypesSet()){
 			itemType.delete();
 		}
 		
+		for(TaxPayer taxPayer : getTaxPayersSet()){
+			taxPayer.delete();
+		}
+				
 		deleteDomainObject();
 	}
 
 	void addTaxPayer(TaxPayer taxPayer) {
-		this.addTaxPayer(taxPayer);
+		this.addTaxPayers(taxPayer);
 	}
 
 	public TaxPayer getTaxPayerByNIF(String NIF) {
@@ -48,7 +44,7 @@ public class IRS extends IRS_Base {
 	}
 
 	void addItemType(ItemType itemType) {
-		this.addItemType(itemType);
+		this.addItemTypes(itemType);
 	}
 
 	public ItemType getItemTypeByName(String name) {

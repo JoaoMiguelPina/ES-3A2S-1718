@@ -30,7 +30,7 @@ relation DomainRootHasIRSApplication {
 		multiplicity 1..1;
 	}
 	IRS playsRole irs {
-		multiplicity 1..1;
+		multiplicity 0..1;
 	}
 }
 
@@ -52,21 +52,12 @@ relation IRSHasItemTypes {
 	}
 }
 
-relation TaxPayerHasInvoices {
-	TaxPayer playsRole taxPayer {
-		multiplicity 1..1;
-	}
-	Invoice playsRole invoices {
-		multiplicity 0..*;
-	}
-}
-
 relation InvoiceHasBuyer {
 	Buyer playsRole buyer {
 		multiplicity 1..1;
 	}
 	Invoice playsRole invoice {
-		multiplicity 0..0;
+		multiplicity 0..*;
 	}
 }
 

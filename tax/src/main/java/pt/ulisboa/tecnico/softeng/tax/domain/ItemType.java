@@ -10,10 +10,17 @@ public class ItemType extends ItemType_Base {
 		setName(name);
 		setTax(tax);
 
+		setIrs(irs);
 		irs.addItemType(this);
 	}
 	
 	public void delete(){
+		setIrs(null);
+		
+		for(Invoice invoice : getInvoicesSet()){
+			invoice.delete();
+		}
+		
 		deleteDomainObject();
 	}
 
