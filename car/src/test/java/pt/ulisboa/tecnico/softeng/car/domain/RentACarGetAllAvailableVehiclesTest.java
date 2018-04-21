@@ -16,7 +16,7 @@ import pt.ulisboa.tecnico.softeng.car.interfaces.BankInterface;
 import pt.ulisboa.tecnico.softeng.car.interfaces.TaxInterface;
 
 @RunWith(JMockit.class)
-public class RentACarGetAllAvailableVehiclesTest {
+public class RentACarGetAllAvailableVehiclesTest extends RollbackTestAbstractClass{
 
 	private static final String NAME1 = "eartz";
 	private static final String NAME2 = "eartz";
@@ -40,7 +40,7 @@ public class RentACarGetAllAvailableVehiclesTest {
 	private TaxInterface taxInterface;
 
 	@Before
-	public void setUp() {
+	public void populate4Test() {
 		this.rentACar1 = new RentACar(NAME1, NIF, IBAN);
 		this.rentACar2 = new RentACar(NAME2, NIF + "1", IBAN);
 	}
@@ -78,11 +78,5 @@ public class RentACarGetAllAvailableVehiclesTest {
 		Set<Vehicle> cars = RentACar.getAllAvailableMotorcycles(date3, date4);
 		assertTrue(cars.contains(motorcycle));
 		assertFalse(cars.contains(car));
-	}
-
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
 	}
 }
