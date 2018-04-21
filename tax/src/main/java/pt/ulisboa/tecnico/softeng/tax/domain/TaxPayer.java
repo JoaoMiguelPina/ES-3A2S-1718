@@ -7,7 +7,7 @@ public abstract class TaxPayer extends TaxPayer_Base {
 	
 	public void init(IRS irs, String NIF, String name, String address){
 		checkArguments(irs, NIF, name, address);
-		setNif(NIF);
+		setNIF(NIF);
 		setName(name);
 		setAddress(address);
 		setIrs(irs);

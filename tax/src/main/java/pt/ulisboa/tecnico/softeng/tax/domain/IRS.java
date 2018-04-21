@@ -40,7 +40,7 @@ public class IRS extends IRS_Base {
 
 	public TaxPayer getTaxPayerByNIF(String NIF) {
 		for (TaxPayer taxPayer : getTaxPayersSet()) {
-			if (taxPayer.getNif().equals(NIF)) {
+			if (taxPayer.getNIF().equals(NIF)) {
 				return taxPayer;
 			}
 		}
