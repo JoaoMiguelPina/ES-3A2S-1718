@@ -53,8 +53,14 @@ public class Processor extends Processor_Base {
 			}
 		}
 
-		getRentingToProcessSet().clear();
-		getRentingToProcessSet().addAll(failedToProcess);
+		for(Renting renting : getRentingToProcessSet()) {
+			removeRentingToProcess(renting);
+		}
+		
+		for(Renting renting : failedToProcess) {
+			addRentingToProcess(renting);
+		}
+		
 
 	}
 
