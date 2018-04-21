@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
-public class IRSCancelInvoiceMethodTest {
+public class IRSCancelInvoiceMethodTest extends RollbackTestAbstractClass {
 	private static final String SELLER_NIF = "123456789";
 	private static final String BUYER_NIF = "987654321";
 	private static final String FOOD = "FOOD";
@@ -20,15 +20,6 @@ public class IRSCancelInvoiceMethodTest {
 	private String reference;
 	Invoice invoice;
 
-	@Before
-	public void setUp() {
-		this.irs = IRS.getIRS();
-		Seller seller = new Seller(this.irs, SELLER_NIF, "José Vendido", "Somewhere");
-		Buyer buyer = new Buyer(this.irs, BUYER_NIF, "Manuel Comprado", "Anywhere");
-		ItemType itemType = new ItemType(this.irs, FOOD, VALUE);
-		this.invoice = new Invoice(30.0, this.date, itemType, seller, buyer);
-		this.reference = this.invoice.getReference();
-	}
 
 	@Test
 	public void success() {
@@ -52,8 +43,15 @@ public class IRSCancelInvoiceMethodTest {
 		IRS.cancelInvoice("XXXXXXXX");
 	}
 
-	@After
-	public void tearDown() {
-		this.irs.clearAll();
+
+	@Override
+	public void populate4Test() {
+		this.irs = IRS.getIRS();
+		Seller seller = new Seller(this.irs, SELLER_NIF, "José Vendido", "Somewhere");
+		Buyer buyer = new Buyer(this.irs, BUYER_NIF, "Manuel Comprado", "Anywhere");
+		ItemType itemType = new ItemType(this.irs, FOOD, VALUE);
+		this.invoice = new Invoice(30.0, this.date, itemType, seller, buyer);
+		this.reference = this.invoice.getReference();
+		
 	}
 }
