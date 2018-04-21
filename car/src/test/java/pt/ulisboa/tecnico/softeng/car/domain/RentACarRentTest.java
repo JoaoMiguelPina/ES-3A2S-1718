@@ -15,7 +15,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(JMockit.class)
-public class RentACarRentTest {
+public class RentACarRentTest extends RollbackAbstractClass{
 
 	private static final String PLATE_CAR = "22-33-HZ";
 	private static final String RENT_A_CAR_NAME = "Eartz";
@@ -33,8 +33,7 @@ public class RentACarRentTest {
 	@Mocked
 	private TaxInterface taxInterface;
 
-	@Before
-	public void setUp() {
+	public void populate4Test() {
 		rentACar = new RentACar(RENT_A_CAR_NAME, NIF, IBAN);
 		car = new Car(PLATE_CAR, 10, 10, rentACar);
 	}
@@ -62,10 +61,5 @@ public class RentACarRentTest {
 	public void noMotorcycles() {
 		RentACar.rent(Motorcycle.class, DRIVING_LICENSE, NIF, IBAN_BUYER, BEGIN, END);
 	}
-
-	@After
-	public void tearDown() {
-		RentACar.rentACars.clear();
-		Vehicle.plates.clear();
-	}
+	
 }
