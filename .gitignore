@@ -60,3 +60,4 @@ fenix-framework.properties
 .metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/http-cache.lucene60/segments_1
 *.setup
 *.ini
+*.png
