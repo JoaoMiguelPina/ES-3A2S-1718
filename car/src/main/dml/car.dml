@@ -35,7 +35,7 @@ class Renting {
 	String cancelledPaymentReference;
 }
 
-class processor;
+class Processor;
 
 relation DomainRootHasRentACar {
 	.pt.ist.fenixframework.DomainRoot playsRole root {

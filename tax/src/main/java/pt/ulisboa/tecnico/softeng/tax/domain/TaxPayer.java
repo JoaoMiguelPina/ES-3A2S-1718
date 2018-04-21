@@ -27,7 +27,6 @@ public abstract class TaxPayer extends TaxPayer_Base {
 		deleteDomainObject();
 	}
 
-
 	private void checkArguments(IRS irs, String NIF, String name, String address) {
 		if (NIF == null || NIF.length() != 9) {
 			throw new TaxException();
