@@ -59,7 +59,7 @@ relation RentACarHasVehicles {
 
 relation RentACarHasProcessor {
 	RentACar playsRole rentACar {
-		multiplicity 1..1;
+		multiplicity 0..0;
 	}
 	
 	Processor playsRole processor {
@@ -79,7 +79,7 @@ relation VehicleHasRentings {
 
 relation ProcessorHasRentings {
 	Processor playsRole processor {
-		multiplicity 1..1;
+		multiplicity 0..0;
 	}
 	
 	Renting playsRole rentingToProcess {

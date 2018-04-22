@@ -1,14 +1,10 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
-import pt.ulisboa.tecnico.softeng.tax.domain.Invoice;
-import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public abstract class Vehicle extends Vehicle_Base{
 	private static Logger logger = LoggerFactory.getLogger(Vehicle.class);
@@ -23,24 +19,19 @@ public abstract class Vehicle extends Vehicle_Base{
 		setPrice(price);
 		setRentACar(rentACar);
 
-		getPlates.add(plate.toUpperCase());
-		getRentACarSet().addVehicle(this);
+		setPlate(plate);
+		
+		rentACar.addVehicles(this);
 	}
 	
 
 	private void checkArguments(String plate, int kilometers, RentACar rentACar) {
-		if (plate == null || !plate.matches(plateFormat) || plates.contains(plate.toUpperCase())) {
+		if (plate == null || !plate.matches(plateFormat) || RentACar.getVehicleByPlate(plate) != null) {
 			throw new CarException();
 		} else if (kilometers < 0) {
 			throw new CarException();
 		} else if (rentACar == null) {
 			throw new CarException();
-		}
-		
-		for( RentACar rac: getRentACarSet()) {
-			if(rac.hasVehicle(plate)) {
-				throw new CarException();
-			}
 		}
 	}
 
@@ -52,15 +43,16 @@ public abstract class Vehicle extends Vehicle_Base{
 		if (kilometers < 0) {
 			throw new CarException();
 		}
-		int n = getKilometers += kilometers;
-		setKilometers(n);
+		setKilometers(getKilometers() + kilometers);
 	}
 
 	public void delete() {
+		setRentACar(null);
+		
 		for(Renting renting: getRentingsSet()) {
 			renting.delete();
 		}
-		setRentACar(rentACar);
+		
 		deleteDomainObject();
 		
 	}
@@ -85,7 +77,7 @@ public abstract class Vehicle extends Vehicle_Base{
 	 * @param renting
 	 */
 	private void addRenting(Renting renting) {
-		getRentingsSet().add(renting);
+		addRentings(renting);
 	}
 
 	/**

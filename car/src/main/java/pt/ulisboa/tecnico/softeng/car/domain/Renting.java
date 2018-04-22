@@ -11,7 +11,7 @@ public class Renting extends Renting_Base{
 	public Renting(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle, String buyerNIF,
 			String buyerIBAN) {
 		checkArguments(drivingLicense, begin, end, vehicle);
-		setReference(Integer.toString(vehicle.getRentACar().getNextCounter()));
+		setReference(Integer.toString(vehicle.getRentACar().getCounter()));
 		setDrivingLicense(drivingLicense);
 		setBegin(begin);
 		setEnd(end);
@@ -21,6 +21,8 @@ public class Renting extends Renting_Base{
 		setPrice(vehicle.getPrice() * (end.getDayOfYear() - begin.getDayOfYear()));
 		
 		setCancelledInvoice(false);
+		
+		vehicle.addRentings(this);
 	}
 
 	private void checkArguments(String drivingLicense, LocalDate begin, LocalDate end, Vehicle vehicle) {
@@ -30,8 +32,13 @@ public class Renting extends Renting_Base{
 		}
 	}
 
+	public void delete(){
+		setVehicle(null);
+		deleteDomainObject();
+	}
+	
 	public boolean isCancelled() {
-		return getCancellationReference != null && getCancellationDate != null;
+		return getCancellationReference() != null && getCancellationDate() != null;
 	}
 	
 	public String getType() {
@@ -47,13 +54,13 @@ public class Renting extends Renting_Base{
 	public boolean conflict(LocalDate begin, LocalDate end) {
 		if (end.isBefore(begin)) {
 			throw new CarException("Error: end date is before begin date.");
-		} else if ((getBegin.equals(this.getBegin()) || getBegin().isAfter(this.getBegin()))
-				&& (getBegin.isBefore(this.getEnd()) || getBegin().equals(this.getEnd()))) {
+		} else if ((begin.equals(this.getBegin()) || begin.isAfter(this.getBegin()))
+				&& (begin.isBefore(this.getEnd()) || begin.equals(this.getEnd()))) {
 			return true;
-		} else if ((getEnd.equals(this.getEnd()) || getEnd().isBefore(this.getEnd()))
-				&& (getEnd.isAfter(this.getBegin()) || getEnd.isEqual(this.getBegin()))) {
+		} else if ((end.equals(this.getEnd()) || end.isBefore(this.getEnd()))
+				&& (end.isAfter(this.getBegin()) || end.isEqual(this.getBegin()))) {
 			return true;
-		} else if (getBegin.isBefore(this.getBegin()) && getEnd.isAfter(this.getEnd())) {
+		} else if (begin.isBefore(this.getBegin()) && end.isAfter(this.getEnd())) {
 			return true;
 		}
 
@@ -67,7 +74,7 @@ public class Renting extends Renting_Base{
 	 */
 	public void checkout(int kilometers) {
 		setKilometers(kilometers);
-		getVehicle.addKilometers(getKilometers);
+		getVehicle().addKilometers(getKilometers());
 	}
 
 	public String cancel() {
@@ -76,7 +83,7 @@ public class Renting extends Renting_Base{
 
 		this.getVehicle().getRentACar().getProcessor().submitRenting(this);
 
-		return getCancellationReference;
+		return getCancellationReference();
 	}
 
 }

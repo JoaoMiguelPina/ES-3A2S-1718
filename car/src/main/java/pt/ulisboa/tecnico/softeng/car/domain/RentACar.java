@@ -1,16 +1,11 @@
 package pt.ulisboa.tecnico.softeng.car.domain;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
 
 import pt.ist.fenixframework.FenixFramework;
-import pt.ulisboa.tecnico.softeng.bank.domain.Account;
-import pt.ulisboa.tecnico.softeng.bank.domain.Client;
-import pt.ulisboa.tecnico.softeng.bank.domain.Operation;
 import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
@@ -27,17 +22,20 @@ public class RentACar extends RentACar_Base {
 		checkArguments(name, nif, iban);
 
 		setName(name);
-		setNif(nif);
+		setNIF(nif);
 		setIban(iban);
 		setCode(nif + Integer.toString(getCounter()));
 		
-		FenixFramework.getDomainRoot().addRentACar(this);
+		setProcessor(new Processor());
+		
+		FenixFramework.getDomainRoot().addRentACars(this);
 	}
 	
 	public void delete() {
 		setRoot(null);
+		setProcessor(null);
 
-		for (Vehicle vehicle : getVehicleSet()) {
+		for (Vehicle vehicle : getVehiclesSet()) {
 			vehicle.delete();
 		}
 
@@ -50,17 +48,36 @@ public class RentACar extends RentACar_Base {
 			throw new CarException();
 		}
 
-		for (final RentACar rental : FenixFramework.getDomainRoot().getRentACarSet()) {
+		for (final RentACar rental : FenixFramework.getDomainRoot().getRentACarsSet()) {
 			if (rental.getNIF().equals(nif)) {
 				throw new CarException();
 			}
 		}
 	}
+	
+	public boolean hasVehicle(String plateCar) {
+		for(Vehicle vehicle : getVehiclesSet()){
+			if(vehicle.getPlate().equals(plateCar)){
+				return true;
+			}
+		}
+		return false;
+	}
 
+	public static Vehicle getVehicleByPlate(String plate){
+		for(RentACar rentACar : FenixFramework.getDomainRoot().getRentACarsSet()){
+			for(Vehicle vehicle : rentACar.getVehiclesSet()){
+				if(vehicle.getPlate().equals(plate)){
+					return vehicle;
+				}
+			}
+		}
+		return null;
+	}
 	
 	public Set<Vehicle> getAvailableVehicles(Class<?> cls, LocalDate begin, LocalDate end) {
 		final Set<Vehicle> availableVehicles = new HashSet<>();
-		for (final Vehicle vehicle : FenixFramework.getDomainRoot().getVehicleSet().values()) {
+		for (final Vehicle vehicle : getVehiclesSet()) {
 			if (cls == vehicle.getClass() && vehicle.isFree(begin, end)) {
 				availableVehicles.add(vehicle);
 			}
@@ -70,7 +87,7 @@ public class RentACar extends RentACar_Base {
 
 	private static Set<Vehicle> getAllAvailableVehicles(Class<?> cls, LocalDate begin, LocalDate end) {
 		final Set<Vehicle> vehicles = new HashSet<>();
-		for (final RentACar rentACar : FenixFramework.getDomainRoot().getRentACarSet()) {
+		for (final RentACar rentACar : FenixFramework.getDomainRoot().getRentACarsSet()) {
 			vehicles.addAll(rentACar.getAvailableVehicles(cls, begin, end));
 		}
 		return vehicles;
@@ -115,8 +132,8 @@ public class RentACar extends RentACar_Base {
 	 * @return the renting with the given reference.
 	 */
 	protected static Renting getRenting(String reference) {
-		for (final RentACar rentACar : FenixFramework.getDomainRoot().getRentACarSet()) {
-			for (final Vehicle vehicle : FenixFramework.getDomainRoot().getVehicleSet().values()) {
+		for (final RentACar rentACar : FenixFramework.getDomainRoot().getRentACarsSet()) {
+			for (final Vehicle vehicle : rentACar.getVehiclesSet()) {
 				final Renting renting = vehicle.getRenting(reference);
 				if (renting != null) {
 					return renting;
@@ -134,8 +151,10 @@ public class RentACar extends RentACar_Base {
 		return new RentingData(renting);
 	}
 
-	public Processor getProcessor() {
-		return FenixFramework.getDomainRoot().getProcessor();
+	public static void clear(){
+		for(RentACar rentACar : FenixFramework.getDomainRoot().getRentACarsSet()){
+			rentACar.delete();
+		}
 	}
 
 }
