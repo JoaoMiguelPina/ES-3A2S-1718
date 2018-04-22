@@ -29,7 +29,8 @@ public class Activity extends Activity_Base {
 		for (ActivityOffer offer : getActivityOfferSet()) {
 			offer.delete();
 		}
-
+		
+		setProcessor(null);
 		deleteDomainObject();
 	}
 
