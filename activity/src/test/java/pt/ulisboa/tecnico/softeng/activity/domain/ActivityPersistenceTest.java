@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.joda.time.LocalDate;
 import org.junit.After;
@@ -29,6 +30,8 @@ public class ActivityPersistenceTest {
 	private final LocalDate begin = new LocalDate(2017, 04, 01);
 	private final LocalDate end = new LocalDate(2017, 04, 15);
 
+	String reference;
+	
 	@Test
 	public void success() {
 		atomicProcess();
@@ -43,7 +46,8 @@ public class ActivityPersistenceTest {
 
 		ActivityOffer activityOffer = new ActivityOffer(activity, this.begin, this.end, 30);
 
-		new Booking(activityProvider, activityOffer, BUYER_NIF, BUYER_IBAN);
+		reference = ActivityProvider.reserveActivity(this.begin, this.end, 20, BUYER_NIF, BUYER_IBAN);
+		
 	}
 
 	@Atomic(mode = TxMode.READ)
@@ -81,6 +85,12 @@ public class ActivityPersistenceTest {
 		assertNotNull(booking.getReference());
 		assertNull(booking.getCancel());
 		assertNull(booking.getCancellationDate());
+		
+		//check processor persistence failed list
+		List<Booking> bookingsToProcess = new ArrayList<>(provider.getProcessor().getBookingToProcessSet());
+		assertEquals(1, bookingsToProcess.size());
+		assertEquals(booking, bookingsToProcess.get(0));
+
 	}
 
 	@After

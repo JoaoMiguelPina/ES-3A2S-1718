@@ -18,11 +18,11 @@ class Client{
 
 relation BrokerHasClients{
 	Client playsRole clients{
-		multiplicity 1..*;
+		multiplicity 0..*;
 	}
 	
 	Broker playsRole broker {
-		multiplicity 0..*;
+		multiplicity 1..1;
 	}
 }
 
@@ -59,7 +59,7 @@ relation AdventureHasClient{
 	}
 	
 	Adventure playsRole adventure {
-		multiplicity 1..1;
+		multiplicity 0..0;
 	}
 	
 }

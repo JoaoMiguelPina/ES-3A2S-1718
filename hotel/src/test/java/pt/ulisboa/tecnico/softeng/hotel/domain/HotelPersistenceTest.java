@@ -60,6 +60,11 @@ public class HotelPersistenceTest {
 		assertEquals(this.arrival, booking.getArrival());
 		assertEquals(this.departure, booking.getDeparture());
 		assertNotNull(booking.getReference());
+		
+		//check processor persistence failed list
+		List<Booking> bookingsToProcess = new ArrayList<>(hotel.getProcessor().getBookingToProcessSet());
+		assertEquals(1, bookingsToProcess.size());
+		assertEquals(booking, bookingsToProcess.get(0));
 	}
 
 	@After

@@ -27,8 +27,9 @@ public class CarPersistenceTest {
 	private static final LocalDate BEGIN2 = LocalDate.parse("2019-01-01");
 	private static final LocalDate END2 = LocalDate.parse("2019-01-04");
 	private static final String NIF = "NIF";
+	private static final String NIF_BUYER = "NIF2";
 	private static final String IBAN = "IBAN";
-	private static final String IBAN_BUYER = "IBAN";
+	private static final String IBAN_BUYER = "IBAN2";
 
 	
 	@Test
@@ -44,7 +45,7 @@ public class CarPersistenceTest {
 		Car car = new Car(PLATE_CAR, 10, 10, rentACar);
 		new Motorcycle(PLATE_MOTO, 20, 20, rentACar);
 		
-		new Renting(DRIVING_LICENSE, BEGIN, END, car, NIF, IBAN_BUYER);
+		RentACar.rent(Car.class, DRIVING_LICENSE, NIF_BUYER, IBAN_BUYER, BEGIN, END);
 		
 	}
 
@@ -87,9 +88,14 @@ public class CarPersistenceTest {
 		assertEquals(BEGIN, renting.getBegin());
 		assertEquals(END, renting.getEnd());
 		assertEquals(car, renting.getVehicle());
-		assertEquals(NIF, renting.getClientNIF());
+		assertEquals(NIF_BUYER, renting.getClientNIF());
 		assertEquals(IBAN_BUYER, renting.getClientIBAN());
 		assertEquals(false, renting.getCancelledInvoice());
+		
+		//check processor persistence failed list
+		List<Renting> rentingsToProcess = new ArrayList<>(rentACar.getProcessor().getRentingToProcessSet());
+		assertEquals(1, rentingsToProcess.size());
+		assertEquals(renting, rentingsToProcess.get(0));
 		
 	}
 

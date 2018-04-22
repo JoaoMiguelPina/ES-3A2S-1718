@@ -11,6 +11,8 @@ public class Client extends Client_Base {
 		setNIF(NIF);
 		setDrivingLicense(drivingLicense);
 		setAge(age);
+		
+		setBroker(broker);
 
 		broker.addClient(this);
 	}
@@ -40,6 +42,8 @@ public class Client extends Client_Base {
 	}
 	
 	public void delete() {
+		setBroker(null);
+
 		deleteDomainObject();
 	}
 }

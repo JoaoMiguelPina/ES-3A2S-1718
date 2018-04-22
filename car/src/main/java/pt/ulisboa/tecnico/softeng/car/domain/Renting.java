@@ -22,6 +22,7 @@ public class Renting extends Renting_Base{
 		
 		setCancelledInvoice(false);
 		
+		setProcessor(vehicle.getRentACar().getProcessor());
 		vehicle.addRentings(this);
 	}
 
@@ -34,6 +35,7 @@ public class Renting extends Renting_Base{
 
 	public void delete(){
 		setVehicle(null);
+		setProcessor(null);
 		deleteDomainObject();
 	}
 	

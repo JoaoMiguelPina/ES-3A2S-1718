@@ -77,9 +77,9 @@ relation VehicleHasRentings {
 	}
 }
 
-relation ProcessorHasRentings {
+relation CarProcessorHasRentings {
 	Processor playsRole processor {
-		multiplicity 0..0;
+		multiplicity 1..1;
 	}
 	
 	Renting playsRole rentingToProcess {
