@@ -1,19 +1,16 @@
 package pt.ulisboa.tecnico.softeng.broker.domain;
 
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
+import pt.ulisboa.tecnico.softeng.car.domain.Vehicle;
 
 public class Client {
-	private final String IBAN;
-	private final String NIF;
-	private final String drivingLicense;
-	private final int age;
 
 	public Client(Broker broker, String IBAN, String NIF, String drivingLicense, int age) {
 		checkArguments(broker, IBAN, NIF, drivingLicense, age);
-		this.IBAN = IBAN;
-		this.NIF = NIF;
-		this.drivingLicense = drivingLicense;
-		this.age = age;
+		setIban(IBAN);
+		setNif(NIF);
+		setDrivingLicense(drivingLicense);
+		setAge(age);
 
 		broker.addClient(this);
 	}
@@ -41,20 +38,9 @@ public class Client {
 		}
 
 	}
-
-	public String getIBAN() {
-		return this.IBAN;
-	}
-
-	public String getNIF() {
-		return this.NIF;
-	}
-
-	public int getAge() {
-		return this.age;
-	}
-
-	public String getDrivingLicense() {
-		return drivingLicense;
+	
+	public void delete() {
+		setRoot(null);
+		deleteDomainObject();
 	}
 }
