@@ -11,18 +11,15 @@ import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class Processor {
-	// important to use a set to avoid double submission of the same booking when it
-	// is cancelled while trying to pay or send invoice
-	private final Set<Booking> bookingToProcess = new HashSet<>();
 
 	public void submitBooking(Booking booking) {
-		this.bookingToProcess.add(booking);
+		getBookingToProcess().add(booking);
 		processInvoices();
 	}
 
 	private void processInvoices() {
 		Set<Booking> failedToProcess = new HashSet<>();
-		for (Booking booking : this.bookingToProcess) {
+		for (Booking booking : getBookingToProcess()) {
 			if (!booking.isCancelled()) {
 				if (booking.getPaymentReference() == null) {
 					try {
@@ -55,13 +52,17 @@ public class Processor {
 			}
 		}
 
-		this.bookingToProcess.clear();
-		this.bookingToProcess.addAll(failedToProcess);
+		getBookingToProcess().clear();
+		getBookingToProcess().addAll(failedToProcess);
 
 	}
 
 	public void clean() {
-		this.bookingToProcess.clear();
+		getBookingToProcess().clear();
+	}
+	
+	public void delete() { 
+		deleteDomainObject();
 	}
 
 }
