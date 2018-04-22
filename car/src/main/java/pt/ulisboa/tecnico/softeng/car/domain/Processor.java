@@ -61,8 +61,7 @@ public class Processor extends Processor_Base {
 		for(Renting renting : failedToProcess) {
 			addRentingToProcess(renting);
 		}
-		
-
+	
 	}
 
 	public void clean() {

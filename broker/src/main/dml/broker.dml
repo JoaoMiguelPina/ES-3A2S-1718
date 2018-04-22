@@ -6,12 +6,12 @@ class Broker {
 	int counter;
 	String nifAsSeller;
 	String nifAsBuyer;
-	String iban;
+	String IBAN;
 }
 
 class Client{
-	String iban;
-	String nif;
+	String IBAN;
+	String NIF;
 	String drivingLicense;
 	int age;
 }
@@ -51,7 +51,7 @@ class Adventure {
 	String rentingConfirmation;
 	String rentingCancellation;
 	String invoiceReference;
-	boolean invoiceReference;
+	boolean invoiceCancelled;
 }
 relation AdventureHasClient{
 	Client playsRole client{

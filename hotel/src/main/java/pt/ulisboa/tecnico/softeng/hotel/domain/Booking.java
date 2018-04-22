@@ -23,14 +23,15 @@ public class Booking extends Booking_Base {
 		setCancelledPaymentReference(null);
 
 		setRoom(room);
+		
+		setProcessor(room.getHotel().getProcessor());
 	}
 
 	public void delete() {
 		setRoom(null);
+		setProcessor(null);
 
 		deleteDomainObject();
-		setCancelledInvoice(null);
-		setCancelledPaymentReference(null);
 	}
 
 	private void checkArguments(Room room, LocalDate arrival, LocalDate departure, String buyerNIF, String buyerIban) {
@@ -90,5 +91,9 @@ public class Booking extends Booking_Base {
 
 	public boolean isCancelled() {
 		return getCancellation() != null;
+	}
+
+	public String getIban() {
+		return getBuyerIban();
 	}
 }

@@ -39,14 +39,11 @@ public class Adventure extends Adventure_Base {
 
 	public void delete() {
 		setBroker(null);
-		setID(null);
+
 		setBegin(null);
 		setEnd(null);
 
 		setClient(null);
-		setMargin(null);
-		setRentVehicle(null);
-		setCurrentAmount(null);
 
 		getState().delete();
 
@@ -146,11 +143,31 @@ public class Adventure extends Adventure_Base {
 	}
 
 	public boolean shouldCancelInvoice() {
-		return getInvoiceReference() != null && !this.invoiceCancelled;
+		return getInvoiceReference() != null && !getInvoiceCancelled();
 	}
 
 	public boolean invoiceIsCancelled() {
 		return !shouldCancelInvoice();
+	}
+
+	public void incAmountToPay(double price) {
+		setCurrentAmount(getCurrentAmount() + price);		
+	}
+
+	public boolean shouldRentVehicle() {
+		return getRentVehicle();
+	}
+
+	public double getAmount() {
+		return getCurrentAmount() * (1 + getMargin());
+	}
+
+	public String getIBAN() {
+		return getClient().getIBAN();
+	}
+
+	public int getAge() {
+		return getClient().getAge();
 	}
 
 }

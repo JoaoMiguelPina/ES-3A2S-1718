@@ -27,10 +27,12 @@ public class Hotel extends Hotel_Base {
 		setCode(code);
 		setName(name);
 
-		setNif(nif);
-		setIban(iban);
+		setNIF(nif);
+		setIBAN(iban);
 		setPriceSingle(priceSingle);
 		setPriceDouble(priceDouble);
+		
+		setProcessor(new Processor());
 
 		FenixFramework.getDomainRoot().addHotel(this);
 	}
@@ -66,7 +68,7 @@ public class Hotel extends Hotel_Base {
 		}
 
 		for (Hotel hotel : FenixFramework.getDomainRoot().getHotelSet()) {
-			if (hotel.getNif().equals(nif)) {
+			if (hotel.getNIF().equals(nif)) {
 				throw new HotelException();
 			}
 		}

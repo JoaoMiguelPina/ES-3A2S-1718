@@ -52,9 +52,7 @@ public class Processor extends Processor_Base {
 			}
 		}
 
-		for(Booking booking : getBookingToProcessSet()) {
-			removeBookingToProcess(booking);
-		}
+		clean();
 		
 		for(Booking booking : failedToProcess) {
 			addBookingToProcess(booking);

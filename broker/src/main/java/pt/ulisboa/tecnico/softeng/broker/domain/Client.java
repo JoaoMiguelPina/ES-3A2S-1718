@@ -3,12 +3,12 @@ package pt.ulisboa.tecnico.softeng.broker.domain;
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 import pt.ulisboa.tecnico.softeng.car.domain.Vehicle;
 
-public class Client {
+public class Client extends Client_Base {
 
 	public Client(Broker broker, String IBAN, String NIF, String drivingLicense, int age) {
 		checkArguments(broker, IBAN, NIF, drivingLicense, age);
-		setIban(IBAN);
-		setNif(NIF);
+		setIBAN(IBAN);
+		setNIF(NIF);
 		setDrivingLicense(drivingLicense);
 		setAge(age);
 
@@ -40,7 +40,6 @@ public class Client {
 	}
 	
 	public void delete() {
-		setRoot(null);
 		deleteDomainObject();
 	}
 }

@@ -6,8 +6,8 @@ class Hotel {
 	String code;
 	String name;
 	int counter;
-	String nif;
-	String iban;
+	String NIF;
+	String IBAN;
 	double priceSingle;
 	double priceDouble;
 }
@@ -69,14 +69,14 @@ relation ProcessorHasBookings{
 	Processor playsRole processor{
 		multiplicity 1..1;
 	}
-	Booking playsRole bookigToProcess{
+	Booking playsRole bookingToProcess{
 		multiplicity 0..*;
 	}
 }
 
 relation HotelHasProcessor{
 	Hotel playsRole hotel{
-		multiplicity 1..1;
+		multiplicity 0..0;
 	}
 	Processor playsRole processor{
 		multiplicity 1..1;

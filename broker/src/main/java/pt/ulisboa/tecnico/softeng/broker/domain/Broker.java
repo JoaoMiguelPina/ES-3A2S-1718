@@ -28,7 +28,7 @@ public class Broker extends Broker_Base {
 
 		setNifAsSeller(nifAsSeller);
 		setNifAsBuyer(nifAsBuyer);
-		setIban(iban);
+		setIBAN(iban);
 
 		FenixFramework.getDomainRoot().addBroker(this);
 	}
@@ -78,7 +78,7 @@ public class Broker extends Broker_Base {
 	}
 
 	public Client getClientByNIF(String NIF) {
-		for (Client client : this.clients) {
+		for (Client client : getClientsSet()) {
 			if (client.getNIF().equals(NIF)) {
 				return client;
 			}
@@ -87,7 +87,7 @@ public class Broker extends Broker_Base {
 	}
 
 	public boolean drivingLicenseIsRegistered(String drivingLicense) {
-		return this.clients.stream().anyMatch(client -> client.getDrivingLicense().equals(drivingLicense));
+		return getClientsSet().stream().anyMatch(client -> client.getDrivingLicense().equals(drivingLicense));
 	}
 
 	public void addClient(Client client) {
@@ -95,7 +95,7 @@ public class Broker extends Broker_Base {
 	}
 
 	public void bulkBooking(int number, LocalDate arrival, LocalDate departure) {
-		BulkRoomBooking bulkBooking = new BulkRoomBooking(this, number, arrival, departure, this.nifAsBuyer, this.iban);
+		BulkRoomBooking bulkBooking = new BulkRoomBooking(this, number, arrival, departure, getNifAsBuyer(), getIBAN());
 		bulkBooking.processBooking();
 	}
 }

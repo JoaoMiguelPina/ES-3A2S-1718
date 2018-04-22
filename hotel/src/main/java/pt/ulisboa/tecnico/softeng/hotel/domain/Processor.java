@@ -10,16 +10,16 @@ import pt.ulisboa.tecnico.softeng.hotel.interfaces.TaxInterface;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
-public class Processor {
+public class Processor extends Processor_Base {
 
 	public void submitBooking(Booking booking) {
-		getBookingToProcess().add(booking);
+		addBookingToProcess(booking);
 		processInvoices();
 	}
 
 	private void processInvoices() {
 		final Set<Booking> failedToProcess = new HashSet<>();
-		for (final Booking booking : getBookingToProcess()) {
+		for (final Booking booking : getBookingToProcessSet()) {
 			if (!booking.isCancelled()) {
 				if (booking.getPaymentReference() == null) {
 					try {
@@ -42,7 +42,7 @@ public class Processor {
 						booking.setCancelledPaymentReference(
 								BankInterface.cancelPayment(booking.getPaymentReference()));
 					}
-					if (!booking.isCancelledInvoice()) {
+					if (!booking.getCancelledInvoice()) {
 						TaxInterface.cancelInvoice(booking.getInvoiceReference());
 						booking.setCancelledInvoice(true);
 					}
@@ -52,18 +52,22 @@ public class Processor {
 
 			}
 		}
-
-		getBookingToProcess().clear();
-		getBookingToProcess().addAll(failedToProcess);
+		
+		clean();
+		
+		for(Booking booking : failedToProcess) {
+			addBookingToProcess(booking);
+		}
 
 	}
 
 	public void clean() {
-		getBookingToProcess().clear();
+		for(Booking booking : getBookingToProcessSet()) {
+			removeBookingToProcess(booking);
+		}
 	}
 	
 	public void delete() {
-		setRoot(null);
 		deleteDomainObject();
 	}
 
