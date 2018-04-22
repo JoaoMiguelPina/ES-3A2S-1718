@@ -6,8 +6,6 @@ import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 
 public class ActivityOffer extends ActivityOffer_Base {
 
-
-
 	public ActivityOffer(Activity activity, LocalDate begin, LocalDate end, int amount) {
 		checkArguments(activity, begin, end, amount);
 

@@ -30,7 +30,6 @@ public class Activity extends Activity_Base {
 			offer.delete();
 		}
 		
-		setProcessor(null);
 		deleteDomainObject();
 	}
 

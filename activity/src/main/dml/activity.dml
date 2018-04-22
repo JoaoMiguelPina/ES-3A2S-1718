@@ -2,76 +2,6 @@ package pt.ulisboa.tecnico.softeng.activity.domain;
 
 class Processor;
 
-relation ProcessorHasBookings{
-	Processor playsRole processor {
-		multiplicity 1..1;
-	}
-	
-	Booking playsRole booking{
-		multiplicity 0..*;
-	}
-	
-}
-
-relation ActivityProviderHasProcessor{
-	ActivityProvider playsRole activityProvider {
-		multiplicity 1..1;
-	}
-	Processor playsRole processor {
-		multiplicity 1..1;
-	}
-}
-
-class ActivityProvider {
-	String name;
-	String code;
-	int counter;
-	String nif;
-	String iban;
-} 
-
-relation DomainRootHasActivityProviders {
-	.pt.ist.fenixframework.DomainRoot playsRole root {
-		multiplicity 1..1;
-	}
-	ActivityProvider playsRole activityProvider {
-		multiplicity 0..*;
-	}
-}
-
-class Activity {
-	String name;
-	String code;
-	int minAge;
-	int maxAge;
-	int capacity;
-}
-
-relation ActivityProviderHasActivities {
-	ActivityProvider playsRole activityProvider {
-		multiplicity 1..1;
-	}
-	Activity playsRole activity {
-		multiplicity 0..*;
-	}
-}
-
-class ActivityOffer {
-	LocalDate begin;
-	LocalDate end;
-	int capacity;
-	int amount;
-}
-
-relation ActivityHasActivityOffers {
-	Activity playsRole activity {
-		multiplicity 1..1;
-	}
-	ActivityOffer playsRole activityOffer {
-		multiplicity 0..*;
-	}
-}
-
 class Booking {
 	String reference;
 	String cancel;
@@ -86,6 +16,79 @@ class Booking {
 	String invoiceReference;
 	boolean cancelledInvoice;
 	String cancelledPaymentReference;
+}
+
+class ActivityProvider {
+	String name;
+	String code;
+	int counter;
+	String nif;
+	String iban;
+} 
+
+class Activity {
+	String name;
+	String code;
+	int minAge;
+	int maxAge;
+	int capacity;
+}
+
+class ActivityOffer {
+	LocalDate begin;
+	LocalDate end;
+	int capacity;
+	int amount;
+}
+
+relation ProcessorHasBookings{
+	Processor playsRole processor {
+		multiplicity 1..1;
+	}
+	
+	Booking playsRole bookingToProcess {
+		multiplicity 0..*;
+	}
+	
+}
+
+relation ActivityProviderHasProcessor{
+	ActivityProvider playsRole activityProvider {
+		multiplicity 0..0;
+	}
+	Processor playsRole processor {
+		multiplicity 1..1;
+	}
+}
+
+
+
+relation DomainRootHasActivityProviders {
+	.pt.ist.fenixframework.DomainRoot playsRole root {
+		multiplicity 1..1;
+	}
+	ActivityProvider playsRole activityProvider {
+		multiplicity 0..*;
+	}
+}
+
+
+relation ActivityProviderHasActivities {
+	ActivityProvider playsRole activityProvider {
+		multiplicity 1..1;
+	}
+	Activity playsRole activity {
+		multiplicity 0..*;
+	}
+}
+
+relation ActivityHasActivityOffers {
+	Activity playsRole activity {
+		multiplicity 1..1;
+	}
+	ActivityOffer playsRole activityOffer {
+		multiplicity 0..*;
+	}
 }
 
 relation ActivityOfferHasBookings {

@@ -10,16 +10,16 @@ import pt.ulisboa.tecnico.softeng.bank.exception.BankException;
 import pt.ulisboa.tecnico.softeng.tax.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
-public class Processor {
+public class Processor extends Processor_Base {
 
 	public void submitBooking(Booking booking) {
-		getBookingToProcess().add(booking);
+		addBookingToProcess(booking);
 		processInvoices();
 	}
 
 	private void processInvoices() {
 		Set<Booking> failedToProcess = new HashSet<>();
-		for (Booking booking : getBookingToProcess()) {
+		for (Booking booking : getBookingToProcessSet()) {
 			if (!booking.isCancelled()) {
 				if (booking.getPaymentReference() == null) {
 					try {
@@ -52,13 +52,20 @@ public class Processor {
 			}
 		}
 
-		getBookingToProcess().clear();
-		getBookingToProcess().addAll(failedToProcess);
+		for(Booking booking : getBookingToProcessSet()) {
+			removeBookingToProcess(booking);
+		}
+		
+		for(Booking booking : failedToProcess) {
+			addBookingToProcess(booking);
+		}
 
 	}
 
 	public void clean() {
-		getBookingToProcess().clear();
+		for(Booking booking : getBookingToProcessSet()) {
+			removeBookingToProcess(booking);
+		}
 	}
 	
 	public void delete() { 

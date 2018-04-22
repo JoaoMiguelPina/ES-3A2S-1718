@@ -14,7 +14,7 @@ import pt.ulisboa.tecnico.softeng.bank.domain.Operation;
 import pt.ulisboa.tecnico.softeng.car.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 
-public class RentACar extends RentACar_base {
+public class RentACar extends RentACar_Base {
 	
 	@Override
 	public int getCounter() {

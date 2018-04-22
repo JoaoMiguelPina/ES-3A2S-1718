@@ -12,9 +12,6 @@ import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException;
 public class ActivityProvider extends ActivityProvider_Base {
 	static final int CODE_SIZE = 6;
 
-	private final Processor processor;
-	setProcessor();
-
 	@Override
 	public int getCounter() {
 		int counter = super.getCounter() + 1;
@@ -30,7 +27,9 @@ public class ActivityProvider extends ActivityProvider_Base {
 
 		setNif(nif);
 		setIban(iban);
-
+		
+		setProcessor(new Processor());
+		
 		FenixFramework.getDomainRoot().addActivityProvider(this);
 	}
 

@@ -24,6 +24,8 @@ public class Booking extends Booking_Base {
 		setCancelledPaymentReference(null);
 
 		offer.addBooking(this);
+		
+		setProcessor(provider.getProcessor());
 	}
 	
 	@Override
@@ -46,9 +48,7 @@ public class Booking extends Booking_Base {
 
 	public void delete() {
 		setActivityOffer(null);
-
-		setBuyerNif(null);
-		setBuyerIban(null);
+		setProcessor(null);
 		
 		deleteDomainObject();
 	}

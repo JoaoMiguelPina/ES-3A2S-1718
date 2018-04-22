@@ -14,6 +14,7 @@ public class Processor extends Processor_Base {
 
 
 	public void submitRenting(Renting renting) {
+		addRentingToProcess(renting);
 		processInvoices();
 	}
 
