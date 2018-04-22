@@ -13,11 +13,6 @@ import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 public class Broker extends Broker_Base {
 	private static Logger logger = LoggerFactory.getLogger(Broker.class);
 
-	private final String nifAsSeller;
-	private final String nifAsBuyer;
-	private final String iban;
-	private final Set<Client> clients = new HashSet<>();
-
 	@Override
 	public int getCounter() {
 		int counter = super.getCounter() + 1;
@@ -31,9 +26,9 @@ public class Broker extends Broker_Base {
 		setCode(code);
 		setName(name);
 
-		this.nifAsSeller = nifAsSeller;
-		this.nifAsBuyer = nifAsBuyer;
-		this.iban = iban;
+		setNifAsSeller(nifAsSeller);
+		setNifAsBuyer(nifAsBuyer);
+		setIban(iban);
 
 		FenixFramework.getDomainRoot().addBroker(this);
 	}
@@ -47,6 +42,10 @@ public class Broker extends Broker_Base {
 
 		for (BulkRoomBooking bulkRoomBooking : getRoomBulkBookingSet()) {
 			bulkRoomBooking.delete();
+		}
+		
+		for (Client client : getClientsSet()) {
+			client.delete();
 		}
 
 		deleteDomainObject();
@@ -78,18 +77,6 @@ public class Broker extends Broker_Base {
 
 	}
 
-	public String getNifAsSeller() {
-		return this.nifAsSeller;
-	}
-
-	public String getNifAsBuyer() {
-		return this.nifAsBuyer;
-	}
-
-	public String getIBAN() {
-		return this.iban;
-	}
-
 	public Client getClientByNIF(String NIF) {
 		for (Client client : this.clients) {
 			if (client.getNIF().equals(NIF)) {
@@ -104,7 +91,7 @@ public class Broker extends Broker_Base {
 	}
 
 	public void addClient(Client client) {
-		this.clients.add(client);
+		getClientsSet().add(client);
 	}
 
 	public void bulkBooking(int number, LocalDate arrival, LocalDate departure) {
