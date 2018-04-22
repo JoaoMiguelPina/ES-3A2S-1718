@@ -4,7 +4,7 @@ class RentACar {
 	int counter;
 	String name;
 	String code;
-	String nif;
+	String NIF;
 	String iban;
 }
 
