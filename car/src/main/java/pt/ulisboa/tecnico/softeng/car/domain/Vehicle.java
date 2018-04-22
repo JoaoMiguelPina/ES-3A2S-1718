@@ -24,7 +24,7 @@ public abstract class Vehicle extends Vehicle_Base{
 		setRentACar(rentACar);
 
 		getPlates.add(plate.toUpperCase());
-		getRentACars.addVehicle(this);
+		getRentACarSet().addVehicle(this);
 	}
 	
 
@@ -37,7 +37,7 @@ public abstract class Vehicle extends Vehicle_Base{
 			throw new CarException();
 		}
 		
-		for( RentACar rac: getRentACars()) {
+		for( RentACar rac: getRentACarSet()) {
 			if(rac.hasVehicle(plate)) {
 				throw new CarException();
 			}
