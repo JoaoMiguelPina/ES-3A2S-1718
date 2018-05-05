@@ -21,7 +21,7 @@ public class InvoiceController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String invoiceForm(Model model, @PathVariable String nif) {
 		logger.info("invoiceForm");
-		model.addAttribute("invoice", new InvoiceData());
+		model.addAttribute("invoiceGreat", new InvoiceData());
 		model.addAttribute("taxpayerinvoices", TaxInterface.getInvoices(nif));
 		model.addAttribute("taxPayer", TaxInterface.getTaxPayerDataByNif(nif));
 		return "invoices";
@@ -35,7 +35,7 @@ public class InvoiceController {
 			TaxInterface.createInvoice(invoice);
 		} catch (TaxException be) {
 			model.addAttribute("error", "Error: it was not possible to create an Invoice.");
-			model.addAttribute("invoice", invoice);
+			model.addAttribute("invoiceGreat", invoice);
 			model.addAttribute("taxpayerinvoices", TaxInterface.getInvoices(nif));
 			model.addAttribute("taxPayer", TaxInterface.getTaxPayerDataByNif(nif));
 			return "invoices";

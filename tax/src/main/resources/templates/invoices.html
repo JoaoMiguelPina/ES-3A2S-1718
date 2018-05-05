@@ -17,11 +17,18 @@
 		<br/>
 		<h3>Create Invoices</h3>
 		<p class="text-danger" th:text="${error}">This is not good</p>
-		<form class="form-inline" th:action="@{/taxpayers/{nif}/invoices(nif=${taxPayer.nif})}" th:object="${invoice}" method="post">
-			
-			<label>Seller NIF: </label> <input class="form-control" type="text" maxlength="9" size="9" th:field="*{sellerNIF}" /> 
-			<label>Buyer NIF: </label> <input class="form-control" type="text" maxlength="9" size="9" th:field="*{buyerNIF}" /> 
-			<label>Item Type: </label> <input class="form-control" type="text" th:field="*{itemType}" /> 
+		<form class="form-inline" th:action="@{/taxpayers/{nif}/invoices(nif=${taxPayer.nif})}" th:object="${invoiceGreat}" method="post">
+
+			<label th:if="${taxPayer.getType() == 'Buyer'}">Seller NIF: </label>
+			<input th:if="${taxPayer.getType() == 'Buyer'}" class="form-control" type="text" maxlength="9" size="9" th:field="*{sellerNIF}" />
+			<input th:if="${taxPayer.getType() == 'Buyer'}" class="form-control" type="hidden" maxlength="9" size="9" th:value="${taxPayer.nif}" />
+
+			<label th:if="${taxPayer.getType() == 'Seller'}">Buyer NIF: </label>
+			<input th:if="${taxPayer.getType() == 'Seller'}" class="form-control" type="text" maxlength="9" size="9" th:field="*{buyerNIF}" />
+			<input th:if="${taxPayer.getType() == 'Seller'}" class="form-control" type="hidden" maxlength="9" size="9" th:value="${taxPayer.nif}" /> 
+
+
+			<label >Item Type: </label> <input class="form-control" type="text" th:field="*{itemType}" /> 
 			<label>Value: </label> <input class="form-control" type="number" th:field="*{value}" /> 
 			<label>Date: </label> <input class="form-control" type="date" th:field="*{date}" />
 
@@ -29,12 +36,13 @@
 		</form>
 		<br/>
 
-		<h3>List of Tax Payers' Invoices</h3>
+		<h3 th:if="${taxPayer.getType() == 'Buyer'}">List of Buyer's Invoices</h3>
+		<h3 th:if="${taxPayer.getType() == 'Seller'}">List of Seller's Invoices</h3>
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Seller NIF</th>
-					<th>Buyer NIF</th>
+					<th th:if="${taxPayer.getType() == 'Buyer'}">Seller NIF</th>
+					<th th:if="${taxPayer.getType() == 'Seller'}">Buyer NIF</th>
 					<th>Item Type</th>
 					<th>Value</th>
  					<th>Date</th>
