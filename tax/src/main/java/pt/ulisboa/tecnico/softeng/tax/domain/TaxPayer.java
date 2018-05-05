@@ -1,5 +1,7 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
+import java.util.Set;
+
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public abstract class TaxPayer extends TaxPayer_Base {
@@ -48,4 +50,5 @@ public abstract class TaxPayer extends TaxPayer_Base {
 	}
 
 	public abstract Invoice getInvoiceByReference(String invoiceReference);
+	public abstract Set<Integer> getYearsTaxation();
 }

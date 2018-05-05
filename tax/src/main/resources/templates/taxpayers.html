@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Providers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+<script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div class="container">
+		<h2>
+			Welcome to Tax' Manager
+		</h2>
+		<a class="btn btn-default pull-right" th:href="@{/}">Index</a>
+		<br/>
+		<h3>Create Tax Payers</h3>
+		<p class="text-danger" th:text="${error}">This is not good</p>
+		<form class="form-inline" th:action="@{/taxpayers}" th:object="${taxPayer}" method="post">
+			<label>Name: </label> <input class="form-control" type="text" th:field="*{name}" /> 
+			<label>NIF: </label> <input class="form-control" type="text" maxlength="9" size="9" th:field="*{nif}" /> 
+			<label>Address: </label> <input class="form-control" type="text" th:field="*{address}" />
+			<label>Type: </label><select th:field="*{type}">
+			  <option th:value="Buyer">Buyer</option>
+			  <option th:value="Seller">Seller</option>
+			</select>
+			<input class="btn btn-primary" type="submit" value="Submit" />
+		</form>
+		<br/>
+		<h3>List of Buyers</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>NIF</th>
+					<th>Address</th>
+					<th>Tax Return</th>
+ 					<th>Invoices</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="taxPayer: ${buyers}">
+					<td th:text="${taxPayer.name}">Advyyyy++</td>
+					<td th:text="${taxPayer.nif}">500500500</td>
+					<td th:text="${taxPayer.address}">Rua Nova</td>
+					<td>
+						<table class="table table-striped">
+							<tbody>
+								<tr th:each="taxValue: ${taxPayer.taxValue}">
+									<td th:text="${taxValue.year}">2017</td>
+									<td th:text="${taxValue.value}">10</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				 	<td><a
+						th:href="@{/taxpayers/{taxPayerCode}/invoices(taxPayerCode=${taxPayer.id})}">Invoices</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>List of Sellers</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>NIF</th>
+					<th>Address</th>
+					<th>Tax Paid</th>
+ 					<th>Invoices</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="taxPayer: ${sellers}">
+					<td th:text="${taxPayer.name}">Advyyyy++</td>
+					<td th:text="${taxPayer.nif}">500500500</td>
+					<td th:text="${taxPayer.address}">Rua Nova</td>
+					<td>
+						<table class="table table-striped">
+							<tbody>
+								<tr th:each="taxValue: ${taxPayer.taxValue}">
+									<td th:text="${taxValue.year}">2017</td>
+									<td th:text="${taxValue.value}">10</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				 	<td><a
+						th:href="@{/taxpayers/{taxPayerCode}/invoices(taxPayerCode=${taxPayer.id})}">Invoices</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

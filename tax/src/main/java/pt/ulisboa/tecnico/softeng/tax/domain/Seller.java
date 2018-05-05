@@ -1,5 +1,8 @@
 package pt.ulisboa.tecnico.softeng.tax.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 
 public class Seller extends Seller_Base {
@@ -47,5 +50,14 @@ public class Seller extends Seller_Base {
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public Set<Integer> getYearsTaxation() {
+		Set<Integer> years = new HashSet<Integer>();
+		for(Invoice invoice : this.getInvoiceSet()){
+			years.add(invoice.getDate().getYear());
+		}
+		return years;
 	}
 }
