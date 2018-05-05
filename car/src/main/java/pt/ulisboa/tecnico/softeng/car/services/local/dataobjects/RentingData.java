@@ -14,6 +14,8 @@ public class RentingData {
 	private final String paymentReference;
 	private final String invoiceReference;
 	private final double price;
+	private final String nif;
+	private final String iban;
 
 	public RentingData(Renting renting) {
 		this.reference = renting.getReference();
@@ -25,6 +27,17 @@ public class RentingData {
 		this.paymentReference = renting.getPaymentReference();
 		this.invoiceReference = renting.getInvoiceReference();
 		this.price = renting.getPrice();
+		this.nif = renting.getClientNif();
+		this.iban = renting.getClientIban();
+		
+	}
+
+	public String getNif() {
+		return nif;
+	}
+
+	public String getIban() {
+		return iban;
 	}
 
 	/**
