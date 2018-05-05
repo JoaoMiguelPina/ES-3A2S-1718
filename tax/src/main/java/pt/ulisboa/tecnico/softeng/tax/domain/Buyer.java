@@ -61,4 +61,9 @@ public class Buyer extends Buyer_Base {
 		}
 		return years;
 	}
+
+	@Override
+	public Set<Invoice> getAllInvoices() {
+		return this.getInvoiceSet();
+	}
 }

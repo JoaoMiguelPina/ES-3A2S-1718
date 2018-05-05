@@ -49,6 +49,7 @@ public abstract class TaxPayer extends TaxPayer_Base {
 
 	}
 
+	public abstract Set<Invoice> getAllInvoices();
 	public abstract Invoice getInvoiceByReference(String invoiceReference);
 	public abstract Set<Integer> getYearsTaxation();
 }

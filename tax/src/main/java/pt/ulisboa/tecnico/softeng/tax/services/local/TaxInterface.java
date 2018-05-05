@@ -12,6 +12,7 @@ import pt.ulisboa.tecnico.softeng.tax.domain.IRS;
 import pt.ulisboa.tecnico.softeng.tax.domain.Invoice;
 import pt.ulisboa.tecnico.softeng.tax.domain.Seller;
 import pt.ulisboa.tecnico.softeng.tax.domain.TaxPayer;
+import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.TaxPayerData;
 
@@ -19,17 +20,23 @@ public class TaxInterface {
 	
 	@Atomic(mode = TxMode.WRITE)
 	public static void createInvoice(InvoiceData invoice) {
+		if(invoice.getValue() == null){
+			throw new TaxException();
+		}
 		IRS.getIRSInstance();
 		IRS.submitInvoice(invoice);
 	}
 	
 	@Atomic(mode = TxMode.WRITE)
-	public static List<InvoiceData> getInvoices() {
-		Set<InvoiceData> invoices = new HashSet<>();
-		for(Invoice invoice : IRS.getIRSInstance().getInvoiceSet()){
-			invoices.add(new InvoiceData(invoice));
+	public static List<InvoiceData> getInvoices(String nif) {
+		Set<Invoice> invoices= getTaxPayerByNif(nif).getAllInvoices();
+		Set<InvoiceData> invoicesData = new HashSet<>();
+		
+		for(Invoice invoice : invoices){
+			invoicesData.add(new InvoiceData(invoice));
 		}
-		return invoices.stream().sorted((p1, p2) -> p1.getBuyerNIF().compareTo(p2.getBuyerNIF())).collect(Collectors.toList());
+		
+		return invoicesData.stream().sorted((p1, p2) -> p1.getBuyerNIF().compareTo(p2.getBuyerNIF())).collect(Collectors.toList());
 	}
 
 	@Atomic(mode = TxMode.WRITE)
@@ -75,4 +82,13 @@ public class TaxInterface {
 		return buyer.taxReturn(year);
 	}
 	
+	@Atomic(mode = TxMode.WRITE)
+	public static TaxPayerData getTaxPayerDataByNif(String nif) {
+		return new TaxPayerData(IRS.getIRSInstance().getTaxPayerByNIF(nif));
+	}
+	
+	@Atomic(mode = TxMode.WRITE)
+	public static TaxPayer getTaxPayerByNif(String nif) {
+		return IRS.getIRSInstance().getTaxPayerByNIF(nif);
+	}
 }

@@ -8,17 +8,17 @@ public class InvoiceData {
 	private String sellerNIF;
 	private String buyerNIF;
 	private String itemType;
-	private Integer value;
+	private Double value;
 	private LocalDate date;
 
 	public InvoiceData() {
 	}
 
-	public InvoiceData(String sellerNIF, String buyerNIF, String itemType, Integer value, LocalDate date) {
+	public InvoiceData(String sellerNIF, String buyerNIF, String itemType, double value, LocalDate date) {
 		this.sellerNIF = sellerNIF;
 		this.buyerNIF = buyerNIF;
 		this.itemType = itemType;
-		this.value = value;
+		this.value = new Double(value);
 		this.date = date;
 	}
 	
@@ -26,7 +26,7 @@ public class InvoiceData {
 		this.sellerNIF = invoice.getSeller().getNif();
 		this.buyerNIF = invoice.getBuyer().getNif();
 		this.itemType = invoice.getItemType().getName();
-		this.value = (int) invoice.getValue();
+		this.value = invoice.getValue();
 		this.date = invoice.getDate();
 	}
 
@@ -54,11 +54,11 @@ public class InvoiceData {
 		this.itemType = itemType;
 	}
 
-	public Integer getValue() {
+	public Double getValue() {
 		return this.value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(Double value) {
 		this.value = value;
 	}
 
