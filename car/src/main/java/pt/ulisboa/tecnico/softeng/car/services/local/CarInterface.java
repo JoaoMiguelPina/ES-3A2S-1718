@@ -55,7 +55,7 @@ public class CarInterface {
 		
 	}
 
-	/*@Atomic(mode = TxMode.READ)
+	@Atomic(mode = TxMode.READ)
 	public static VehicleData getVehicleDataByPlate(String code, String plate) {
 		Vehicle vehicle = getVehicleByPlate(code, plate);
 		if (vehicle == null) {
@@ -63,9 +63,9 @@ public class CarInterface {
 		}
 
 		return new VehicleData(vehicle);
-	}*/
+	}
 
-	/*@Atomic(mode = TxMode.WRITE)
+	@Atomic(mode = TxMode.WRITE)
 	public static void createRenting(String code, String plate, RentingData renting) {
 		Vehicle vehicle = getVehicleByPlate(code, plate);
 		if (vehicle == null) {
@@ -73,7 +73,7 @@ public class CarInterface {
 		}
 
 		new Renting(renting.getDrivingLicense(), renting.getBegin(), renting.getEnd(), vehicle, renting.getNif(), renting.getIban());
-	}*/
+	}
 
 	@Atomic(mode = TxMode.WRITE)
 	public static String rentVehicle(String drivingLicense, Class<?> cls, LocalDate begin, LocalDate end, String nif,
@@ -130,7 +130,7 @@ public class CarInterface {
 				.orElse(null);
 	}
 
-	/*private static Vehicle getVehicleByPlate(String code, String plate) {
+	private static Vehicle getVehicleByPlate(String code, String plate) {
 		RentACar rentACar = getRentACarByCode(code);
 		if (rentACar == null) {
 			return null;
@@ -141,6 +141,6 @@ public class CarInterface {
 			return null;
 		}
 		return vehicle;
-	}*/
+	}
 
 }
