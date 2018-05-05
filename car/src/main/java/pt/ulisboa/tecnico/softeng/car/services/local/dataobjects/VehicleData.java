@@ -14,6 +14,7 @@ public class VehicleData {
 	private double price;
 	private Class<?> vehicleClass;
 	private List<RentingData> rentings;
+	private String type;
 
 	public VehicleData() {
 	}
@@ -25,6 +26,7 @@ public class VehicleData {
 		this.plate = vehicle.getPlate();
 		this.price = vehicle.getPrice();
 		this.vehicleClass = vehicle.getClass();
+		this.type = vehicle.getClass().getSimpleName();
 
 		this.rentings = vehicle.getRentingSet().stream().sorted((r1, r2) -> r1.getBegin().compareTo(r2.getBegin()))
 				.map(r -> new RentingData(r)).collect(Collectors.toList());
@@ -33,7 +35,15 @@ public class VehicleData {
 	public int getKilometers() {
 		return kilometers;
 	}
-
+	
+	public String getType() {
+		return this.type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 	public void setKilometers(int kilometers) {
 		this.kilometers = kilometers;
 	}
