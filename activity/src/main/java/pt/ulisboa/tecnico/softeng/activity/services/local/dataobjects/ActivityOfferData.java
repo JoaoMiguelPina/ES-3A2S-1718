@@ -14,7 +14,8 @@ public class ActivityOfferData {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate end;
 	private Integer capacity;
-	private double amount;
+	private Double amount;
+	private String id;
 	private List<ActivityReservationData> reservations;
 
 	public ActivityOfferData() {
@@ -25,6 +26,7 @@ public class ActivityOfferData {
 		this.end = offer.getEnd();
 		this.capacity = offer.getCapacity();
 		this.amount = offer.getAmount();
+		this.id = offer.getExternalId();
 		this.reservations = offer.getBookingSet().stream().map(b -> new ActivityReservationData(b))
 				.collect(Collectors.toList());
 	}
@@ -61,12 +63,21 @@ public class ActivityOfferData {
 		this.reservations = reservations;
 	}
 
-	public double getAmount() {
+	public Double getAmount() {
 		return this.amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 
 }

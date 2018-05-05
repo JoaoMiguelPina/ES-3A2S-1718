@@ -45,7 +45,8 @@ public class ActivityInterface {
 	@Atomic(mode = TxMode.WRITE)
 	public static void createActivity(String code, ActivityData activity) {
 		ActivityProvider provider = getProviderByCode(code);
-		if (provider == null) {
+		if (provider == null || activity.getMinAge() == null || 
+				activity.getMaxAge() == null || activity.getCapacity() == null) {
 			throw new ActivityException();
 		}
 
@@ -65,7 +66,7 @@ public class ActivityInterface {
 	@Atomic(mode = TxMode.WRITE)
 	public static void createOffer(String codeProvider, String codeActivity, ActivityOfferData offer) {
 		Activity activity = getActivityByCode(codeProvider, codeActivity);
-		if (activity == null) {
+		if (activity == null || offer.getAmount() == null) {
 			throw new ActivityException();
 		}
 
