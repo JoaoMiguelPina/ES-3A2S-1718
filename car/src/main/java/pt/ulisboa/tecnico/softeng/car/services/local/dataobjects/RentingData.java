@@ -5,17 +5,20 @@ import org.joda.time.LocalDate;
 import pt.ulisboa.tecnico.softeng.car.domain.Renting;
 
 public class RentingData {
-	private final String reference;
-	private final String plate;
-	private final String drivingLicense;
-	private final String rentACarCode;
-	private final LocalDate begin;
-	private final LocalDate end;
-	private final String paymentReference;
-	private final String invoiceReference;
-	private final double price;
-	private final String nif;
-	private final String iban;
+	private String reference;
+	private String plate;
+	private String drivingLicense;
+	private String rentACarCode;
+	private LocalDate begin;
+	private LocalDate end;
+	private String paymentReference;
+	private String invoiceReference;
+	private double price;
+	private String nif;
+	private String iban;
+	
+	public RentingData() {
+	}
 
 	public RentingData(Renting renting) {
 		this.reference = renting.getReference();
@@ -32,6 +35,42 @@ public class RentingData {
 		
 	}
 
+	public String getReference() {
+		return reference;
+	}
+
+	public String getPlate() {
+		return plate;
+	}
+
+	public String getDrivingLicense() {
+		return drivingLicense;
+	}
+
+	public String getRentACarCode() {
+		return rentACarCode;
+	}
+
+	public LocalDate getBegin() {
+		return begin;
+	}
+
+	public LocalDate getEnd() {
+		return end;
+	}
+
+	public String getPaymentReference() {
+		return paymentReference;
+	}
+
+	public String getInvoiceReference() {
+		return invoiceReference;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
 	public String getNif() {
 		return nif;
 	}
@@ -40,58 +79,48 @@ public class RentingData {
 		return iban;
 	}
 
-	/**
-	 * @return the renting reference
-	 */
-	public String getReference() {
-		return this.reference;
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
-	/**
-	 * @return the vehicle plate
-	 */
-	public String getPlate() {
-		return this.plate;
+	public void setPlate(String plate) {
+		this.plate = plate;
 	}
 
-	/**
-	 * @return the drivingLicense
-	 */
-	public String getDrivingLicense() {
-		return this.drivingLicense;
+	public void setDrivingLicense(String drivingLicense) {
+		this.drivingLicense = drivingLicense;
 	}
 
-	/**
-	 * @return the rentACarCode
-	 */
-	public String getRentACarCode() {
-		return this.rentACarCode;
+	public void setRentACarCode(String rentACarCode) {
+		this.rentACarCode = rentACarCode;
 	}
 
-	/**
-	 * @return the begin
-	 */
-	public LocalDate getBegin() {
-		return this.begin;
+	public void setBegin(LocalDate begin) {
+		this.begin = begin;
 	}
 
-	/**
-	 * @return the end
-	 */
-	public LocalDate getEnd() {
-		return this.end;
+	public void setEnd(LocalDate end) {
+		this.end = end;
 	}
 
-	public String getPaymentReference() {
-		return this.paymentReference;
+	public void setPaymentReference(String paymentReference) {
+		this.paymentReference = paymentReference;
 	}
 
-	public String getInvoiceReference() {
-		return this.invoiceReference;
+	public void setInvoiceReference(String invoiceReference) {
+		this.invoiceReference = invoiceReference;
 	}
 
-	public double getPrice() {
-		return price;
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void setNif(String nif) {
+		this.nif = nif;
+	}
+
+	public void setIban(String iban) {
+		this.iban = iban;
 	}
 
 }

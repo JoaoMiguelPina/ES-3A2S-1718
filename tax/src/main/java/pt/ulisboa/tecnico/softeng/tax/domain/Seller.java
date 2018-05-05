@@ -60,4 +60,9 @@ public class Seller extends Seller_Base {
 		}
 		return years;
 	}
+	
+	@Override
+	public Set<Invoice> getAllInvoices() {
+		return this.getInvoiceSet();
+	}
 }

@@ -8,6 +8,7 @@ import org.joda.time.LocalDate;
 import pt.ist.fenixframework.FenixFramework;
 import pt.ulisboa.tecnico.softeng.car.exception.CarException;
 import pt.ulisboa.tecnico.softeng.car.services.local.dataobjects.RentingData;
+import pt.ulisboa.tecnico.softeng.car.domain.Vehicle;
 
 public class RentACar extends RentACar_Base {
 	public RentACar(String name, String nif, String iban) {
@@ -126,6 +127,11 @@ public class RentACar extends RentACar_Base {
 			throw new CarException();
 		}
 		return new RentingData(renting);
+	}
+	
+	public Vehicle getVehicleByPlate(String plate) {
+		return getVehicleSet().stream().filter(r -> r.getPlate().equals(plate)).findFirst().orElse(null);
+
 	}
 
 	@Override
