@@ -9,11 +9,28 @@ import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ulisboa.tecnico.softeng.tax.domain.Buyer;
 import pt.ulisboa.tecnico.softeng.tax.domain.IRS;
+import pt.ulisboa.tecnico.softeng.tax.domain.Invoice;
 import pt.ulisboa.tecnico.softeng.tax.domain.Seller;
 import pt.ulisboa.tecnico.softeng.tax.domain.TaxPayer;
+import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.InvoiceData;
 import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.TaxPayerData;
 
 public class TaxInterface {
+	
+	@Atomic(mode = TxMode.WRITE)
+	public static void createInvoice(InvoiceData invoice) {
+		IRS.getIRSInstance();
+		IRS.submitInvoice(invoice);
+	}
+	
+	@Atomic(mode = TxMode.WRITE)
+	public static List<InvoiceData> getInvoices() {
+		Set<InvoiceData> invoices = new HashSet<>();
+		for(Invoice invoice : IRS.getIRSInstance().getInvoiceSet()){
+			invoices.add(new InvoiceData(invoice));
+		}
+		return invoices.stream().sorted((p1, p2) -> p1.getBuyerNIF().compareTo(p2.getBuyerNIF())).collect(Collectors.toList());
+	}
 
 	@Atomic(mode = TxMode.WRITE)
 	public static void createTaxPayer(TaxPayerData taxPayer) {

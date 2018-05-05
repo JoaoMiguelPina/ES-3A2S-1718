@@ -2,22 +2,32 @@ package pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects;
 
 import org.joda.time.LocalDate;
 
+import pt.ulisboa.tecnico.softeng.tax.domain.Invoice;
+
 public class InvoiceData {
 	private String sellerNIF;
 	private String buyerNIF;
 	private String itemType;
-	private double value;
+	private Integer value;
 	private LocalDate date;
 
 	public InvoiceData() {
 	}
 
-	public InvoiceData(String sellerNIF, String buyerNIF, String itemType, double value, LocalDate date) {
+	public InvoiceData(String sellerNIF, String buyerNIF, String itemType, Integer value, LocalDate date) {
 		this.sellerNIF = sellerNIF;
 		this.buyerNIF = buyerNIF;
 		this.itemType = itemType;
 		this.value = value;
 		this.date = date;
+	}
+	
+	public InvoiceData(Invoice invoice) {
+		this.sellerNIF = invoice.getSeller().getNif();
+		this.buyerNIF = invoice.getBuyer().getNif();
+		this.itemType = invoice.getItemType().getName();
+		this.value = (int) invoice.getValue();
+		this.date = invoice.getDate();
 	}
 
 	public String getSellerNIF() {
@@ -44,11 +54,11 @@ public class InvoiceData {
 		this.itemType = itemType;
 	}
 
-	public double getValue() {
+	public Integer getValue() {
 		return this.value;
 	}
 
-	public void setValue(float value) {
+	public void setValue(int value) {
 		this.value = value;
 	}
 

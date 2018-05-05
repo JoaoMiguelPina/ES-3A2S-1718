@@ -80,13 +80,13 @@ public class IRSSubmitInvoiceTest extends RollbackTestAbstractClass {
 
 	@Test(expected = TaxException.class)
 	public void zeroValue() {
-		InvoiceData invoiceData = new InvoiceData(SELLER_NIF, BUYER_NIF, FOOD, 0.0f, this.date);
+		InvoiceData invoiceData = new InvoiceData(SELLER_NIF, BUYER_NIF, FOOD, 0, this.date);
 		IRS.submitInvoice(invoiceData);
 	}
 
 	@Test(expected = TaxException.class)
 	public void negativeValue() {
-		InvoiceData invoiceData = new InvoiceData(SELLER_NIF, BUYER_NIF, FOOD, -23.7f, this.date);
+		InvoiceData invoiceData = new InvoiceData(SELLER_NIF, BUYER_NIF, FOOD, -23, this.date);
 		IRS.submitInvoice(invoiceData);
 	}
 
