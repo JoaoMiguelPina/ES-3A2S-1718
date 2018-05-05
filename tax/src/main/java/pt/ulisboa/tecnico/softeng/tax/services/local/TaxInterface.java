@@ -1,6 +1,6 @@
-package pt.ulisboa.tecnico.softeng.car.services.local;
+package pt.ulisboa.tecnico.softeng.tax.services.local;
 
 
-public class CarInterface {
+public class TaxInterface {
 
 }
