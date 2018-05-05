@@ -72,7 +72,16 @@ public class ActivityInterface {
 
 		new ActivityOffer(activity, offer.getBegin(), offer.getEnd(), offer.getAmount());
 	}
-
+	
+	@Atomic(mode = TxMode.WRITE)
+	public static ActivityOfferData getActivityOfferDataByCode(String offerCode){
+		ActivityOffer offer = getActivityOfferByCode(offerCode);
+		if(offer == null){
+			throw new ActivityException();
+		}
+		return new ActivityOfferData(offer);
+	}
+	
 	@Atomic(mode = TxMode.WRITE)
 	public static String reserveActivity(LocalDate begin, LocalDate end, int age, String nif, String iban) {
 		List<ActivityOffer> offers;
@@ -83,6 +92,16 @@ public class ActivityInterface {
 			}
 		}
 		throw new ActivityException();
+	}
+	
+	@Atomic(mode = TxMode.WRITE)
+	public static String reserveActivity(ActivityProvider provider, ActivityOffer offer, String nif, String iban) {	
+		return new Booking(provider, offer, nif, iban).getReference();
+	}
+	
+	@Atomic(mode = TxMode.WRITE)
+	public static void createReservation(String codeProvider, String codeOffer, String nif, String iban){
+		reserveActivity(getProviderByCode(codeProvider), getActivityOfferByCode(codeOffer), nif, iban);
 	}
 
 	@Atomic(mode = TxMode.WRITE)
@@ -108,7 +127,7 @@ public class ActivityInterface {
 		}
 		throw new ActivityException();
 	}
-
+	
 	private static Booking getBookingByReference(String reference) {
 		for (ActivityProvider provider : FenixFramework.getDomainRoot().getActivityProviderSet()) {
 			Booking booking = provider.getBooking(reference);
@@ -132,5 +151,9 @@ public class ActivityInterface {
 
 		return provider.getActivitySet().stream().filter(a -> a.getCode().equals(codeActivity)).findFirst()
 				.orElse(null);
+	}
+	
+	private static ActivityOffer getActivityOfferByCode(String codeOffer){
+		return FenixFramework.getDomainObject(codeOffer);
 	}
 }

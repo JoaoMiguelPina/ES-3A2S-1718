@@ -42,7 +42,7 @@
  					<td th:text="${offer.capacity}">20</td>
  					<td th:text="${offer.amount}">20</td>
 				 	<td><a
-						th:href="@{/offers/{codeOffer}/bookings(codeOffer=${offer.id})}">Bookings</a></td>
+						th:href="@{/providers/{codeProvider}/activities/{codeActivity}/offers/{codeOffer}/reservations(codeProvider=${activity.codeProvider},codeActivity=${activity.code},codeOffer=${offer.id})}">Bookings</a></td>
 				</tr>
 			</tbody>
 		</table>

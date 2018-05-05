@@ -7,17 +7,22 @@ import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider;
 import pt.ulisboa.tecnico.softeng.activity.domain.Booking;
 
 public class ActivityReservationData {
-	private final String reference;
-	private final String cancellation;
-	private final String name;
-	private final String code;
-	private final LocalDate begin;
-	private final LocalDate end;
-	private final LocalDate cancellationDate;
-	private final double price;
-	private final String paymentReference;
-	private final String invoiceReference;
+	private String reference;
+	private String cancellation;
+	private String name;
+	private String code;
+	private String nifBuyer;
+	private String ibanBuyer;
+	private LocalDate begin;
+	private LocalDate end;
+	private LocalDate cancellationDate;
+	private Double price;
+	private String paymentReference;
+	private String invoiceReference;
 
+	public ActivityReservationData(){
+	}
+	
 	public ActivityReservationData(ActivityProvider provider, ActivityOffer offer, Booking booking) {
 		this.reference = booking.getReference();
 		this.cancellation = booking.getCancel();
@@ -27,6 +32,8 @@ public class ActivityReservationData {
 		this.end = offer.getEnd();
 		this.cancellationDate = booking.getCancellationDate();
 		this.price = offer.getPrice();
+		this.nifBuyer = booking.getBuyerNif();
+		this.ibanBuyer = booking.getIban();
 		this.paymentReference = booking.getPaymentReference();
 		this.invoiceReference = booking.getInvoiceReference();
 	}
@@ -40,6 +47,8 @@ public class ActivityReservationData {
 		this.end = booking.getActivityOffer().getEnd();
 		this.cancellationDate = booking.getCancellationDate();
 		this.price = booking.getAmount();
+		this.nifBuyer = booking.getBuyerNif();
+		this.ibanBuyer = booking.getIban();
 		this.paymentReference = booking.getPaymentReference();
 		this.invoiceReference = booking.getInvoiceReference();
 	}
@@ -72,7 +81,7 @@ public class ActivityReservationData {
 		return this.cancellationDate;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return this.price;
 	}
 
@@ -82,6 +91,62 @@ public class ActivityReservationData {
 
 	public String getInvoiceReference() {
 		return this.invoiceReference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	public void setCancellation(String cancellation) {
+		this.cancellation = cancellation;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void setBegin(LocalDate begin) {
+		this.begin = begin;
+	}
+
+	public void setEnd(LocalDate end) {
+		this.end = end;
+	}
+
+	public void setCancellationDate(LocalDate cancellationDate) {
+		this.cancellationDate = cancellationDate;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public void setPaymentReference(String paymentReference) {
+		this.paymentReference = paymentReference;
+	}
+
+	public void setInvoiceReference(String invoiceReference) {
+		this.invoiceReference = invoiceReference;
+	}
+
+	public String getNifBuyer() {
+		return nifBuyer;
+	}
+
+	public void setNifBuyer(String nifBuyer) {
+		this.nifBuyer = nifBuyer;
+	}
+
+	public String getIbanBuyer() {
+		return ibanBuyer;
+	}
+
+	public void setIbanBuyer(String ibanBuyer) {
+		this.ibanBuyer = ibanBuyer;
 	}
 
 }

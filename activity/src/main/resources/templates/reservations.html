@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Offers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
+<script th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div class="container">
+		<h2>
+			Reservations of Offer <span th:text="${offer.id}">500456168135</span> of activity <span th:text="${activity.name}">eXtreme</span> of provider <span th:text="${activity.nameProvider}">eXtreme</span>
+		</h2>
+		<a class="btn btn-default pull-right" th:href="@{/providers/{codeProvider}/activities/{codeActivity}/offers(codeProvider=${provider.code},codeActivity=${activity.code})}">Offers</a>
+		<br/>
+		<h3>Create Reservation</h3>
+		<p class="text-danger" th:text="${error}">Error</p>
+		<form class="form-inline" th:action="@{/providers/{codeProvider}/activities/{codeActivity}/offers/{codeOffer}/reservations(codeProvider=${provider.code},codeActivity=${activity.code},codeOffer=${offer.id})}" th:object="${reservation}" method="post">
+	 		<label>Nif Buyer: </label> <input class="form-control" type="text" maxlength="9" size="9" th:field="*{nifBuyer}" />
+	 		<label>Iban Buyer: </label> <input class="form-control" type="text" th:field="*{ibanBuyer}" />   
+			<input class="btn btn-primary" type="submit" value="Submit" />
+		</form>
+		<br/>
+		<h3>Reservations</h3>
+ 		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nif Buyer</th>
+ 					<th>Iban Buyer</th>
+ 					<th>State Reservation</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="reservation: ${offer.reservations}">
+					<td th:text="${reservation.nifBuyer}">500500500</td>
+ 					<td th:text="${reservation.ibanBuyer}">PT500054654654564987</td>
+				 	<td><strong>Reference:</strong><span th:text="${reservation.reference}"></span>, <strong>Cancellation:</strong><span th:text="${reservation.cancellation}"></span>, <strong>Cancellation Date:</strong><span th:text="${reservation.cancellationDate}"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
