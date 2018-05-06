@@ -44,13 +44,17 @@ public class IRS extends IRS_Base {
 	}
 
 	public static String submitInvoice(InvoiceData invoiceData) {
-		IRS irs = IRS.getIRSInstance();
-		Seller seller = (Seller) irs.getTaxPayerByNIF(invoiceData.getSellerNIF());
-		Buyer buyer = (Buyer) irs.getTaxPayerByNIF(invoiceData.getBuyerNIF());
-		ItemType itemType = irs.getItemTypeByName(invoiceData.getItemType());
-		Invoice invoice = new Invoice(invoiceData.getValue(), invoiceData.getDate(), itemType, seller, buyer);
-
-		return invoice.getReference();
+		try{
+			IRS irs = IRS.getIRSInstance();
+			Seller seller = (Seller) irs.getTaxPayerByNIF(invoiceData.getSellerNIF());
+			Buyer buyer = (Buyer) irs.getTaxPayerByNIF(invoiceData.getBuyerNIF());
+			ItemType itemType = irs.getItemTypeByName(invoiceData.getItemType());
+			Invoice invoice = new Invoice(invoiceData.getValue(), invoiceData.getDate(), itemType, seller, buyer);
+	
+			return invoice.getReference();
+		} catch(ClassCastException e){
+			throw new TaxException();
+		}
 	}
 
 	private void clearAll() {

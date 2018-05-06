@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects;
 
 import org.joda.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import pt.ulisboa.tecnico.softeng.tax.domain.Invoice;
 
@@ -9,6 +10,7 @@ public class InvoiceData {
 	private String buyerNIF;
 	private String itemType;
 	private Double value;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
 
 	public InvoiceData() {

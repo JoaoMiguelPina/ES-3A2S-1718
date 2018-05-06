@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Providers</title>
+<title>Invoices</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet"
 	th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" />
@@ -21,11 +21,11 @@
 
 			<label th:if="${taxPayer.getType() == 'Buyer'}">Seller NIF: </label>
 			<input th:if="${taxPayer.getType() == 'Buyer'}" class="form-control" type="text" maxlength="9" size="9" th:field="*{sellerNIF}" />
-			<input th:if="${taxPayer.getType() == 'Buyer'}" class="form-control" type="hidden" maxlength="9" size="9" th:value="${taxPayer.nif}" />
+			<input th:if="${taxPayer.getType() == 'Buyer'}" class="form-control" type="hidden" th:value="${taxPayer.nif}" th:field="*{buyerNIF}"/>
 
 			<label th:if="${taxPayer.getType() == 'Seller'}">Buyer NIF: </label>
 			<input th:if="${taxPayer.getType() == 'Seller'}" class="form-control" type="text" maxlength="9" size="9" th:field="*{buyerNIF}" />
-			<input th:if="${taxPayer.getType() == 'Seller'}" class="form-control" type="hidden" maxlength="9" size="9" th:value="${taxPayer.nif}" /> 
+			<input th:if="${taxPayer.getType() == 'Seller'}" class="form-control" type="hidden" th:value="${taxPayer.nif}" th:field="*{sellerNIF}"/> 
 
 
 			<label >Item Type: </label> <input class="form-control" type="text" th:field="*{itemType}" /> 
