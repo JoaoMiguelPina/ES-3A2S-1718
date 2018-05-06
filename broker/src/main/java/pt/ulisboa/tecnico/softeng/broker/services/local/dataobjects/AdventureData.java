@@ -14,6 +14,7 @@ public class AdventureData {
 	private LocalDate end;
 	private Integer age;
 	private String iban;
+	private Client client;
 	private Double amount;
 	private ClientData clientData;
 	private Adventure.State state;
@@ -44,9 +45,9 @@ public class AdventureData {
 		this.activityConfirmation = adventure.getActivityConfirmation();
 		this.activityCancellation = adventure.getActivityCancellation();
 
-		Client client = adventure.getClient();
-		this.clientData = new ClientData(client.getIban(), client.getNif(), client.getDrivingLicense(),
-				client.getAge());
+		this.client = adventure.getClient();
+		this.clientData = new ClientData(this.client.getIban(), this.client.getNif(), this.client.getDrivingLicense(),
+				this.client.getAge());
 	}
 
 	public String getId() {
@@ -57,6 +58,11 @@ public class AdventureData {
 		this.id = id;
 	}
 
+	public Client getClient() {
+		return this.client;
+	}
+
+	
 	public LocalDate getBegin() {
 		return this.begin;
 	}
