@@ -10,10 +10,12 @@ import pt.ist.fenixframework.Atomic.TxMode;
 import pt.ulisboa.tecnico.softeng.tax.domain.Buyer;
 import pt.ulisboa.tecnico.softeng.tax.domain.IRS;
 import pt.ulisboa.tecnico.softeng.tax.domain.Invoice;
+import pt.ulisboa.tecnico.softeng.tax.domain.ItemType;
 import pt.ulisboa.tecnico.softeng.tax.domain.Seller;
 import pt.ulisboa.tecnico.softeng.tax.domain.TaxPayer;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.InvoiceData;
+import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.ItemTypeData;
 import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.TaxPayerData;
 
 public class TaxInterface {
@@ -25,6 +27,14 @@ public class TaxInterface {
 		}
 		IRS.getIRSInstance();
 		IRS.submitInvoice(invoice);
+	}
+	
+	@Atomic(mode = TxMode.WRITE)
+	public static void createItemType(ItemTypeData itd) {
+		if(itd.getTax() == null){
+			throw new TaxException();
+		}
+		new ItemType(IRS.getIRSInstance(), itd.getName(), itd.getTax());
 	}
 	
 	@Atomic(mode = TxMode.WRITE)
