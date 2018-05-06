@@ -19,9 +19,9 @@
 		<h3>Create Bulk Booking</h3>
 		<p class="text-danger" th:text="${error}">Error</p>
 		<form class="form-inline" th:action="@{/brokers/{code}/bulks(code=${broker.code})}" th:object="${bulk}" method="post">
-			<input class="form-control" type="hidden" th:value="${broker.iban}" th:field="*{brokerIBAN}"/> 
 			<input class="form-control" type="hidden" th:value="${broker.nifAsSeller}" th:field="*{brokerNIF}"/> 
-			<input class="form-control" type="hidden" th:value="${broker.nifAsBuyer}" th:field="*{clientNIF}"/> 
+			<label>NIF: </label><input class="form-control" th:field="*{clientNIF}"/> 
+			<label>IBAN: </label><input class="form-control" type="hidden"  th:field="*{brokerIBAN}"/> 
 
 	 		<label>Number: </label> <input class="form-control" type="number" th:field="*{number}" /> 
 			<label>Arrival: </label> <input class="form-control" type="date" th:field="*{arrival}" />  

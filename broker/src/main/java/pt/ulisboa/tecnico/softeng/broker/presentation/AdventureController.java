@@ -26,20 +26,18 @@ public class AdventureController {
 		logger.info("showAdventures code:{}", brokerCode);
 
 		BrokerData brokerData = BrokerInterface.getBrokerDataByCode(brokerCode, CopyDepth.CLIENTS);
+		ClientData clientData = BrokerInterface.getClientDataByCode(brokerCode, nif);
 
-		if (brokerData == null) {
+		if (clientData == null) {
 			model.addAttribute("error", "Error: it does not exist a broker with the code " + brokerCode);
 			model.addAttribute("broker", new BrokerData());
 			model.addAttribute("brokers", BrokerInterface.getBrokers());
 			return "brokers";
-//		} else if(clientData == null){
-//			model.addAttribute("error", "Error: it does not exist a client with the nif " + nif);
-//			model.addAttribute("client", new ClientData());
-//			return "clients";
 		}
 		else {
 			model.addAttribute("adventure", new AdventureData());
 			model.addAttribute("broker", brokerData);
+			model.addAttribute("client", clientData);
 			return "adventures";
 		}
 	}
@@ -52,11 +50,15 @@ public class AdventureController {
 				adventureData.getAmount());
 
 		try {
+			adventureData.setClient(BrokerInterface.getClientByCode(brokerCode, nif));
 			BrokerInterface.createAdventure(brokerCode, adventureData);
 		} catch (BrokerException be) {
+			BrokerData brokerData = BrokerInterface.getBrokerDataByCode(brokerCode, CopyDepth.CLIENTS);
+			ClientData clientData = BrokerInterface.getClientDataByCode(brokerCode, nif);
 			model.addAttribute("error", "Error: it was not possible to create the adventure");
-			model.addAttribute("adventure", adventureData);
-			model.addAttribute("broker", BrokerInterface.getBrokerDataByCode(brokerCode, CopyDepth.CLIENTS));
+			model.addAttribute("adventure", new AdventureData());
+			model.addAttribute("broker", brokerData);
+			model.addAttribute("client", clientData);
 			return "adventures";
 		}
 

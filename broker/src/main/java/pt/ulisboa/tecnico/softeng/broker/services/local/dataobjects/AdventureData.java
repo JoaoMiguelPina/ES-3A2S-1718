@@ -18,6 +18,7 @@ public class AdventureData {
 	private Double amount;
 	private ClientData clientData;
 	private Adventure.State state;
+	private Double margin;
 
 	private String paymentConfirmation;
 	private String paymentCancellation;
@@ -158,5 +159,26 @@ public class AdventureData {
 	public void setActivityCancellation(String activityCancellation) {
 		this.activityCancellation = activityCancellation;
 	}
+
+	public ClientData getClientData() {
+		return clientData;
+	}
+
+	public void setClientData(ClientData clientData) {
+		this.clientData = clientData;
+	}
+
+	public Double getMargin() {
+		return margin;
+	}
+
+	public void setMargin(Double margin) {
+		this.margin = margin;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
 
 }

@@ -8,16 +8,11 @@ import pt.ulisboa.tecnico.softeng.broker.domain.BulkRoomBooking;
 import pt.ulisboa.tecnico.softeng.broker.domain.Client;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData.CopyDepth;
 
-public class ClientData {
-	
-	public static enum CopyDepth {
-		ADVENTURES
-	};
-	
+public class ClientData {	
 	private String iban;
 	private String nif;
 	private String drivingLicense;
-	private int age;
+	private Integer age;
 
 	private List<AdventureData> adventures = new ArrayList<>();
 
@@ -36,7 +31,6 @@ public class ClientData {
 				this.adventures.add(new AdventureData(adventure));
 			}
 			break;
-	
 		default:
 			break;
 		}
@@ -74,11 +68,11 @@ public class ClientData {
 		this.drivingLicense = drivingLicense;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return this.age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 	

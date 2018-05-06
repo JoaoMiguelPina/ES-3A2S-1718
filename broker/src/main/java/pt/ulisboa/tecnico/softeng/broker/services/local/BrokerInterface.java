@@ -11,6 +11,7 @@ import pt.ulisboa.tecnico.softeng.broker.domain.Adventure;
 import pt.ulisboa.tecnico.softeng.broker.domain.Broker;
 import pt.ulisboa.tecnico.softeng.broker.domain.BulkRoomBooking;
 import pt.ulisboa.tecnico.softeng.broker.domain.Client;
+import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.AdventureData;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData.CopyDepth;
@@ -45,22 +46,45 @@ public class BrokerInterface {
 		}
 	}
 
+	@Atomic(mode = TxMode.READ)
+	public static ClientData getClientDataByCode(String brokerCode, String nif) {
+		BrokerData broker = BrokerInterface.getBrokerDataByCode(brokerCode, CopyDepth.CLIENTS);
+		
+		for(ClientData client : broker.getClients()){
+			if(client.getNif().equals(nif)){
+				return client;
+			}
+		}
+		return null;
+	}
+	
+	@Atomic(mode = TxMode.READ)
+	public static Client getClientByCode(String brokerCode, String nif) {
+		Broker broker = getBrokerByCode(brokerCode);
+		
+		return broker.getClientByNIF(nif);
+	}
+	
 	@Atomic(mode = TxMode.WRITE)
 	public static void createAdventure(String brokerCode, AdventureData adventureData) {
-		
-		new Adventure(getBrokerByCode(brokerCode), adventureData.getBegin(), adventureData.getEnd(), adventureData.getClient(), 0.1);
+		if(adventureData.getMargin() == null || adventureData.getAge() == null){
+			throw new BrokerException();
+		}
+		new Adventure(getBrokerByCode(brokerCode), adventureData.getBegin(), adventureData.getEnd(), adventureData.getClient(), adventureData.getMargin());
 	}
 
 	@Atomic(mode = TxMode.WRITE)
 	public static void createBulkRoomBooking(String brokerCode, BulkData bulkData) {
-		// TODO: receive nif and iban
 		new BulkRoomBooking(getBrokerByCode(brokerCode), bulkData.getNumber() != null ? bulkData.getNumber() : 0,
-				bulkData.getArrival(), bulkData.getDeparture(), "ERROR", "ERROR");
+				bulkData.getArrival(), bulkData.getDeparture(), bulkData.getClientNIF(), bulkData.getBrokerIBAN());
 
 	}
 
 	@Atomic(mode = TxMode.WRITE)
 	public static void createClient(String brokerCode, ClientData clientData) {
+		if(clientData.getAge() == null){
+			throw new BrokerException();
+		}
 		new Client(getBrokerByCode(brokerCode), clientData.getIban(), clientData.getNif(), clientData.getDrivingLicense(), clientData.getAge());
 
 	}

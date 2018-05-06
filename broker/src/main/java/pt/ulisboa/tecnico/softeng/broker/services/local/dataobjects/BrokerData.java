@@ -10,7 +10,7 @@ import pt.ulisboa.tecnico.softeng.broker.domain.Client;
 
 public class BrokerData {
 	public static enum CopyDepth {
-		SHALLOW, BULKS, CLIENTS
+		SHALLOW, BULKS, CLIENTS, ADVENTURES
 	};
 
 	private String name;
@@ -40,7 +40,7 @@ public class BrokerData {
 			break;
 		case CLIENTS:
 			for (Client client : broker.getClientSet()) {
-				this.clients.add(new ClientData(client, null));
+				this.clients.add(new ClientData(client, CopyDepth.ADVENTURES));
 			}
 			break;
 		case SHALLOW:
