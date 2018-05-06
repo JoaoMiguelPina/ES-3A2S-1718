@@ -15,7 +15,7 @@ import pt.ulisboa.tecnico.softeng.car.services.local.dataobjects.RentACarData;
 import pt.ulisboa.tecnico.softeng.car.services.local.dataobjects.VehicleData;
 
 @Controller
-@RequestMapping(value = "/rentACars/{code}/vehicles")
+@RequestMapping(value = "/vehicles/{code}/vehicleManager")
 public class VehicleController {
 	private static Logger logger = LoggerFactory.getLogger(VehicleController.class);
 
@@ -51,7 +51,7 @@ public class VehicleController {
 			return "vehicles";
 		}
 
-		return "redirect:/rentACars/" + code + "/vehicles";
+		return "redirect:/vehicles/" + code + "/vehicleManager";
 
 	}
 }

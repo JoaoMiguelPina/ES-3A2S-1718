@@ -13,13 +13,13 @@
 <body>
 	<div class="container">
 		<h2>
-			Vehicles of RentACar <span th:text="${rentAcar.name}">Name</span>
+			Vehicles of RentACar <span th:text="${rentACar.name}">Name</span>
 		</h2>
-		<a class="btn btn-default pull-right" th:href="@{/rentACarss}">RentACars</a>
+		<a class="btn btn-default pull-right" th:href="@{/vehicleManager}">Vehicles</a>
 		<br/>
 		<h3>Create Vehicle</h3>
 		<p class="text-danger" th:text="${error}">Error</p>
-		<form class="form-inline" th:action="@{/rentACars/{code}/vehicles(code=${rentACar.code})}" th:object="${vehicle}" method="post">
+		<form class="form-inline" th:action="@{/vehicles/{code}/vehicleManager(code=${rentACar.code})}" th:object="${vehicle}" method="post">
 	 		<label>Plate: </label> <input class="form-control" type="text" th:field="*{plate}" /> 
 			<label>Kilometers: </label> <input class="form-control" type="integer" th:field="*{kilometers}" />
 			<label>Price: </label> <input class="form-control" type="double" th:field="*{price}" />
@@ -43,7 +43,7 @@
  					<td th:text="${vehicle.kilometers}">SINGLE</td>
 				 	<td th:text="${vehicle.price}">12.4</td>
 				 	<td><a
-						th:href="@{/rentACars/{code}/vehicles/{plate}/rentings(code=${rentACar.code},plate=${vehicle.plate})}">Rentings</a></td>
+						th:href="@{/vehicles/{code}/vehicleManager/{plate}/rentings(code=${rentACar.code},plate=${vehicle.plate})}">Rentings</a></td>
 				</tr>
 			</tbody>
 		</table>
