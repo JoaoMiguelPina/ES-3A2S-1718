@@ -20,6 +20,10 @@ public class HotelData {
 	public HotelData(Hotel hotel) {
 		this.code = hotel.getCode();
 		this.name = hotel.getName();
+		this.nif = hotel.getNif();
+		this.iban = hotel.getIban();
+		this.priceSingle = hotel.getPriceSingle();
+		this.priceDouble = hotel.getPriceDouble();
 
 		this.rooms = hotel.getRoomSet().stream().sorted((r1, r2) -> r1.getNumber().compareTo(r2.getNumber()))
 				.map(r -> new RoomData(r)).collect(Collectors.toList());

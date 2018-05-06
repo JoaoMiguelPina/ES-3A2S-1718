@@ -29,6 +29,9 @@ public class HotelInterface {
 
 	@Atomic(mode = TxMode.WRITE)
 	public static void createHotel(HotelData hotelData) {
+		if(hotelData.getPriceSingle() == null || hotelData.getPriceDouble() == null){
+			throw new HotelException();
+		}
 		new Hotel(hotelData.getCode(), hotelData.getName(), hotelData.getNif(), hotelData.getIban(),
 				hotelData.getPriceSingle(), hotelData.getPriceDouble());
 	}
