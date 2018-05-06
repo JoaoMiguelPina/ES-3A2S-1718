@@ -24,6 +24,7 @@ public class ClientController {
 	public String ClientForm(Model model,  @PathVariable String brokerCode) {
 		logger.info("clientForm");
 		model.addAttribute("client", new ClientData());
+		model.addAttribute("broker", BrokerInterface.getBrokerDataByCode(brokerCode, CopyDepth.CLIENTS));
 		return "clients";
 	}
 
@@ -37,10 +38,10 @@ public class ClientController {
 			BrokerInterface.createClient(brokerCode, clientData);
 			
 		} catch (BrokerException be) {
-			model.addAttribute("error", "Error: it was not possible to create the broker");
+			model.addAttribute("error", "Error: it was not possible to create the client");
 			model.addAttribute("client", clientData);
 			model.addAttribute("broker", BrokerInterface.getBrokerDataByCode(brokerCode, CopyDepth.CLIENTS));
-			return "brokers";
+			return "clients";
 		}
 
 		return "redirect:/brokers/" + brokerCode + "/clients";
