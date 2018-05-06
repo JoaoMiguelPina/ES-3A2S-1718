@@ -9,10 +9,10 @@ import pt.ulisboa.tecnico.softeng.car.services.local.dataobjects.RentingData;
 public class VehicleData {
 	private String rentACarCode;
 	private String rentACarName;
-	private int kilometers;
+	private Integer kilometers;
 	private String plate;
-	private double price;
-	private Class<?> vehicleClass;
+	private Double price;
+	private String vehicleClass;
 	private List<RentingData> rentings;
 	private String type;
 
@@ -25,14 +25,14 @@ public class VehicleData {
 		this.kilometers = vehicle.getKilometers();
 		this.plate = vehicle.getPlate();
 		this.price = vehicle.getPrice();
-		this.vehicleClass = vehicle.getClass();
+		this.vehicleClass = vehicle.getClass().getSimpleName();
 		this.type = vehicle.getClass().getSimpleName();
 
 		this.rentings = vehicle.getRentingSet().stream().sorted((r1, r2) -> r1.getBegin().compareTo(r2.getBegin()))
 				.map(r -> new RentingData(r)).collect(Collectors.toList());
 	}
 
-	public int getKilometers() {
+	public Integer getKilometers() {
 		return kilometers;
 	}
 	
@@ -44,7 +44,7 @@ public class VehicleData {
 		this.type = type;
 	}
 	
-	public void setKilometers(int kilometers) {
+	public void setKilometers(Integer kilometers) {
 		this.kilometers = kilometers;
 	}
 
@@ -56,11 +56,11 @@ public class VehicleData {
 		this.plate = plate;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
@@ -92,11 +92,11 @@ public class VehicleData {
 		this.rentings = rentings;
 	}
 	
-	public Class<?> getVehicleClass() {
+	public String getVehicleClass() {
 		return vehicleClass;
 	}
 
-	public void setVehicleClass(Class<?> vehicleClass) {
+	public void setVehicleClass(String vehicleClass) {
 		this.vehicleClass = vehicleClass;
 	}
 

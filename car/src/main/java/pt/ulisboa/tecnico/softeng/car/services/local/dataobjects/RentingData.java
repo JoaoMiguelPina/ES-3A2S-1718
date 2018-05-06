@@ -1,6 +1,7 @@
 package pt.ulisboa.tecnico.softeng.car.services.local.dataobjects;
 
 import org.joda.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import pt.ulisboa.tecnico.softeng.car.domain.Renting;
 
@@ -9,13 +10,18 @@ public class RentingData {
 	private String plate;
 	private String drivingLicense;
 	private String rentACarCode;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate begin;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate end;
 	private String paymentReference;
 	private String invoiceReference;
-	private double price;
+	private Double price;
 	private String nif;
 	private String iban;
+	private String cancellation;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate cancellationDate;
 	
 	public RentingData() {
 	}
@@ -32,6 +38,8 @@ public class RentingData {
 		this.price = renting.getPrice();
 		this.nif = renting.getClientNif();
 		this.iban = renting.getClientIban();
+		this.cancellation = renting.getCancellationReference();
+		this.cancellationDate = renting.getCancellationDate();
 		
 	}
 
@@ -67,7 +75,7 @@ public class RentingData {
 		return invoiceReference;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
@@ -111,7 +119,7 @@ public class RentingData {
 		this.invoiceReference = invoiceReference;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
@@ -121,6 +129,22 @@ public class RentingData {
 
 	public void setIban(String iban) {
 		this.iban = iban;
+	}
+
+	public String getCancellation() {
+		return cancellation;
+	}
+
+	public void setCancellation(String cancellation) {
+		this.cancellation = cancellation;
+	}
+
+	public LocalDate getCancellationDate() {
+		return cancellationDate;
+	}
+
+	public void setCancellationDate(LocalDate cancellationDate) {
+		this.cancellationDate = cancellationDate;
 	}
 
 }

@@ -16,7 +16,7 @@ import pt.ulisboa.tecnico.softeng.car.services.local.dataobjects.RentingData;
 import pt.ulisboa.tecnico.softeng.car.services.local.dataobjects.VehicleData;
 
 @Controller
-@RequestMapping(value = "/rentACars/{code}/vehicles/{plate}/rentings")
+@RequestMapping(value = "/vehicles/{code}/vehicleManager/{plate}/rentings")
 public class RentingController {
 	private static Logger logger = LoggerFactory.getLogger(RentingController.class);
 
@@ -42,8 +42,8 @@ public class RentingController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String rentingSubmit(Model model, @PathVariable String code, @PathVariable String plate,
 			@ModelAttribute RentingData renting) {
-		logger.info("rentingSubmit rentACarCode:{}, vehiclePlate:{}, begin:{}, end:{}, nif:{}, iban:{}", code, plate,
-				renting.getBegin(), renting.getEnd(), renting.getNif(), renting.getIban());
+		logger.info("rentingSubmit rentACarCode:{}, vehiclePlate:{}, drivingLicense:{},begin:{}, end:{}, nif:{}, iban:{}", code, plate,
+				renting.getDrivingLicense(), renting.getBegin(), renting.getEnd(), renting.getNif(), renting.getIban());
 
 		try {
 			CarInterface.createRenting(code, plate, renting);
@@ -51,9 +51,9 @@ public class RentingController {
 			model.addAttribute("error", "Error: it was not possible to rent the car");
 			model.addAttribute("renting", renting);
 			model.addAttribute("vehicle", CarInterface.getVehicleDataByPlate(code, plate));
-			return "bookings";
+			return "rentings";
 		}
 
-		return "redirect:/rentACars/" + code + "/vehicles/" + plate + "/rentings";
+		return "redirect:/vehicles/" + code + "/vehicleManager/" + plate + "/rentings";
 	}
 }

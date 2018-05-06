@@ -46,10 +46,13 @@ public class CarInterface {
 	
 	@Atomic(mode = TxMode.WRITE)
 	public static void createVehicle(String rentACarCode, VehicleData vehicleData) {
-		if(vehicleData.getVehicleClass() == Car.class ) {
+		if(vehicleData.getPrice() == null || vehicleData.getKilometers() == null){
+			throw new CarException();
+		}
+		if(vehicleData.getVehicleClass().equals("Car")) {
 			new Car(vehicleData.getPlate(), vehicleData.getKilometers(), vehicleData.getPrice(), getRentACarByCode(rentACarCode));
 		}
-		else if(vehicleData.getVehicleClass() == Motorcycle.class) {
+		else if(vehicleData.getVehicleClass().equals("Motorcycle")) {
 			new Motorcycle(vehicleData.getPlate(), vehicleData.getKilometers(), vehicleData.getPrice(), getRentACarByCode(rentACarCode));
 		}
 		
@@ -71,8 +74,13 @@ public class CarInterface {
 		if (vehicle == null) {
 			throw new CarException();
 		}
-
-		new Renting(renting.getDrivingLicense(), renting.getBegin(), renting.getEnd(), vehicle, renting.getNif(), renting.getIban());
+		if(checkRenting(plate, renting.getBegin(), renting.getEnd())){
+			new Renting(renting.getDrivingLicense(), renting.getBegin(), renting.getEnd(), vehicle, renting.getNif(), renting.getIban());
+		}
+		else{
+			throw new CarException();
+		}
+		
 	}
 
 	@Atomic(mode = TxMode.WRITE)
@@ -89,17 +97,23 @@ public class CarInterface {
 		throw new CarException();
 	}
 
-	/*@Atomic(mode = TxMode.WRITE)
-	public static String cancelRenting(String reference) {
-		for (RentACar rentACar : FenixFramework.getDomainRoot().getRentACarSet()) {
-			RentingData data = rentACar.getRentingData(reference);
-			Renting renting = new Renting(data.getDrivingLicense(), data.getBegin(), data.getEnd(), getVehicleByPlate(rentACar.getCode(), data.getPlate()), data.getNif(), data.getIban());
-			if (renting != null) {
-				return renting.cancel();
+	public static boolean checkRenting(String plate, LocalDate begin, LocalDate end){
+		Set<Vehicle> allAvailableCars = RentACar.getAllAvailableCars(begin, end);
+		Set<Vehicle> allAvailableMotorcycles = RentACar.getAllAvailableMotorcycles(begin, end);
+		
+		for(Vehicle car : allAvailableCars){
+			if(car.getPlate().equals(plate)){
+				return true;
 			}
 		}
-		throw new CarException();
-	}*/
+		
+		for(Vehicle motor : allAvailableMotorcycles){
+			if(motor.getPlate().equals(plate)){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@Atomic(mode = TxMode.READ)
 	public static RentingData getRentingData(String reference) {
