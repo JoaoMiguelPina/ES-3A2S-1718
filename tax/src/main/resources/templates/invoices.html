@@ -21,14 +21,17 @@
 
 			<label th:if="${taxPayer.getType() == 'Buyer'}">Seller NIF: </label>
 			<input th:if="${taxPayer.getType() == 'Buyer'}" class="form-control" type="text" maxlength="9" size="9" th:field="*{sellerNIF}" />
-			<input th:if="${taxPayer.getType() == 'Buyer'}" class="form-control" type="hidden" th:value="${taxPayer.nif}" th:field="*{buyerNIF}"/>
+			<input th:if="${taxPayer.getType() == 'Buyer'}" class="form-control" type="hidden" th:value="${taxPayer.nif}" th:id="buyerNIF" th:name="buyerNIF"/>
 
 			<label th:if="${taxPayer.getType() == 'Seller'}">Buyer NIF: </label>
 			<input th:if="${taxPayer.getType() == 'Seller'}" class="form-control" type="text" maxlength="9" size="9" th:field="*{buyerNIF}" />
-			<input th:if="${taxPayer.getType() == 'Seller'}" class="form-control" type="hidden" th:value="${taxPayer.nif}" th:field="*{sellerNIF}"/> 
+			<input th:if="${taxPayer.getType() == 'Seller'}" class="form-control" type="hidden" th:value="${taxPayer.nif}" th:id="sellerNIF" th:name="sellerNIF"/> 
 
 
-			<label >Item Type: </label> <input class="form-control" type="text" th:field="*{itemType}" /> 
+			<label >Item Type: </label> <select th:field="*{itemType}">
+			<option th:each="itemType : ${itemTypesList}" th:value="${itemType.name}" th:text="${itemType.name}"></option>
+			</select>
+		
 			<label>Value: </label> <input class="form-control" type="number" th:field="*{value}" /> 
 			<label>Date: </label> <input class="form-control" type="date" th:field="*{date}" />
 
@@ -50,8 +53,8 @@
 			</thead>
 			<tbody>
 				<tr th:each="invoiceData: ${taxpayerinvoices}">
-					<td th:text="${invoiceData.sellerNIF}">500500500</td>
-					<td th:text="${invoiceData.buyerNIF}">500500500</td>
+					<td th:if="${taxPayer.getType() == 'Buyer'}" th:text="${invoiceData.sellerNIF}">500500500</td>
+					<td th:if="${taxPayer.getType() == 'Seller'}" th:text="${invoiceData.buyerNIF}">500500500</td>
 					<td th:text="${invoiceData.itemType}">Rua Nova</td>
 					<td th:text="${invoiceData.value}">10</td>
 					<td th:text="${invoiceData.date}">2017-06-05</td>

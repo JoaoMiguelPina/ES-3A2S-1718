@@ -46,7 +46,7 @@ public class TaxInterface {
 			invoicesData.add(new InvoiceData(invoice));
 		}
 		
-		return invoicesData.stream().sorted((p1, p2) -> p1.getBuyerNIF().compareTo(p2.getBuyerNIF())).collect(Collectors.toList());
+		return invoicesData.stream().sorted((p1, p2) -> p1.getDate().compareTo(p2.getDate())).collect(Collectors.toList());
 	}
 
 	@Atomic(mode = TxMode.WRITE)
@@ -94,11 +94,21 @@ public class TaxInterface {
 	
 	@Atomic(mode = TxMode.WRITE)
 	public static TaxPayerData getTaxPayerDataByNif(String nif) {
-		return new TaxPayerData(IRS.getIRSInstance().getTaxPayerByNIF(nif));
+		TaxPayer taxPayer = IRS.getIRSInstance().getTaxPayerByNIF(nif);
+		if(taxPayer == null){
+			throw new TaxException();
+		}
+		return new TaxPayerData(taxPayer);
 	}
 	
 	@Atomic(mode = TxMode.WRITE)
 	public static TaxPayer getTaxPayerByNif(String nif) {
 		return IRS.getIRSInstance().getTaxPayerByNIF(nif);
+	}
+	
+	@Atomic(mode = TxMode.WRITE)
+	public static List<ItemTypeData> getItemTypes() {
+		return IRS.getIRSInstance().getItemTypeSet().stream().map(t -> new ItemTypeData(t))
+				.sorted((p1, p2) -> p1.getName().compareTo(p2.getName())).collect(Collectors.toList());
 	}
 }

@@ -11,8 +11,8 @@ public class ItemTypeData {
 	}
 	
 	public ItemTypeData(ItemType itemType) {
-		this.setName(itemType.getName());
-		this.setTax(itemType.getTax());
+		this.name = itemType.getName();
+		this.tax = itemType.getTax();
 	}
 	
 	public ItemTypeData(String _name, int _tax) {
@@ -32,7 +32,7 @@ public class ItemTypeData {
 		return tax;
 	}
 
-	public void setTax(int tax) {
-		this.tax = new Integer(tax);
+	public void setTax(Integer tax) {
+		this.tax = tax;
 	}
 }

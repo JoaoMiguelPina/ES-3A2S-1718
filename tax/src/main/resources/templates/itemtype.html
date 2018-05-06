@@ -13,17 +13,31 @@
 		<h2>
 			Welcome to Tax' Manager
 		</h2>
-		<a class="btn btn-default pull-right" th:href="@{/taxpayers}">Tax Payers</a>
+		<a class="btn btn-default pull-right" th:href="@{/}">Index</a>
 		<br/>
 		<h3>Create Item Type</h3>
 		<p class="text-danger" th:text="${error}">This is not good</p>
-		<form class="form-inline" th:action="@{/taxpayers/itemtype/{name}(name=${name})}" th:object="${itemTypeGreat}" method="post">
+		<form class="form-inline" th:action="@{/itemtypes}" th:object="${itemType}" method="post">
 			<label>Name: </label> <input class="form-control" type="text" th:field="*{name}" /> 
 			<label>Tax: </label> <input class="form-control" type="number" th:field="*{tax}" /> 
 			<input class="btn btn-primary" type="submit" value="Submit" />
 		</form>
-
 		<br/>
+		<h3>List of Item Types</h3>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Tax</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="itemType: ${itemTypesList}">
+					<td th:text="${itemType.name}">SPORT</td>
+					<td th:text="${itemType.tax}">20</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>

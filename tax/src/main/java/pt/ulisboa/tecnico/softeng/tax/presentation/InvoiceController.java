@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pt.ulisboa.tecnico.softeng.tax.exception.TaxException;
 import pt.ulisboa.tecnico.softeng.tax.services.local.TaxInterface;
 import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.InvoiceData;
+import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.ItemTypeData;
+import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.TaxPayerData;
+import pt.ulisboa.tecnico.softeng.tax.services.local.dataobjects.TaxValueData;
 
 @Controller
 @RequestMapping(value = "/taxpayers/{nif}/invoices")
@@ -20,10 +23,25 @@ public class InvoiceController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String invoiceForm(Model model, @PathVariable String nif) {
-		logger.info("invoiceForm");
+		logger.info("invoiceForm nif:{}", nif);
+		TaxPayerData taxPayer;
+		try{
+			taxPayer = TaxInterface.getTaxPayerDataByNif(nif);
+		} catch(TaxException e){
+			model.addAttribute("error",
+					"Error: it does not exist a Tax Payer with nif " + nif);
+			model.addAttribute("taxPayer", new TaxPayerData());
+			model.addAttribute("taxValue", new TaxValueData());
+			model.addAttribute("buyers", TaxInterface.getBuyers());
+			model.addAttribute("sellers", TaxInterface.getSellers());
+			return "taxpayers";
+		}
+		
 		model.addAttribute("invoiceGreat", new InvoiceData());
 		model.addAttribute("taxpayerinvoices", TaxInterface.getInvoices(nif));
-		model.addAttribute("taxPayer", TaxInterface.getTaxPayerDataByNif(nif));
+		model.addAttribute("taxPayer", taxPayer);
+		model.addAttribute("itemType", new ItemTypeData());
+		model.addAttribute("itemTypesList", TaxInterface.getItemTypes());
 		return "invoices";
 	}
 
@@ -38,6 +56,8 @@ public class InvoiceController {
 			model.addAttribute("invoiceGreat", invoice);
 			model.addAttribute("taxpayerinvoices", TaxInterface.getInvoices(nif));
 			model.addAttribute("taxPayer", TaxInterface.getTaxPayerDataByNif(nif));
+			model.addAttribute("itemType", new ItemTypeData());
+			model.addAttribute("itemTypesList", TaxInterface.getItemTypes());
 			return "invoices";
 		}
 
