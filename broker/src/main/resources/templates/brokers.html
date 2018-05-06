@@ -36,6 +36,7 @@
 					<th>IBAN</th>
 					<th>Adventures</th>
 					<th>Bulks</th>
+					<th>Clients</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -49,6 +50,8 @@
 						th:href="@{/brokers/{code}/adventures(code=${broker.code})}">Link</a></td>
 					<td><a
 						th:href="@{/brokers/{code}/bulks(code=${broker.code})}">Link</a></td>
+					<td><a
+						th:href="@{/brokers/{code}/client(code=${broker.code})}">Link</a></td>
 				</tr>
 			</tbody>
 		</table>
