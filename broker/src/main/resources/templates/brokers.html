@@ -31,6 +31,9 @@
 				<tr>
 					<th>Name</th>
 					<th>Code</th>
+					<th>NIF as Seller</th>
+					<th>NIF as Buyer</th>
+					<th>IBAN</th>
 					<th>Adventures</th>
 					<th>Bulks</th>
 				</tr>
@@ -39,6 +42,9 @@
 				<tr th:each="broker: ${brokers}">
 					<td th:text="${broker.name}">Name</td>
 					<td th:text="${broker.code}">Code</td>
+					<td th:text="${broker.nifAsSeller}">NIF as Seller</td>
+					<td th:text="${broker.nifAsBuyer}">NIF as Buyer</td>
+					<td th:text="${broker.iban}">IBAN</td>
 					<td><a
 						th:href="@{/brokers/{code}/adventures(code=${broker.code})}">Link</a></td>
 					<td><a
