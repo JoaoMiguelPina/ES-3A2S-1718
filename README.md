@@ -1,19 +1,17 @@
-# Adventure Builder [![Build Status](https://travis-ci.com/tecnico-softeng/prototype-2018.svg?token=fJ1UzWxWjpuNcHWPhqjT&branch=master)](https://travis-ci.com/tecnico-softeng/prototype-2018) [![codecov](https://codecov.io/gh/tecnico-softeng/prototype-2018/branch/master/graph/badge.svg?token=OPjXGqoNEm)](https://codecov.io/gh/tecnico-softeng/prototype-2018)
-
-
+# Adventure Builder [![Build Status](https://travis-ci.com/tecnico-softeng/es18al_24-project.svg?token=J7gbx9uGUSTB6m91BeyY&branch=develop)](https://travis-ci.com/tecnico-softeng/es18al_24-project)[![codecov](https://codecov.io/gh/tecnico-softeng/es18al_24-project/branch/develop/graph/badge.svg?token=fVUMtVSYwj)](https://codecov.io/gh/tecnico-softeng/es18al_24-project)
 To run tests execute: mvn clean install
 
 To see the coverage reports, go to <module name>/target/site/jacoco/index.html.
 
 
-|   Number   |          Name           |            Email        |   GitHub Username  | Group |
-| ---------- | ----------------------- | ----------------------- | -------------------| ----- |
-|            |                         |                         |                    |   1   |
-|            |                         |                         |                    |   1   |
-|            |                         |                         |                    |   1   |
-|            |                         |                         |                    |   2   |
-|            |                         |                         |                    |   2   |
-|            |                         |                         |                    |   2   |
+|   Number   |          Name           |                  Email                    |   Name GitHUb  | Grupo |
+| ---------- | ----------------------- | ----------------------------------------- | ---------------| ----- |
+|   83530    |      Miguel Regouga     |     miguelregouga@tecnico.ulisboa.pt      |     regouga    |   1   |
+|   83540    |      Pedro Lopes        |    pedro.daniel.l@tecnico.ulisboa.pt      | pedrodaniel10  |   1   |
+|   83473    |     Hélio Domingos      |       helio_domingos@hotmail.com          |  heliodomingos |   1   |
+|   83539    |     Pedro Caldeira      |        caldeira.a.pedro@gmail.com         | PedroACaldeira |   2   |
+|   83521    |     Mariana Mendes      |        marianagprmendes@gmail.com         |   mgprmendes   |   2   |
+|   85080    |       João Pina         |     joaomfpina@tecnico.ulisboa.pt         | JoaoMiguelPina |   2   |
 
 - **Group 1:**
 - **Group 2:**
