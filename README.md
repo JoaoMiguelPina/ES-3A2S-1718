@@ -13,8 +13,14 @@ To see the coverage reports, go to <module name>/target/site/jacoco/index.html.
 |   83521    |     Mariana Mendes      |        marianagprmendes@gmail.com         |   mgprmendes   |   2   |
 |   85080    |       João Pina         |     joaomfpina@tecnico.ulisboa.pt         | JoaoMiguelPina |   2   |
 
-- **Group 1:**
-- **Group 2:**
+- **Miguel Regouga:** unsuccessSequenceFailActivity, unsuccessSequenceFailCar, 100Read
+- **Pedro Lopes:** sucess-sequenceNoHotelNoCar, unsuccessSequenceFailTax, 100Write
+- **Hélio Domingos:** successSequenceNoHotel, 100Read
+- **Pedro Caldeira:** unsuccessSequenceFailHotel, 100Read
+- **Mariana Mendes:** unsuccessSequenceFailPayment, 30Write
+- **João Pina:** successSequenceOneNoCar, 30Write
+
+
 
 ### Infrastructure
 
