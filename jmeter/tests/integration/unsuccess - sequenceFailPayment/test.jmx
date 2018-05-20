@@ -1309,7 +1309,7 @@
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="1982485311">CONFIRMED</stringProp>
+              <stringProp name="-1031784143">CANCELLED</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1357,7 +1357,7 @@
             <collectionProp name="Asserion.test_strings">
               <stringProp name="1998218233">Broker</stringProp>
               <stringProp name="63235404">BK126</stringProp>
-              <stringProp name="1227220216">99730,00</stringProp>
+              <stringProp name="1475710">0.00</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1389,7 +1389,7 @@
             <collectionProp name="Asserion.test_strings">
               <stringProp name="2021122027">Client</stringProp>
               <stringProp name="63235405">BK127</stringProp>
-              <stringProp name="1224539026">99703,00</stringProp>
+              <stringProp name="1475710">0.00</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1421,7 +1421,7 @@
             <collectionProp name="Asserion.test_strings">
               <stringProp name="69915028">Hotel</stringProp>
               <stringProp name="63235406">BK128</stringProp>
-              <stringProp name="1448635039">100000</stringProp>
+              <stringProp name="1475710">0.00</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1453,7 +1453,7 @@
             <collectionProp name="Asserion.test_strings">
               <stringProp name="-1784956946">Rent a Car</stringProp>
               <stringProp name="63235407">BK129</stringProp>
-              <stringProp name="1448635039">100000</stringProp>
+              <stringProp name="1475710">0.00</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1485,7 +1485,7 @@
             <collectionProp name="Asserion.test_strings">
               <stringProp name="1779668962">Activity Provider</stringProp>
               <stringProp name="1960297417">BK1210</stringProp>
-              <stringProp name="1448635039">100000</stringProp>
+              <stringProp name="1475710">0.00</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -1514,11 +1514,7 @@
         </HTTPSamplerProxy>
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="1818503101">HOUSING</stringProp>
-              <stringProp name="1626525">50.0</stringProp>
-              <stringProp name="52407">5.0</stringProp>
-            </collectionProp>
+            <collectionProp name="Asserion.test_strings"/>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1546,11 +1542,7 @@
         </HTTPSamplerProxy>
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="79114068">SPORT</stringProp>
-              <stringProp name="46730099">100.0</stringProp>
-              <stringProp name="1507361">10.0</stringProp>
-            </collectionProp>
+            <collectionProp name="Asserion.test_strings"/>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1578,11 +1570,7 @@
         </HTTPSamplerProxy>
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="2092500720">ADVENTURE</stringProp>
-              <stringProp name="47928466">297.0</stringProp>
-              <stringProp name="1545808">29.7</stringProp>
-            </collectionProp>
+            <collectionProp name="Asserion.test_strings"/>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1610,11 +1598,7 @@
         </HTTPSamplerProxy>
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="79114068">SPORT</stringProp>
-              <stringProp name="1818503101">HOUSING</stringProp>
-              <stringProp name="-1881247452">RENTAL</stringProp>
-            </collectionProp>
+            <collectionProp name="Asserion.test_strings"/>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1642,11 +1626,7 @@
         </HTTPSamplerProxy>
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="2092500720">ADVENTURE</stringProp>
-              <stringProp name="47928466">297.0</stringProp>
-              <stringProp name="1545808">29.7</stringProp>
-            </collectionProp>
+            <collectionProp name="Asserion.test_strings"/>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
@@ -1674,11 +1654,7 @@
         </HTTPSamplerProxy>
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="-1881247452">RENTAL</stringProp>
-              <stringProp name="46789681">120.0</stringProp>
-              <stringProp name="1509283">12.0</stringProp>
-            </collectionProp>
+            <collectionProp name="Asserion.test_strings"/>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
