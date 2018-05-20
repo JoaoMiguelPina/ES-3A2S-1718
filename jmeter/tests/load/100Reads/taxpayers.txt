@@ -1,0 +1,2 @@
+Rui, Av, 123123123, SELLER
+Duarte, Pc, 123456789, BUYER
